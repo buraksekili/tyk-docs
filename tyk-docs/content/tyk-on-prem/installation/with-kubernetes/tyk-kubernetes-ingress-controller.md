@@ -1,10 +1,10 @@
 ---
-title: Tyk Kubernetes Ingress Controller with Tyk Operator
+title: As an Ingress Controller with Tyk Operator
 tags: ["Tyk Stack", "Self Managed", "Installation", "Kubernetes", "Ingress", "Service Mesh", "Tyk Operator"]
 description: "How to install Tyk in a self-managed environment using Kubernetes Ingress Controller with the Tyk Operator" 
 menu:
   main:
-    parent: "With Kubernetes"
+    parent: "On Kubernetes"
 weight: 2
 url: "/tyk-on-prem/kubernetes-ingress"
 aliases:
@@ -13,4 +13,4 @@ aliases:
 ---
 
 
-For Kubernetes Ingress support with Tyk across all our products please see the documentation in the [Tyk Operator Repository on GitHub](https://github.com/TykTechnologies/tyk-operator)
+For Kubernetes Ingress support with Tyk Operator see the documentation in the [Tyk Operator Repository on GitHub](https://github.com/TykTechnologies/tyk-operator)

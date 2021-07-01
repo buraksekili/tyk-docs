@@ -1,16 +1,16 @@
 ---
-title: Istio
-tags: ["Tyk Stack", "Self-Managed", "Installation", "Istion"]
-description: "How to install the Tyk Stack for Istio on Kubernetes"
+title: As an Ingress with Istio Service Mesh
+tags: ["Tyk Stack", "Self-Managed", "Installation", "Istio"]
+description: "How to install Tyk as an ingress with Istio service mesh on Kubernetes"
 menu:
   main:
-    parent: "Installation"
-weight: 7
-url: "/tyk-on-premises/istio/"
+    parent: "On Kubernetes"
+weight: 2
+url: "/tyk-self-managed/istio/"
 ---
 
 
-## How to use Tyk as the Ingress Gateway for Istio on Kubernetes
+## Introduction
 
 Utilising Tyk for API Management at the edge ingress or egress of a service mesh is a common use case. You'll cover here how to set up Tyk as an Ingress alongside Istio acting as a service mesh for the upstream services. This opens up the ability to use the powerful API gateway and API management capabilities of Tyk, giving you the benefit of Istio for East-West traffic and Tyk for north-south traffic.
 
@@ -21,7 +21,7 @@ Each Tyk Ingress Gateway will have a sidecar that intercepts the traffic on the 
 A Kubernetes cluster and Kubectl. 
 
 Optional but recommended:
-[Tyk Operator](https://github.com/TykTechnologies/tyk-operator) for managing our API management resources in the gateway (API Definitions and Security Policies) and for managing Ingress and TLS Certifications for the Ingress using Certmanager if required. This guide includes declaratively deploying an API with the Operator once you have Tyk installed as our Istio Ingress.
+[Tyk Operator](https://github.com/TykTechnologies/tyk-operator) for managing our API management resources in the Gateway (API Definitions and Security Policies) and for managing Ingress and TLS Certifications for the Ingress using Certmanager if required. This guide includes declaratively deploying an API with the Operator once you have Tyk installed as our Istio Ingress.
 
 Istioctl command line tool on your machine.
 

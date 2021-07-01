@@ -103,3 +103,19 @@ Hybrid Gateways are available on our [14 Day Free Trial](/docs/tyk-cloud/account
     "enable_custom_domains": true
 }
 ```
+
+## Installing Hybrid Gateways in a Kubernetes Cluster
+
+Our Helm Chart provides a method of adding Hybrid Gateways in your K8s cluster.
+
+Installation
+To install, first modify values.yaml file inside tyk-hybrid chart as follows:
+
+1. Add your Dashboard users organisation ID in `gateway.rpc.rpcKey` value
+2. Add your Dashboard users API key in `gateway.rpc.apiKey` value
+3. Add your connection string to allow the Hybrid Gateway to connect to your Dashboard control plane in `gateway.rpc.connString`. On the Tyk Cloud Console find this value in the endpoints panel for your control plane deployment.
+
+Then run the following command from the root of the repository:
+```{copy.Wrapper}
+helm install tyk-hybrid ./tyk-hybrid -n tyk
+```
