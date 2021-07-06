@@ -1,6 +1,6 @@
 ---
 date: 2020-08-04T11:56:24Z
-title: With On-Premises
+title: On-Premises
 menu: 
   main:
     parent: "Manage Multiple Environments"

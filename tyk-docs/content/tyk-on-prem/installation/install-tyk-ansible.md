@@ -1,6 +1,6 @@
 ---
 date: 2017-03-22T17:04:48Z
-title: With Ansible
+title: Ansible
 tags: ["Tyk Stack", "Self Managed", "Installation", "Ansible"]
 description: "How to install the Tyk Stack using Ansible"
 menu:

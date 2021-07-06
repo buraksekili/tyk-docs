@@ -1,6 +1,6 @@
 ---
 date: 2017-03-22T16:47:24Z
-Title: With Docker
+Title: Docker
 tags: ["Tyk Stack", "Self-Managed", "Installation", "Docker"]
 description: "How to install the Tyk stack components using Docker in a self-managed environment"
 menu:

@@ -1,6 +1,6 @@
 ---
 date: 2017-03-24T11:48:31Z
-title: With Tyk Multi-Cloud
+title: Tyk Multi-Cloud
 menu:
   main:
     parent: "Manage Multiple Environments"

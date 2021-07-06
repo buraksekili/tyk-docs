@@ -1,6 +1,6 @@
 ---
 date: 2017-03-22T16:19:08Z
-Title: On Red Hat (RHEL / CentOS)
+Title: Red Hat (RHEL / CentOS)
 tags: ["Tyk Gateway", "Self Managed", "Installation", "Red Hat", "CentOS"]
 description: "How to install the Tyk Stack on Red Hat or CentOS using Ansible or with shell scripts"
 menu:
