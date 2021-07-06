@@ -4,7 +4,7 @@ tags: ["Tyk Stack", "Self Managed", "Installation", "Kubernetes", "Ingress", "Se
 description: "How to install Tyk in a self-managed environment using Kubernetes Ingress Controller with the Tyk Operator" 
 menu:
   main:
-    parent: "On Kubernetes"
+    parent: "Kubernetes"
 weight: 2
 url: "/tyk-on-prem/kubernetes-ingress"
 aliases:
