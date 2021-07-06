@@ -8,7 +8,7 @@ menu:
 weight: 2
 url: "/tyk-on-prem/kubernetes-ingress"
 aliases:
-  - /getting-started/installation/with-tyk-on-premises/with-kubernetes/tyk-kubernetes-ingress-controller/
+  - /getting-started/installation/with-tyk-on-premises/kubernetes/tyk-kubernetes-ingress-controller/
   - /tyk-on-prem/kubernetes-ingress/
 ---
 

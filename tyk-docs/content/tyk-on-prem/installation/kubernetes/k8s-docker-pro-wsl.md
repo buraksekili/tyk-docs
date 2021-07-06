@@ -6,11 +6,11 @@ tags: ["Tyk Stack", "Self Managed", "Installation", "Kubernetes", "Helm Chart"]
 description: "How to install Tyk in a self-managed environment using Kubernetes on Windows" 
 menu:
   main:
-    parent: "With Kubernetes"
+    parent: "Kubernetes"
 weight: 3
 url: "/tyk-on-prem/kubernetes-on-windows"
 aliases:
-    - /getting-started/installation/with-tyk-on-premises/with-kubernetes/k8s-docker-pro-wsl/
+    - /getting-started/installation/with-tyk-on-premises/kubernetes/k8s-docker-pro-wsl/
 ---
 
 {{< note success >}}

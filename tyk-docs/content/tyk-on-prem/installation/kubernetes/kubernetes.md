@@ -9,8 +9,8 @@ menu:
 weight: 2
 url: "/tyk-on-premises/kubernetes"
 aliases:
-  - /getting-started/installation/with-tyk-on-premises/with-kubernetes
-  - /tyk-on-premises/with-kubernetes
+  - /getting-started/installation/with-tyk-on-premises/kubernetes
+  - /tyk-on-premises/kubernetes
 ---
 
 The two main ways to install `Tyk Self-Managed` in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
@@ -22,7 +22,7 @@ The repository to install via Kubernetes manifest files has been (archived)[http
 
 This is the preferred (and easiest) way to install Tyk Pro on Kubernetes. It will install Tyk as an ingress to your Kubernetess cluster, where you can then add APIs to manage via the `Tyk manager` (i.e `tyk-dashboard`) or for bestter devops flow, use the `Tyk Operator`.
 
-See [Tyk Helm Chart]({{< ref "/content/tyk-on-prem/installation/with-kubernetes/with-kubernetes.md" >}}) for details on installing `Tyk Self-managed` with our Helm Chart.
+See [Tyk Helm Chart]({{< ref "/content/tyk-on-prem/installation/kubernetes/kubernetes.md" >}}) for details on installing `Tyk Self-managed` with our Helm Chart.
 
 ## Tyk Operator and Ingress 
 
@@ -42,4 +42,4 @@ Tyk Operator installs Tyk as an Ingress controller. It is currently in BETA and 
 
 Our Kubernetes operator enables Tyk to be used for managing API Definitions (including K8s Ingress), security policies and other Tyk features.
 
-See [As an Ingress Controller with Tyk Operator]({{< ref "/content/tyk-on-prem/installation/with-kubernetes/tyk-kubernetes-ingress-controller.md" >}}) for details on installing Tyk Pro as a Kubernetes ingress controller.
+See [As an Ingress Controller with Tyk Operator]({{< ref "/content/tyk-on-prem/installation/kubernetes/tyk-kubernetes-ingress-controller.md" >}}) for details on installing Tyk Pro as a Kubernetes ingress controller.

@@ -152,7 +152,7 @@ Install our **On-Premises** product on AWS.
 Install our **On-Premises** product with Docker. 
 {{< /badge >}}
 
-{{< badge read="10 mins" href="/docs/getting-started/installation/with-tyk-on-premises/with-kubernetes/" image="/docs/img/k8s.png">}}
+{{< badge read="10 mins" href="/docs/getting-started/installation/with-tyk-on-premises/kubernetes/" image="/docs/img/k8s.png">}}
 Install our **On-Premises** product with Kubernetes. 
 {{< /badge >}}
 

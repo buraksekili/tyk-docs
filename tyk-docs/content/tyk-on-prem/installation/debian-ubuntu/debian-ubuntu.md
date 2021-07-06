@@ -11,7 +11,7 @@ url: "/tyk-on-premises/debian-ubuntu"
 aliases:
   - /getting-started/installation/with-tyk-on-premises/on-ubuntu/
   - /getting-started/installation/tyk-on-premises/on-ubuntu/
-  - /tyk-on-premises/on-debian-ubuntu
+  - /tyk-on-premises/debian-ubuntu
 
 ---
 {{< tabs_start >}}

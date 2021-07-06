@@ -5,12 +5,12 @@ tags: ["Tyk Dashboard", "Self-Managed", "Installation", "Ubuntu", "Debian"]
 description: "How to install the Tyk Dashboard as part of the Tyk Stack on Ubuntu or Debian using Ansible or shell scripts"
 menu:
   main:
-    parent: "On Debian / Ubuntu"
+    parent: "Debian / Ubuntu"
 weight: 1
 url: /tyk-on-premises/debian-ubuntu/dashboard
 aliases:
   - /getting-started/installation/with-tyk-on-premises/on-ubuntu/dashboard/
-  - /getting-started/installation/with-tyk-on-premises/on-debian-ubuntu/dashboard/
+  - /getting-started/installation/with-tyk-on-premises/debian-ubuntu/dashboard/
 ---
 {{< tabs_start >}}
 {{< tab_start "Ansible" >}}
