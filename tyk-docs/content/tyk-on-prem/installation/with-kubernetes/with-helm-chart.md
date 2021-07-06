@@ -5,7 +5,7 @@ tags: [""]
 description: ""
 menu:
   main:
-    parent: "On Kubernetes"
+    parent: "Kubernetes"
 weight: 1
 url: "/tyk-self-managed/tyk-helm-chart"
 ---
