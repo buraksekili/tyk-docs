@@ -15,7 +15,7 @@ aliases:
 
 The two main ways to install `Tyk Self-Managed` in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
 We will explain in details the installation with Helm charts since it's the most common way to install in Kubernetes.
-The repository to install via Kubernetes manifest files has been (archived)[https://github.com/TykTechnologies/tyk-k8s] for the time being but our support team and (community forum)[https://community.tyk.io/] are always happy to advise on it.
+The repository to install via Kubernetes manifest files has been [archived](https://github.com/TykTechnologies/tyk-k8s) for the time being but our support team and [community forum](https://community.tyk.io/) are always happy to advise on it.
 
 
 ## Tyk Helm Chart
