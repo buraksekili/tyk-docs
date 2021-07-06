@@ -32,7 +32,7 @@ Tyk Supports secure gRPC proxy connections, in order to do so you only need to a
 For those scenarios that you want to connect 2 services that call each other or just need an insecure connection you can use h2c (that is the non-TLS version of HTTP/2). Tyk supports h2c, this can be enabled at api level by setting `h2c` as protocol in the address of the gRPC server (`target_url`) e.g: `h2c://my-grpc-server.com`.
 
 #### gRPC streaming
-Tyk supports gRPC streaming, it only requires to set a low value for `flush_interval`, a low flush interval is required in order to forward data to the downstream as soon as the upstream replies. A high flush interval would delay the communication. We recommend the lowest possible value: 1 (1 millisecond), you can set this value in the gateway config `http_server_options.flush_interval`
+Tyk supports all kind of gRPC streaming (client streaming, server streaming and bidirectional streaming), it only requires to set a low value for `flush_interval`, a low flush interval is required in order to forward data to the downstream as soon as the upstream replies. A high flush interval would delay the communication. We recommend the lowest possible value: 1 (1 millisecond), you can set this value in the gateway config `http_server_options.flush_interval`.
 
 ### Mutual Authentication
 Tyk supports Mutual Authentication in gRPC. See [Mutual TLS](/docs/basic-config-and-security/security/tls-and-ssl/mutual-tls/) to configure Mutual Authentication in Tyk. 
@@ -48,6 +48,20 @@ After setting your Tyk configuration, all you need to do is to send credentials 
 Tyk supports Token Based Authentication in gRPC. See [Bearer Tokens](/docs/basic-config-and-security/security/authentication-authorization/bearer-tokens/) to configure Token Based Authentication in Tyk. 
 
 After setting your Tyk configuration, all you need to do is to send a token in an `Authorization` header from your gRPC client.
+
+### gRPC load balancing
+
+Tyk is able to perform load balancing on gRPC traffic using an approach similar to our native [Load Balancing](/docs/planning-for-production/ensure-high-availability/load-balancing/) functionality.
+
+For both secure and insecure gRPC scenarios, the above steps serve as a starting point.
+
+For configuring multiple upstream targets in a secure gRPC scenario, follow these additional steps:
+
+* Check the "Enable round-robin load balancing" flag in the "Core Settings" section of your API.
+* Define each target as `https://grpc.test.example.com:10000`, `https://grpc.test.example.com:10001` and so on.
+
+For insecure scenarios (H2C) use the same approach but use the H2C scheme instead: `h2c://grpc.test.example.com:10000`, `h2c://grpc.test.example.com:10001`, etc. 
+
 
 ### Example of gRPC proxy using H2C
 This is the simplest way to have a working gRPC proxy setup, in order to do so we will need:
@@ -86,15 +100,25 @@ This is the simplest way to have a working gRPC proxy setup, in order to do so w
     * Hit save
 * At this point we're ready to test the solution, so, from the command line will type: `grpcurl -proto route_guide.proto -d '{"latitude": 1, "longitude":2}' tyk:4444 routeguide.RouteGuide/GetFeature` and we should get a successful response, note that we are not sending the flag `-plaintext` as our desire is to connect via HTTPS.
 
-### gRPC load balancing
+### Example of bidirectional data streaming using a gRPC service exposed via HTTPS but communicating Tyk to service via H2C
 
-Tyk is able to perform load balancing on gRPC traffic using an approach similar to our native [Load Balancing](/docs/planning-for-production/ensure-high-availability/load-balancing/) functionality.
+In this example we will expose a gRPC service via HTTPS using tyk, but tyk will consume the upstream via h2c, this situation is very common when using Kubernetes, from internet the traffic goes to tyk TLS encrypted, but from the inner cluster communication you have plain http (h2c).
 
-For both secure and insecure gRPC scenarios, the above steps serve as a starting point.
+#### Prerequisites
+* a gRPC server, for this example we will use [this server](https://github.com/grpc/grpc-go/tree/master/examples/route_guide).
+* a client application, we will use [this client](https://github.com/grpc/grpc-go/tree/master/examples/route_guide/client).
+* A certificate to expose the API via HTTPS
+* An instance of Tyk gateway and dashboard.
 
-For configuring multiple upstream targets in a secure gRPC scenario, follow these additional steps:
-
-* Check the "Enable round-robin load balancing" flag in the "Core Settings" section of your API.
-* Define each target as `https://grpc.test.example.com:10000`, `https://grpc.test.example.com:10001` and so on.
-
-For insecure scenarios (H2C) use the same approach but use the H2C scheme instead: `h2c://grpc.test.example.com:10000`, `h2c://grpc.test.example.com:10001`, etc. 
+#### Steps:
+* Execute the gRPC server (for this example we will expose it at port `:10000`), the `route_guide` application receives a flag to enable/disable TLS (`go run server.go -tls=false`). It's available in `locahost:10000`
+* In the Tyk Gateway config file set `"http_server_options.flush_interval": 1`  and run the gateway (for this example will be running in port 8000).
+* Create the API via dashboard with the next configuration:
+    * Set HTTPS as protocol
+    * Add the certificate 
+    * Set a custom domain, for this example will set `tyk`
+    * Set as listen path: `/routeguide.RouteGuide/RouteChat`. For testing purposes we will use the `RouteChat` service as this is a bidirectional service.
+    * Now in target URL we will set the location of the service: `h2c://localhost:10000`. In this way Tyk will communicate with the upstream using h2c
+    * Hit save
+* Ensure that the client application has the server address pointing to tyk, for this use-case it would be `https://tyk.com:8000`.
+* Now we are ready to test the solution, just run the client application and it should send and receive data simultaneously.
