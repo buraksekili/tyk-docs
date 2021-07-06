@@ -1,5 +1,5 @@
 ---
-title: "With Tyk Helm Chart "
+title: "Tyk Helm Chart "
 date: 2021-07-01
 tags: [""]
 description: ""
