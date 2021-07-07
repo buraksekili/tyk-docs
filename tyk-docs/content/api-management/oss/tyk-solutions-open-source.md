@@ -30,4 +30,4 @@ At the center of everything is the Tyk Gateway.  The primary application for Ope
 
 ## Get Started
 
-To Get started, simply install [Tyk Open Source](/docs/apim/open-source/getting-started/), and then create your first API!
+To Get started, simply install [Tyk Open Source](/docs/apim/open-source/installation/), and then create your first API!

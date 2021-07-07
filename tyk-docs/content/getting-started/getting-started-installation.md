@@ -13,7 +13,7 @@ aliases:
 ---
 
 Please head on over to the solution you want to setup:
-* [Open Source](/docs/apim/open-source/getting-started/)
+* [Open Source](/docs/apim/open-source/installation/)
 * [Self-Managed](/docs/tyk-self-managed/install/)
 * [Cloud](/docs/tyk-cloud/getting-started/)
 

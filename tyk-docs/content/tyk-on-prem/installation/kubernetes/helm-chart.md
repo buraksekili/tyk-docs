@@ -27,7 +27,7 @@ There may be intermittent issues on the new pods during the rolling update proce
 
 ## Prerequisites
 
-The following are required for a Tyk Pro demo installation:
+The following are required for a *Tyk Self-managed* demo installation:
 
  - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
  - MongoDB. MongoDB is only required and must be installed in the cluster, or reachable from inside K8s.

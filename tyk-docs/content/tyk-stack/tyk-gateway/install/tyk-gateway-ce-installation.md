@@ -9,4 +9,4 @@ menu:
 url: "tyk-oss-gateway/install"
 ---
 
-Please head on over to the [Tyk Open Source](/docs/apim/open-source/getting-started/) Getting Started page for installation help.
+Please head on over to the [Tyk Open Source](/docs/apim/open-source/installation/) Getting Started page for installation help.

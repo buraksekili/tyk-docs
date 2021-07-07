@@ -13,4 +13,4 @@ aliases:
 ---
 
 
-For Kubernetes Ingress support with Tyk Operator see the documentation in the [Tyk Operator Repository on GitHub](https://github.com/TykTechnologies/tyk-operator)
+For Kubernetes Ingress support using *Tyk Operator* see the documentation in the [Tyk Operator Repository on GitHub](https://github.com/TykTechnologies/tyk-operator)
