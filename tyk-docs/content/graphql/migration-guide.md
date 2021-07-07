@@ -9,7 +9,7 @@ aliases:
     - /graphql/migration/
 ---
 
-As of 3.2 graphQL schema under tyk API definition (i.e `api_definition.graphql`) changed significantly, hence graphQL API definitions created in previous beta versions are not supported via the UI and need to go through manual migration.
+As of 3.2 GraphQL schema under tyk API definition (i.e `api_definition.graphql`) changed significantly, hence GraphQL API definitions created in previous beta versions are not supported via the UI and need to go through manual migration.
 
 {{< note success >}}
 **Note**
@@ -37,7 +37,7 @@ Old Api definitions will continue to work for the gateway
 
 - Each field connected to the data source is expected to be configured for mapping under `graphql.engine.field_configs` regardless of it requiring mapping or not.
 
-- It is important that all new graphql apis have version `graphql.version` property set to `2`.
+- It is important that all new GraphQL apis have version `graphql.version` property set to `2`.
 
 
 
