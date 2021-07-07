@@ -26,7 +26,7 @@ Old Api definitions will continue to work for the gateway
 {{< /note >}}
 
 
-**The changes**
+## The changes
 - To improve performance now a single Data Source can be used to link to multiple fields instead of having an independent data source for every field hence `graphql.type_field_configurations` is now obsolete and new data sources can be defined under `graphql.engine.data_sources` (see example below).
 
 - Data Source kind are `REST` or `GraphQL` regardless of api being internal or not.
@@ -41,11 +41,11 @@ Old Api definitions will continue to work for the gateway
 
 
 
-***Examples***
+## Examples
 
-- Old Data Source Config
+### Old Data Source Config
 
-```
+```json
 "type_field_configurations": [
   {
     "type_name": "Query",
@@ -89,9 +89,9 @@ Old Api definitions will continue to work for the gateway
 ]
 ```
 
-- New Data Source Config
+### New Data Source Config
 
-```
+```json
 "engine": {
   "field_configs": [
     {
@@ -153,9 +153,9 @@ Old Api definitions will continue to work for the gateway
 },
 ```
 
-- Example of new graphql definition 
+### Example of new graphql definition
 
-```
+``` json
 "graphql" : {
   "schema": "type Mutation {\n  addPet(name: String, status: String): Pet\n}\n\ntype Pet {\n  id: Int\n  name: String\n  status: String\n}\n\ntype Query {\n  default: String\n}\n",
   "enabled": true,
