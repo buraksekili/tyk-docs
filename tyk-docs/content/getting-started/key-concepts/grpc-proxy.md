@@ -32,7 +32,7 @@ Tyk Supports secure gRPC proxy connections, in order to do so you only need to a
 For those scenarios that you want to connect 2 services that call each other or just need an insecure connection you can use h2c (that is the non-TLS version of HTTP/2). Tyk supports h2c, this can be enabled at api level by setting `h2c` as protocol in the address of the gRPC server (`target_url`) e.g: `h2c://my-grpc-server.com`.
 
 #### gRPC streaming
-Tyk supports all kind of gRPC streaming (client streaming, server streaming and bidirectional streaming), it only requires to set a low value for `flush_interval`, a low flush interval is required in order to forward data to the downstream as soon as the upstream replies. A high flush interval would delay the communication. We recommend the lowest possible value: 1 (1 millisecond), you can set this value in the gateway config `http_server_options.flush_interval`.
+Tyk supports all kinds of gRPC streaming (client streaming, server streaming and bidirectional streaming). It requires you to set a low value for `flush_interval`, this is required in order to forward data to the downstream target as soon as the upstream target replies. A high flush interval will delay this communication. We recommend the lowest possible value: 1 (1 millisecond). You set this value in your `tyk.conf` file in the `http_server_options.flush_interval` option.
 
 ### Mutual Authentication
 Tyk supports Mutual Authentication in gRPC. See [Mutual TLS](/docs/basic-config-and-security/security/tls-and-ssl/mutual-tls/) to configure Mutual Authentication in Tyk. 
