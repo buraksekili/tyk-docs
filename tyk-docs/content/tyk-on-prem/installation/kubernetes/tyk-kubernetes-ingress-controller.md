@@ -12,5 +12,20 @@ aliases:
   - /tyk-on-prem/kubernetes-ingress/
 ---
 
+Ingress is an API object that manages external access to the services in a cluster, typically HTTP (source [kubernetes.io - ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)).
+*Tyk Operator* offers an Ingress Controller, which dynamically manages Tyk ApiDefinition resources as per the ingress spec. 
+This way *Tyk Gateway* is configured as a drop-in replacement for a standard Kubernetes Ingress. 
+
+*Tyk Operator* is also the soon-to-be the preferred way to use Tyk for users who follow gitops standards. It enables Tyk to be used for managing API Definitions, security policies and other Tyk features.
+
+
+{{< note success >}}
+**Note**
+
+*Tyk Operator* is currently in BETA, and we welcome users to try it out and feedback in its [GitHub repository](https://github.com/TykTechnologies/tyk-operator) or via support channel for existing Tyk customers.
+
+{{< /note >}}
+
+
 
 For Kubernetes Ingress support using *Tyk Operator* see the documentation in the [Tyk Operator Repository on GitHub](https://github.com/TykTechnologies/tyk-operator)

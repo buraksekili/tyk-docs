@@ -12,12 +12,16 @@ url: "/tyk-self-managed/tyk-helm-chart"
 
 ## Introduction
 
-This is the preferred (and easiest) way to install Tyk Pro on Kubernetes. It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the Tyk Kubernetes Operator or, as with a normal Tyk Pro Installation, via the Tyk Dashboard.
+This is the preferred (and easiest) way to install Tyk Pro on Kubernetes. 
+It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the *Tyk Operator* or, 
+as with the usual *Tyk Self-managed* Installation, via the *Tyk Self-managed*.
+
+
 ## Tyk Licensing
 
-If you are evaluating Tyk on Kubernetes, [contact us](https://tyk.io/about/contact/) to obtain an temporary licence.
+If you are evaluating Tyk on Kubernetes, [contact us](https://tyk.io/about/contact/) to obtain a temporary licence.
 
-Tyk Pro Licenses allow for different numbers of Gateway nodes to connect to a single Dashboard instance. Ensure that your Gateway pods will not scale beyond your license number by setting the Gateway resource kind to Deployment and setting the replica count to your license node limit. For example, use the following options for a single node license: `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file.
+*Tyk Self-manged* licensing allow for different numbers of Gateway nodes to connect to a single Dashboard instance. Ensure that your Gateway pods will not scale beyond your license number by setting the Gateway resource kind to Deployment and setting the replica count to your license node limit. For example, use the following options for a single node license: `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file.
 
 {{< note success >}}
 **Note**  
@@ -34,7 +38,7 @@ The following are required for a *Tyk Self-managed* demo installation:
  - MongoDB. MongoDB is only required for a Tyk Pro install (with the Tyk Dashboard) and must be installed in the cluster, or reachable from inside K8s.
 
 
-### Installing Redis and MongoDB
+## Installing Redis and MongoDB
 
 {{< warning  success >}}
 **Warning**
@@ -48,7 +52,7 @@ kubectl apply -f deploy/dependencies/mongo.yaml -n tyk
 kubectl apply -f deploy/dependencies/redis.yaml -n tyk
 ```
 
-## Installation
+### Installation
 
 To install, first modify your `values.yaml` file and add your Tyk license. Then run the following command from the root of the repository:
 
@@ -56,14 +60,19 @@ To install, first modify your `values.yaml` file and add your Tyk license. Then 
 helm install tyk-pro ./tyk-pro -n tyk --wait
 ```
 
+or with your own `values.yaml` run:
+
+```{copy.Wrapper}
+helm install tyk-pro ./tyk-pro --version 0.9.0 -f myvalues.yaml -n tyk --wait
+```
 Please note the `--wait` argument is important to successfully bootstrap your Tyk Dashboard.
 
-Follow the instructions in the Notes that follow the installation to find your Tyk login credentials.
 
-## Using TLS
+### Using TLS
 
- You can turn on the TLS option under the gateway section in your `values.yaml` file which will make a Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
-## Sharding APIs
+You can turn on the TLS option under the gateway section in your `values.yaml` file which will make a Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
+
+### Sharding APIs
 
 Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See 
 
