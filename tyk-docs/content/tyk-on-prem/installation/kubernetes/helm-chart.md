@@ -34,8 +34,8 @@ There may be intermittent issues on the new pods during the rolling update proce
 
 The following are required for a *Tyk Self-managed* demo installation:
 
- - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
- - MongoDB. MongoDB is only required for a Tyk Pro install (with the Tyk Dashboard) and must be installed in the cluster, or reachable from inside K8s.
+ - Redis - is required by all Tyk installations and must be installed in the cluster or reachable by *Tyk gateway*.
+ - MongoDB - is only required by the *Tyk Self-managed* and must be installed in the cluster or must be reachable by the *Tyk dashboard* 
 
 
 ## Installing Redis and MongoDB
