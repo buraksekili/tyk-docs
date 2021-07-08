@@ -5,7 +5,7 @@ tags: ["Tyk Gateway", "Open Source", "Installation", "Ansible"]
 description: "How to install the open source Tyk Gateway using Ansible"
 menu:
   main:
-    parent: "Getting Started " # Child of APIM -> OSS
+    parent: "Open Source Installation" # Child of APIM -> OSS
 weight: 3
 url: "/tyk-oss/ce-ansible/"
 ---

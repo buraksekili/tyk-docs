@@ -4,7 +4,7 @@ tags: ["Tyk Stack", "Self-Managed", "Installation", "Istio"]
 description: "How to install Tyk as an ingress with Istio service mesh on Kubernetes"
 menu:
   main:
-    parent: "Kubernetes"
+    parent: "Kubernetes "
 weight: 2
 url: "/tyk-self-managed/istio/"
 ---

@@ -5,13 +5,14 @@ tags: [""]
 description: ""
 menu:
   main:
-    parent: "Kubernetes"
+    parent: "Kubernetes "
 weight: 1
 url: "/tyk-self-managed/tyk-helm-chart"
 ---
 
 ## Introduction
 
+This is the preferred (and easiest) way to install Tyk Pro on Kubernetes. It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the Tyk Kubernetes Operator or, as with a normal Tyk Pro Installation, via the Tyk Dashboard.
 ## Tyk Licensing
 
 If you are evaluating Tyk on Kubernetes, [contact us](https://tyk.io/about/contact/) to obtain an temporary licence.
@@ -30,7 +31,7 @@ There may be intermittent issues on the new pods during the rolling update proce
 The following are required for a *Tyk Self-managed* demo installation:
 
  - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
- - MongoDB. MongoDB is only required and must be installed in the cluster, or reachable from inside K8s.
+ - MongoDB. MongoDB is only required for a Tyk Pro install (with the Tyk Dashboard) and must be installed in the cluster, or reachable from inside K8s.
 
 
 ### Installing Redis and MongoDB
@@ -38,7 +39,7 @@ The following are required for a *Tyk Self-managed* demo installation:
 {{< warning  success >}}
 **Warning**
 
-To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis inside your Kubernetes cluster. Please note that these provided manifests must never be used in production and for a quick start evaluation only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
+To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis and MongoDB inside your Kubernetes cluster. Please note that these provided manifests must never be used in production and for a quick start evaluation only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
 {{< /warning >}}
 
 ```{copy.Wrapper}
@@ -59,6 +60,9 @@ Please note the `--wait` argument is important to successfully bootstrap your Ty
 
 Follow the instructions in the Notes that follow the installation to find your Tyk login credentials.
 
+## Using TLS
+
+ You can turn on the TLS option under the gateway section in your `values.yaml` file which will make a Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
 ## Sharding APIs
 
 Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See 

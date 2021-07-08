@@ -12,6 +12,7 @@ url: "/tyk-oss/ce-helm-chart/"
 
 ## Introduction
 
+This is the preferred (and easiest) way to install the Tyk OSS Gateway on Kubernetes. It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the Tyk Kubernetes Operator.
 ## Prerequisites
 
  - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
@@ -22,7 +23,7 @@ url: "/tyk-oss/ce-helm-chart/"
 {{< warning  success >}}
 **Warning**
 
-To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis inside your Kubernetes cluster. Please note that these provided manifests must never be used in production and for a quick start evaluation only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
+To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis and MongoDB inside your Kubernetes cluster. Please note that these provided manifests must never be used in production and for a quick start evaluation only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
 {{< /warning >}}
 
 ```{copy.Wrapper}
@@ -42,7 +43,7 @@ kubectl apply -f deploy/dependencies/redis.yaml -n tyk
 
  ## Using TLS
 
- You can turn on the TLS option under the gateway section in your `values.yaml` file which will make a Gateways listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
+ You can turn on the TLS option under the gateway section in your `values.yaml` file which will make your Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
 
 ## Mounting Files
 

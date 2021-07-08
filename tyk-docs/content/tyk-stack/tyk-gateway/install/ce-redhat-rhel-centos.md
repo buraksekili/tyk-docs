@@ -5,7 +5,7 @@ tags: ["Tyk Gateway", "Open Source", "Installation", "Red Hat", "CentOS"]
 description: "How to install the open source Tyk Gateway on Red Hat or CentOS using Ansible or with shell scripts"
 menu:
   main:
-    parent: "Getting Started " # Child of APIM -> OSS
+    parent: "Open Source Installation" # Child of APIM -> OSS
 weight: 4
 url: "/tyk-oss/ce-redhat-rhel-centos/"
 aliases:

@@ -1,11 +1,11 @@
 ---
 date: 2017-03-22T16:57:26Z
-title: Kubernetes
+title: "Kubernetes "
 tags: ["Tyk Stack", "Self Managed", "Installation", "Kubernetes", "Helm Chart", "Tyk Operator"]
 description: "How to install Tyk in a self-managed environment using Kubernetes"
 menu:
   main:
-    parent: "Installation"
+    parent: "Self-Managed Installation"
 weight: 2
 url: "/tyk-on-premises/kubernetes"
 aliases:

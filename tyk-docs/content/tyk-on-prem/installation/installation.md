@@ -1,9 +1,8 @@
 ---
 date: 2017-03-15T15:01:42Z
-title: Tyk Self-Managed Installation
+title: "Self-Managed Installation"
 tags: ["Tyk Stack", "Self-Managed", "Installation"]
 description: "How to install the Self-Managed Tyk Stack"
-linkTitle: Installation
 identifier: "tyk-self-managed-installation"
 weight: 1
 menu: 

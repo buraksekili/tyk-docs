@@ -1,11 +1,11 @@
 ---
 date: 2017-03-22T17:04:48Z
-title: Ansible
+title: "Ansible "
 tags: ["Tyk Stack", "Self Managed", "Installation", "Ansible"]
 description: "How to install the Tyk Stack using Ansible"
 menu:
   main:
-      parent: "Installation"
+      parent: "Self-Managed Installation"
 weight: 3
 url: "/tyk-on-premises/ansible"
 ---

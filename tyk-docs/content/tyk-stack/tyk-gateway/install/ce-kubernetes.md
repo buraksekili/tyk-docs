@@ -5,7 +5,7 @@ tags: ["Tyk Gateway", "Open Source", "Installation", "Kubernetes", "Helm Chart",
 description: "How to install the open source Tyk Gateway using our Kubernetes Helm Chart and the Tyk Operator"
 menu:
   main:
-    parent: "Getting Started " # Child of APIM -> OSS
+    parent: "Open Source Installation" # Child of APIM -> OSS
 weight: 2
 url: "/tyk-oss/ce-kubernetes/"
 ---
