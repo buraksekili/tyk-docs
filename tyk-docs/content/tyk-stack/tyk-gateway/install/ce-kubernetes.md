@@ -10,20 +10,16 @@ weight: 2
 url: "/tyk-oss/ce-kubernetes/"
 ---
 
-We will cover the installation file using Kubernetes deployment files, but you can also use our Kubernetes [Helm Chart](https://github.com/TykTechnologies/tyk-helm-chart).
+There are two main ways to install your *Open Source* Tyk Gateway in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
+We will explain in details the installation with Helm charts since it's the most common way to install in Kubernetes.
 
-### Installation 
+The repository to install via Kubernetes manifest files is currently [inactive](https://github.com/TykTechnologies/tyk-k8s) but you can get advice and support via the support team or the [community forum](https://community.tyk.io/).
 
-See our [GitHub repo](https://github.com/TykTechnologies/tyk-oss-k8s-deployment) in order to install Tyk on Kubernetes.  
+## Tyk Helm Chart
 
+This is the preferred (and easiest) way to install the Tyk Open Source Gateway on Kubernetes. It will install Tyk as an ingress to your Kubernetes cluster, where you can then add APIs or for better devops flow, use the *Tyk Operator*.
+
+See [Tyk Helm Chart]({{< ref "/content/tyk-stack/tyk-gateway/install/ce-helm-chart.md" >}}) for details on installing *Tyk Open Source* with our Helm Chart.
 
 ### Tyk Operator
 Don't forget to combine your Tyk Gateway with the [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) in order to get Kubernetes native, GitOps designed workflows using custom CRDs.
-
-## Next Steps Tutorials
-
-Follow the Tutorials on the Community Edition tabs for the following:
-
-1. [Add an API](/docs/getting-started/tutorials/create-api/)
-2. [Create a Security Policy](/docs/getting-started/tutorials/create-security-policy/)
-3. [Create an API Key](/docs/getting-started/tutorials/create-api-key/)

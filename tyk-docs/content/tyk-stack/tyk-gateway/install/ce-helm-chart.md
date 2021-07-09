@@ -33,12 +33,12 @@ kubectl apply -f deploy/dependencies/redis.yaml -n tyk
 ```
  ### Installing the Open Source Gateway
 
- See our short video on how to install the Tyk Open Source Gateway:
-
- {{< youtube mkyl38sBAF0 >}}
+Run the following command to install the Gateway.
 
  ```{copy.Wrapper}
- helm install tyk-ce ./tyk-headless -n tyk
+helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
+helm repo update
+helm install tyk-ce tyk-helm/tyk-headless --version 0.9.0 -n tyk
  ```
 
  ## Using TLS

@@ -50,15 +50,34 @@ kubectl apply -f deploy/dependencies/redis.yaml -n tyk
 
 ## Installation
 
-To install, first modify your `values.yaml` file and add your Tyk license. Then run the following command from the root of the repository:
+Firstly run the following command.
 
 ```{copy.Wrapper}
-helm install tyk-pro ./tyk-pro -n tyk --wait
+helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
+helm repo update
+```
+Then, before you proceed with installation of the chart you need to set some custom values in your values.yaml file. Run:
+
+```{copy.Wrapper}
+helm show values tyk-helm/tyk-pro > values.yaml
+```
+
+Add your Tyk License to the `dash.license` option
+
+
+Then run the following command from the root of the repository:
+
+
+```{copy.Wrapper}
+helm install tyk-pro tyk-helm/tyk-pro --version 0.9.0 -f values.yaml -n tyk --wait
 ```
 
 Please note the `--wait` argument is important to successfully bootstrap your Tyk Dashboard.
 
 Follow the instructions in the Notes that follow the installation to find your Tyk login credentials.
+
+## Tyk Developer Portal
+You can disable the bootstrapping of the Developer Portal by setting the `portal.bootstrap` option to `false` in your `values.yaml`.
 
 ## Using TLS
 
