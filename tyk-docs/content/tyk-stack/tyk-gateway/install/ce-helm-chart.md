@@ -67,7 +67,7 @@ Another option for Redis, to get started quickly, is to use our *simple-redis* c
 Please note that these provided charts must not ever be used in production and for anything 
 but a quick start evaluation only. Use external redis or Official Redis Helm chart in any other case. 
 We provide this chart so you can quickly have *Tyk gateway* running, however it is not meant for long term storage of data for example.
-< /warning >}}
+{{< /warning >}}
 
 ```bash
 helm install redis tyk-helm/simple-redis -n tyk
