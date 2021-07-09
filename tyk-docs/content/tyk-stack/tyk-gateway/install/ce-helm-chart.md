@@ -57,7 +57,7 @@ helm install tyk-redis bitnami/redis -n tyk
 ```
 
 Follow the notes from the installation output to get connection details and update them in your local `values.yaml` file.
-Alternatively, you can use `--set redis.pass=$` flag to set it in Tyk installation.  
+Alternatively, you can use `--set redis.pass=$REDIS_PASSWORD` flag to set it in Tyk installation.  
 
 
 {{< warning  success >}}
@@ -80,7 +80,7 @@ helm install mongo tyk-helm/simple-mongodb -n tyk
 helm install tyk-ce tyk-helm/tyk-headless --version 0.9.1 -f values.yaml -n tyk
  ```
 
- ### Installation Video 
+#### Installation Video 
 
 See our short video on how to install the Tyk Open Source Gateway. 
 Please note that this video shows the use of GH repo, since it recorded before the official repo was available, However, 
@@ -108,7 +108,10 @@ To mount files to any of the Tyk stack components, add the following to the moun
   mountPath: /etc/certs
 ```
 
- ## Next Steps Tutorials
+## Tyk operator
+
+
+## Next Steps Tutorials
 
 Follow the Tutorials on the Open Source tabs for the following:
 
