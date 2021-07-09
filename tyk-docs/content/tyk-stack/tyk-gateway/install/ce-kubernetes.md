@@ -9,17 +9,30 @@ menu:
 weight: 2
 url: "/tyk-oss/ce-kubernetes/"
 ---
+---
+title: "Kubernetes"
+date: 2021-01-20
+tags: ["Tyk Gateway", "Open Source", "Installation", "Kubernetes", "Helm Chart", "Tyk Operator"]
+description: "How to install the open source Tyk Gateway using our Kubernetes Helm Chart and the Tyk Operator"
+menu:
+  main:
+    parent: "Getting Started " # Child of APIM -> OSS
+weight: 2
+url: "/tyk-oss/ce-kubernetes/"
+---
 
-There are two main ways to install your *Open Source* Tyk Gateway in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
-We will explain in details the installation with Helm charts since it's the most common way to install in Kubernetes.
+The main ways to install *Tyk gateway* in a Kubernetes cluster are via Helm charts or via Kubernetes manifest files. 
 
-The repository to install via Kubernetes manifest files is currently [inactive](https://github.com/TykTechnologies/tyk-k8s) but you can get advice and support via the support team or the [community forum](https://community.tyk.io/).
+### Helm Charts
 
-## Tyk Helm Chart
+We will explain in details the installation using [Helm charts](/docs/tyk-oss/ce-helm-chart/)) since it’s the most common way to install in Kubernetes.
 
-This is the preferred (and easiest) way to install the Tyk Open Source Gateway on Kubernetes. It will install Tyk as an ingress to your Kubernetes cluster, where you can then add APIs or for better devops flow, use the *Tyk Operator*.
+### Kubernetes manifest files
 
-See [Tyk Helm Chart]({{< ref "/content/tyk-stack/tyk-gateway/install/ce-helm-chart.md" >}}) for details on installing *Tyk Open Source* with our Helm Chart.
+For instruction on this installation choice please refer to our [tyk-oss-k8s-deployment GitHub repo](https://github.com/TykTechnologies/tyk-oss-k8s-deployment).  
+
 
 ### Tyk Operator
-Don't forget to combine your Tyk Gateway with the [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) in order to get Kubernetes native, GitOps designed workflows using custom CRDs.
+
+For GitOps workflow used with the *Tyk gateway* or setting it as an ingress controller, 
+go to [Tyk Operator](/docs/tyk-on-prem/kubernetes-ingress/). 

@@ -12,7 +12,9 @@ url: "/tyk-oss/ce-helm-chart/"
 
 ## Introduction
 
-This is the preferred (and easiest) way to install the Tyk OSS Gateway on Kubernetes. It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the Tyk Kubernetes Operator.
+This is the preferred (and easiest) way to install the Tyk OSS Gateway on Kubernetes. 
+It will install Tyk gateway in your Kubernetes cluster where you can add and manage APIs directly or via the *Tyk Operator*.
+    
 ## Prerequisites
 
  - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
