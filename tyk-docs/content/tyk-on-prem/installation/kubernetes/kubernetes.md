@@ -13,14 +13,11 @@ aliases:
   - /tyk-on-premises/kubernetes
 ---
 
-There are two main ways to install your *Tyk Self-Managed* installation in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
-We will explain in details the installation with Helm charts since it's the most common way to install in Kubernetes.
+There are two main ways to install your Tyk Self-Managed installation in a Kubernetes cluster - via Helm charts and via Kubernetes manifest files.
 
 ### Tyk Helm Charts
 
-We will explain in details the installation with Helm charts since it's the most common way to install in Kubernetes.
-
-We will explain in details the installation using [Helm charts](/docs/tyk-self-managed/tyk-helm-chart/)) 
+We will explain in detail the installation using [Helm Charts]({{< ref "/content/tyk-on-prem/installation/kubernetes/helm-chart.md" >}})
 since it’s the most common way to install in Kubernetes.
 
 ### Kubernetes manifest files
@@ -30,5 +27,5 @@ but you can get advice and support via the support team or the [community forum]
 
 ## Tyk Operator and Ingress 
 
-For GitOps workflow used with the Tyk *Self-managed* or setting the *Tyk gateway* as an ingress controller, 
-go to [Tyk Operator](/docs/tyk-on-prem/kubernetes-ingress/). 
+For a GitOps workflow used with a Tyk Self-managed installation or setting the Tyk Gateway as an Kubernetes ingress controller, 
+see our [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) repo. 

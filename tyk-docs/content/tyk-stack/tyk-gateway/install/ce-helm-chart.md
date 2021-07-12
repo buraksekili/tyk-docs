@@ -18,7 +18,7 @@ It will install Tyk gateway in your Kubernetes cluster where you can add and man
 ## Prerequisites
 
  - Redis. Redis is required for all of the Tyk installations and must be installed in the cluster or reachable from inside K8s.
- - MongoDB. If you are using the MongoDB pumps with your open source installation you will require MongoDB installed as well.
+ - MongoDB. If you are using the MongoDB pumps with your open source installation you will also require MongoDB installed.
 
 ### Installing Redis and Mongo (if required)
 
@@ -61,6 +61,6 @@ To mount files to any of the Tyk stack components, add the following to the moun
 
 Follow the Tutorials on the Open Source tabs for the following:
 
-1. [Add an API](/docs/getting-started/tutorials/create-api/)
-2. [Create a Security Policy](/docs/getting-started/tutorials/create-security-policy/)
-3. [Create an API Key](/docs/getting-started/tutorials/create-api-key/)
+1. [Add an API]({{< ref "/content/getting-started/tutorials/create-api.md" >}})
+2. [Create a Security Policy]({{< ref "/content/getting-started/tutorials/create-security-policy.md" >}})
+3. [Create an API Key]({{< ref "/content/getting-started/tutorials/create-api-key.md" >}})

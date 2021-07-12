@@ -12,16 +12,16 @@ url: "/tyk-self-managed/tyk-helm-chart"
 
 ## Introduction
 
-This is the preferred (and easiest) way to install Tyk Pro on Kubernetes. 
+This is the preferred (and easiest) way to install Tyk Self-Managed Pro on Kubernetes. 
 It will install Tyk in your Kubernetes cluster where you can add and manage APIs via the *Tyk Operator* or, 
-as with the usual *Tyk Self-managed* Installation, via the *Tyk Self-managed*.
+as with the usual *Tyk Self-managed* Installation, via the *Tyk Dashboard*.
 
 
 ## Tyk Licensing
 
 If you are evaluating Tyk on Kubernetes, [contact us](https://tyk.io/about/contact/) to obtain a temporary licence.
 
-*Tyk Self-manged* licensing allow for different numbers of Gateway nodes to connect to a single Dashboard instance. Ensure that your Gateway pods will not scale beyond your license number by setting the Gateway resource kind to Deployment and setting the replica count to your license node limit. For example, use the following options for a single node license: `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file.
+Tyk Self-managed licensing allow for different numbers of Gateway nodes to connect to a single Dashboard instance. Ensure that your Gateway pods will not scale beyond your license number by setting the Gateway resource kind to Deployment and setting the replica count to your license node limit. For example, use the following options for a single node license: `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file.
 
 {{< note success >}}
 **Note**  
@@ -32,10 +32,10 @@ There may be intermittent issues on the new pods during the rolling update proce
 
 ## Prerequisites
 
-The following are required for a *Tyk Self-managed* demo installation:
+The following are required for a Tyk Self-managed demo installation:
 
- - Redis - is required by all Tyk installations and must be installed in the cluster or reachable by *Tyk gateway*.
- - MongoDB - is only required by the *Tyk Self-managed* and must be installed in the cluster or must be reachable by the *Tyk dashboard* 
+ - Redis - is required by all Tyk installations and must be installed in the cluster or reachable by the *Tyk Gateway*.
+ - MongoDB - is required and must be installed in the cluster or must be reachable by the *Tyk Dashboard* 
 
 
 ## Installing Redis and MongoDB
@@ -43,7 +43,7 @@ The following are required for a *Tyk Self-managed* demo installation:
 {{< warning  success >}}
 **Warning**
 
-To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis and MongoDB inside your Kubernetes cluster. Please note that these provided manifests must never be used in production and for a quick start evaluation only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
+To get started quickly, you can use `redis.yaml` and `mongo.yaml` manifests to install Redis and MongoDB inside your Kubernetes cluster. These provided manifests must **never** be used in production and are for a quick start evaluation purpose only. Use external DBs or Official Helm charts for MongoDB and Redis in any other case. We provide these manifests so you can quickly have Tyk up and running, however they are not meant for long term storage of data.
 {{< /warning >}}
 
 ```{copy.Wrapper}
@@ -86,13 +86,16 @@ Please note the `--wait` argument is important to successfully bootstrap your Ty
 
 ### Using TLS
 
-You can turn on the TLS option under the gateway section in your `values.yaml` file which will make a Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
+You can turn on the TLS option under the Gateway section in your `values.yaml` file which will make a Gateway listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
 
 ### Sharding APIs
 
 Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See 
 
 ## Other Tyk Components
+
+### Tyk Developer Portal
+You can disable the bootstrapping of the Developer Portal using the `portal.bootstrap` option in your `values.yaml` file.
 
 ### Tyk Identity Broker (TIB)
 
@@ -110,8 +113,8 @@ This chart implies there's a ConfigMap with a `profiles.json` definition in it. 
 
 ## Next Steps Tutorials
 
-Follow the Tutorials on the Self Managed tabs for the following:
+Follow the Tutorials on the **Self Managed** tabs for the following:
 
-1. [Add an API](/docs/getting-started/tutorials/create-api/)
-2. [Create a Security Policy](/docs/getting-started/tutorials/create-security-policy/)
-3. [Create an API Key](/docs/getting-started/tutorials/create-api-key/)
+1. [Add an API]({{< ref "/content/getting-started/tutorials/create-api.md" >}})
+2. [Create a Security Policy]({{< ref "/content/getting-started/tutorials/create-security-policy.md" >}})
+3. [Create an API Key]({{< ref "/content/getting-started/tutorials/create-api-key.md" >}})
