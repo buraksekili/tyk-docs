@@ -92,6 +92,9 @@ You can turn on the TLS option under the Gateway section in your `values.yaml` f
 
 Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See 
 
+
+
+
 ## Other Tyk Components
 
 ### Tyk Developer Portal
@@ -99,17 +102,21 @@ You can disable the bootstrapping of the Developer Portal using the `portal.boot
 
 ### Tyk Identity Broker (TIB)
 
-TIB is not necessary to install for this chart as it's functionality is included in the Tyk Dashboard API Manager. However, if you want to run it seperately from the Dashboard you can do so.
+TIB is not necessary to install for this chart as it's functionality is included in the Tyk Dashboard API Manager. However, if you want to run it separately from the Dashboard you can do so.
 
-The Tyk Identity Broker (TIB) is a micro-service portal that provides a bridge between various Identity Management Systems such as LDAP, Social OAuth (e.g. GPlus, Twitter, GitHub), legacy Basic Authentication providers, to your Tyk installation. See [TIB]({{< ref "/content/tyk-stack/tyk-identity-broker/getting-started.md" >}}) for more details.
+The Tyk Identity Broker (TIB) is a micro-service portal that provides a bridge between various Identity Management Systems such as LDAP, OIDC providers and legacy Basic Authentication providers, to your Tyk installation. 
+See [TIB]({{< ref "/content/tyk-stack/tyk-identity-broker/getting-started.md" >}}) for more details.
 
-Once you have installed the Gateway and Dashboard you can configure TIB by adding its configuration environment variables under the `tib.extraEnvs` section and updating the `profile.json` in your `configs` folder. See our [TIB GitHub repo](https://github.com/TykTechnologies/tyk-identity-broker#how-to-configure-tib). Once you complete your modifications you can run the following command from the root of the repository to update your helm chart.
+Once you have installed the Gateway and Dashboard you can configure TIB by adding its configuration environment variables under the `tib.extraEnvs` section and updating the `profile.json` in your `configs` folder. 
+See our [TIB GitHub repo](https://github.com/TykTechnologies/tyk-identity-broker#how-to-configure-tib). 
+Once you complete your modifications you can run the following command from the root of the repository to update your helm chart.
 
 ```{copy.Wrapper}
-helm upgrade tyk-pro ./tyk-pro -n tyk
+helm upgrade tyk-pro values.yaml -n tyk
 ```
 
 This chart implies there's a ConfigMap with a `profiles.json` definition in it. Please use `tib.configMap.profiles` value to set the name of this ConfigMap (tyk-tib-profiles-conf by default).
+
 
 ## Next Steps Tutorials
 
