@@ -90,11 +90,7 @@ You can turn on the TLS option under the Gateway section in your `values.yaml` f
 
 ### Sharding APIs
 
-Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See 
-
-
-
-
+Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled option`. Once you do that you will need to also populate the `gateway.sharding.tags` value with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and the Segment Tags (Node Segmentation) section in your Tyk Dashboard. See [Sharding]({{< ref "/content/advanced-configuration/manage-multiple-environments/manage-multiple-environments.md#api-sharding" >}}) for more details.
 ## Other Tyk Components
 
 ### Tyk Developer Portal
