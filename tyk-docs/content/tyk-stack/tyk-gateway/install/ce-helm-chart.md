@@ -88,12 +88,6 @@ it's very similar to the above commands.
 
 {{< youtube mkyl38sBAF0 >}}
 
- ```bash
-helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
-helm repo update
-helm install tyk-ce tyk-helm/tyk-headless --version 0.9.0 -n tyk
- ```
-
 #### Using TLS
 You can turn on the TLS option under the gateway section in your local `values.yaml` file which will make your Gateway 
 listen on port 443 and load up a dummy certificate. 
