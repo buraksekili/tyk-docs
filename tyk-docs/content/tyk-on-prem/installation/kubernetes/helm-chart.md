@@ -48,20 +48,17 @@ or via [artifacthub](https://artifacthub.io/packages/helm/tyk-helm/tyk-pro)
 
 
 ### Add Tyk official Helm repo
-
 ```bash
 helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
 helm repo update
 ```
 
 ### Create namespace for tyk deployment
-
 ```bash
 kubectl create namespace tyk
 ```
 
 ### Getting and Setting values.yaml
-
 Before we proceed with installation of the chart you need to set some custom values. 
 To see what options are configurable on a chart and save that options to a custom values.yaml file run:
 
@@ -73,7 +70,6 @@ For *Tyk Self-managed* chart we need to set the license key in your custom `valu
 or use `--set dash.license={YOUR-LICENSE_KEY}` with the `helm install` command.
 
 ### Installing Redis and MongoDB
-
 For Redis and MongoDB you can use these rather excellent charts provided by Bitnami
 
 #### Redis
@@ -91,10 +87,12 @@ Follow notes from the installation output to get connection details and update t
 
 {{< note success >}}
 **Important Note regarding MongoDB**
+
 This Helm chart enables the *PodDisruptionBudget* for MongoDB with an arbiter replica-count of 1. If you intend to perform 
 system maintenance on the node where the MongoDB pod is running and this maintenance requires for the node to be drained, 
 this action will be prevented due the replica count being 1. Increase the replica count in the helm chart deployment to 
 a minimum of 2 to remedy this issue.
+
 {{< /note >}}
 
 
