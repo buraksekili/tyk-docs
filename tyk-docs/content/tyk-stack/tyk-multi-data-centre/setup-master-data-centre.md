@@ -65,9 +65,9 @@ sudo yum install tyk-sink
 ```
 ## Installing in a Kubernetes Cluster with our Helm Chart
 
-If you are deploying the Master Data Centre in an MDCB deployment then you can set the `mdcb.enabled` option in your `vuales.yaml` to true to add the MDCB component to your cluster.
+If you are deploying the Master Data Centre in an *MDCB* deployment then you can set the `mdcb.enabled` option in your `values.yaml` to true to add the MDCB component to your cluster.
 
-This enables multicluster, multi Data-Centre API management from a single Dashboard.
+This enables multi-cluster, multi Data-Centre API management from a single Dashboard.
 
 {{< note success >}}
 **Note**  
