@@ -10,18 +10,21 @@ weight: 2
 url: "/tyk-oss/ce-kubernetes/"
 ---
 
+## Installing Tyk
 The main ways to install the Open Source *Tyk Gateway* in a Kubernetes cluster are via Helm charts or via Kubernetes manifest files. 
 
-### Helm Charts
-
-We will explain in details the installation using [Helm charts](/docs/tyk-oss/ce-helm-chart/) since it’s the most common way to install in Kubernetes.
+### Tyk Helm Charts
+This is the preferred way to install Tyk Self-Managed Pro on Kubernetes. 
+We are actively working to add flexibility and more user flows to our chart. Please reach out
+to our teams on support or the cummunity forum if you have questions, requests or suggestions for improvements.
+Go to [Tyk OSS Helm Charts](/docs/tyk-oss/ce-helm-chart/) for detailed installation instructions.
 
 ### Kubernetes manifest files
 
-For instruction on this installation choice please refer to our [tyk-oss-k8s-deployment GitHub repo](https://github.com/TykTechnologies/tyk-oss-k8s-deployment).  
-
+This is not the main support way to install Tyk but we do offer instruction on this installation choice in the repo
+ [tyk-oss-k8s-deployment GitHub repo](https://github.com/TykTechnologies/tyk-oss-k8s-deployment).  
+For advice and help, reach out via the usual channels, our support team or the [Tyk community forum](https://community.tyk.io/).
 
 ### Tyk Operator
-
-For GitOps workflow used with the *Tyk Gateway* or setting it as an ingress controller, 
+For GitOps workflow used with the *Tyk Gateway* or setting it as a Kubernetes ingress controller, 
 see our [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) repo. 
