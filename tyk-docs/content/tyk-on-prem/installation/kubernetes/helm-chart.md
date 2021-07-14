@@ -139,6 +139,9 @@ helm install tyk-pro tyk-helm/tyk-pro --version 0.9.0 -f values.yaml -n tyk --wa
 ```
 Please note the `--wait` argument is important to successfully finish the bootstrap job of *Tyk Manager*.
 
+#### Tyk Developer Portal
+You can disable the bootstrapping of the Developer Portal by the `portal.bootstrap: false` in your local `values.yaml` file.
+
 #### Using TLS
 You can turn on the TLS option under the gateway section in your local `values.yaml` file which will make your Gateway 
 listen on port 443 and load up a dummy certificate. You can set your own default certificate by replacing the file in the `certs/` folder.
@@ -162,8 +165,16 @@ Check [Tyk Gateway Sharding]({{< ref "/content/advanced-configuration/manage-mul
 
 ## Other Tyk Components
 
-### Tyk Developer Portal
-You can disable the bootstrapping of the Developer Portal by the `portal.bootstrap: false` in your local `values.yaml` file.
+### Installing Tyk Self-managed Control Plane
+If you are deploying the *Tyk Control plane*, a.k.a *MDCB*, for a *Tyk Multi data Centre* deployment then you set 
+the `mdcb.enabled: true` option in the local `values.yaml` to add of the *MDCB* component to your installation. 
+Check [Tyk Control plane](https://tyk.io/docs/tyk-multi-data-centre/) for more configuration details. 
+
+This setting enables multi-cluster, multi Data-Centre API management from a single dashboard.
+
+#### Secrets
+Tyk *MDCB* registry is private and requires adding users to our organisation which you then define as a secret when pulling the *MDCB* image. 
+Please contact your account manager to arrange this.
 
 ### Tyk Identity Broker (TIB)
 The *Tyk Identity Broker* (TIB) is a micro-service portal that provides a bridge between various Identity Management Systems 

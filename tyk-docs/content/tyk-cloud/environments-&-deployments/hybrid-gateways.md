@@ -106,7 +106,7 @@ Hybrid Gateways are available on our [14 Day Free Trial](/docs/tyk-cloud/account
 
 ## Installing Hybrid Gateways in a Kubernetes Cluster
 This Helm Chart provides a method of adding Hybrid Gateways into your Kubernetes cluster.
-The Hybrid Gateways can connected to *Tyk Cloud* or to a *Tyk Self managed MDCB* (i.e. *Tyk Multi data centre bridge*). 
+The Hybrid Gateways can connected to *Tyk Cloud* or to a *Tyk Self managed Control plane* (a.k.a *MDCB* or *Tyk Multi data centre bridge*). 
 
 ### Add Tyk official Helm repo
 ```bash
