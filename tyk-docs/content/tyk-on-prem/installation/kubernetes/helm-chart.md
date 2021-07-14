@@ -30,7 +30,7 @@ and the replica count to your license node limit. For example, use the following
 **Please Note**  
 There may be intermittent issues on the new pods during the rolling update process, when the total number of online gateway 
 pods is more than the license limit with lower amounts of Licensed nodes.
-{{< /notice >}}
+{{< /warning >}}
 
 #### 2. Data stores
 The following are required for a Tyk Self-managed installation:
