@@ -157,8 +157,8 @@ For example:
 Sharding is the ability for you to decide which of your APIs are loaded on which of your Tyk Gateways. This option is 
 turned off by default, however, you can turn it on by updating the `gateway.sharding.enabled` option. Once you do that you 
 will also need to set the `gateway.sharding.tags` field with the tags that you want that particular Gateway to load. (ex. tags: "external,ingress".) 
-You can then add those tags to your APIs in the API Designer, under the **Advanced Options** tab, and 
-the **Segment Tags (Node Segmentation)** section in your Tyk Dashboard. 
+You can then add those tags to your APIs in the API Designer, under the *Advanced Options* tab, and 
+the *Segment Tags (Node Segmentation)* section in your Tyk Dashboard. 
 Check [Tyk Gateway Sharding]({{< ref "/content/advanced-configuration/manage-multiple-environments/manage-multiple-environments.md#api-sharding" >}}) for more details.
 
 ## Other Tyk Components
@@ -188,7 +188,7 @@ under the `tib.extraEnvs` section and updating the `profile.json` in your `confi
 See our [TIB GitHub repo](https://github.com/TykTechnologies/tyk-identity-broker#how-to-configure-tib). 
 Once you complete your modifications you can run the following command from the root of the repository to update your helm chart.
 
-```{copy.Wrapper}
+```bash
 helm upgrade tyk-pro values.yaml -n tyk
 ```
 
