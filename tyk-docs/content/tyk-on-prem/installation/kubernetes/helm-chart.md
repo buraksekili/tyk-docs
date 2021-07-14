@@ -26,11 +26,11 @@ To ensure that your Gateway pods will not scale beyond your license allowance, c
 and the replica count to your license node limit. For example, use the following options for a single node license: 
 `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file or in the Helm install command.
 
-{{% notice warning %}}
+{{< warning >}}
 **Please Note**  
 There may be intermittent issues on the new pods during the rolling update process, when the total number of online gateway 
 pods is more than the license limit with lower amounts of Licensed nodes.
-{{% /notice %}}
+{{< /notice >}}
 
 #### 2. Data stores
 The following are required for a Tyk Self-managed installation:
