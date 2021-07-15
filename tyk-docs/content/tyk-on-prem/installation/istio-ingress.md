@@ -82,7 +82,7 @@ Install Redis:
 kubectl apply -f deploy/dependencies/redis.yaml -n tyk
 ```
 
-Ensure that in the `values.yaml` file the top level setting `enableIstioIngress: true `. This will enable you to reach the Dashboard API manager and the API Gateways from outside the cluster. Also input your Tyk license into the values.yaml.
+Ensure that in the `values.yaml` file the top-level setting `gateway.enableIstioIngress: true `. This will enable you to reach the Dashboard API manager and the API Gateways from outside the cluster. Also input your Tyk license into the `values.yaml`.
 
 Then run helm install:
 
