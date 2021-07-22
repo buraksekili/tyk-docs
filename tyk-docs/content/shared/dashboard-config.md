@@ -442,27 +442,27 @@ Type: `string`<br />
 If CSP enabled, specify space separated string, with list of allowed resources.
 
 ### security.open_policy
-OpenPolicy configuration
+Open Policy Agent (OPA) Configuration. See [Open Policy Agent]({{< ref "/content/tyk-stack/tyk-manager/open-policy-agent.md" >}})
 
 ### security.open_policy.enabled
 EV: **TYK_DB_SECURITY_OPENPOLICY_ENABLED**<br />
 Type: `bool`<br />
 
-Enable OpenPolicy
+Enables support for OPA.
 
 ### security.open_policy.debug
 EV: **TYK_DB_SECURITY_OPENPOLICY_DEBUG**<br />
 Type: `bool`<br />
 
-Enable OpenPolicy debug mode
+Enable OPA debugging mode.
 
 ### security.open_policy.enable_api
 EV: **TYK_DB_SECURITY_OPENPOLICY_ENABLEAPI**<br />
 Type: `bool`<br />
 
-Enable modify OpenPolicy rules via UI and API
+Enables access to the OPA API, even for users with an Admin role.
 
-### security.open_policy.additional_permissions
+### security.additional_permissions
 EV: **TYK_DB_SECURITY_ADDITIONALPERMISSIONS**<br />
 Type: `map[ObjectGroup]string`<br />
 
