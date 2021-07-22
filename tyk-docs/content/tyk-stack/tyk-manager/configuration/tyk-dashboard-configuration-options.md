@@ -104,10 +104,14 @@ The file will look like the sample below, the various fields are explained in th
         "enable_content_security_policy": false,
         "allowed_content_sources": "",
         "private_certificate_encoding_secret": "some-secret",
-        "enable_open_policy": true,
-        "open_policy_debug": false,
-        "disable_open_policy_api": false,
-        "additional_permissions": {}
+        "open_policy":{
+            "enabled": true,
+            "debug": true,
+            "enable_api": true
+            },
+        "additional_permissions": {
+            "api_manager": "API Manager"
+            }
     },
     "ui": {
         "languages": {
@@ -179,5 +183,5 @@ The file will look like the sample below, the various fields are explained in th
 }
 ```
 
-{{< include "dashboard-config.md" >}}
+{{< include "dashboard-config" >}}
 

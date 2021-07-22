@@ -462,6 +462,20 @@ Type: `bool`<br />
 
 Enable modify OpenPolicy rules via UI and API
 
+### security.open_policy.additional_permissions
+EV: **TYK_DB_SECURITY_ADDITIONALPERMISSIONS**<br />
+Type: `map[ObjectGroup]string`<br />
+
+This option allows you to provide a list of additional permissions, that can be applied for existing or newly created users or user groups.
+
+Example:
+
+```{copy.Wrapper}
+{
+    "api_developer": "API Developer",
+    "custom_permission": "Custom Permission"
+}
+```
 ### security.private_certificate_encoding_secret
 EV: **TYK_DB_SECURITY_PRIVATECERTIFICATEENCODINGSECRET**<br />
 Type: `string`<br />
