@@ -13,8 +13,8 @@ url: "/tyk-self-managed/tyk-helm-chart"
 ## Introduction
 
 This is the preferred (and easiest) way to install *Tyk Self-Managed* on Kubernetes. 
-It will install full Tyk platform with *Tyk manager*, *Tyk gateways* and *Tyk pumps* into your Kubernetes cluster where 
-you can add and manage APIs via the *Tyk Operator*, and the *Tyk manager* (i.e *Tyk dashboard*).
+It will install full Tyk platform with *Tyk Manager*, *Tyk Gateways* and *Tyk Pumps* into your Kubernetes cluster where 
+you can add and manage APIs via the *Tyk Operator*, and the *Tyk Manager* (i.e *Tyk Dashboard*).
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
 helm repo update
 ```
 
-### Create namespace for tyk deployment
+### Create namespace for Tyk deployment
 ```bash
 kubectl create namespace tyk
 ```
@@ -86,7 +86,7 @@ a minimum of 2 to remedy this issue.
 
 
 #### Quick Redis and MongoDB PoC installation
-{{< warning  success >}}
+{{< warning success >}}
 **Warning**
 
 Another option for Redis and MongoDB, to get started quickly, is to use our *simple-redis* and *simple-mongodb* charts. 
@@ -111,13 +111,13 @@ To ensure that your Gateway pods will not scale beyond your license allowance, c
 and the replica count to your license node limit. For example, use the following options for a single node license:
 `--set gateway.kind=Deployment --set gateway.replicaCount=1` in your `values.yaml` file or in the Helm install command.
 
-{{< warning >}}
+{{< note success >}}
+**Note**
 
-**Please Note**
 There may be intermittent issues on the new pods during the rolling update process, when the total number of online
 gateway pods is more than the license limit with lower amounts of Licensed nodes.
 
-{{< /warning >}}
+{{< /note >}}
 
 ### Installing Tyk Self managed
 Now we can install the chart using our custom values:
@@ -126,7 +126,12 @@ Now we can install the chart using our custom values:
 helm install tyk-pro tyk-helm/tyk-pro --version 0.9.1 -f ./values.yaml -n tyk --wait
 ```
 
->Please note the `--wait` argument is important to successfully finish the bootstrap job of *Tyk Manager*.
+{{< note success >}}
+**Note**
+
+The `--wait` argument is important to successfully finish the bootstrap job of the *Tyk Manager*.
+
+{{< /note >}}
 
 #### Tyk Developer Portal
 You can disable the bootstrapping of the Developer Portal by the `portal.bootstrap: false` in your local `values.yaml` file.
@@ -155,10 +160,10 @@ Check [Tyk Gateway Sharding]({{< ref "/content/advanced-configuration/manage-mul
 
 ## Other Tyk Components
 
-### Installing Tyk Self-managed Control Plane
-If you are deploying the *Tyk Control plane*, a.k.a *MDCB*, for a *Tyk Multi data Centre* deployment then you set 
+### Installing Tyk Self-Managed Control Plane
+If you are deploying the *Tyk Control Plane*, a.k.a *MDCB*, for a *Tyk Multi Data Centre* deployment then you set 
 the `mdcb.enabled: true` option in the local `values.yaml` to add of the *MDCB* component to your installation. 
-Check [Tyk Control plane](https://tyk.io/docs/tyk-multi-data-centre/) for more configuration details. 
+Check [Tyk Control Plane](https://tyk.io/docs/tyk-multi-data-centre/) for more configuration details. 
 
 This setting enables multi-cluster, multi Data-Centre API management from a single dashboard.
 
@@ -191,9 +196,9 @@ to set the name of this *ConfigMap* (`tyk-tib-profiles-conf` by default).
 To set up an ingress for your Tyk Gateways see our [Tyk Operator GitHub repository](https://github.com/TykTechnologies/tyk-operator). 
 
 ### Istio Service Mesh with Tyk as an Ingress
-To use Tyk's gateways as the ingress to your Istio Service Mesh simply change `gateway.enableIstioIngress: true` in the
+To use Tyk's Gateways as the ingress to your Istio Service Mesh simply change `gateway.enableIstioIngress: true` in your
 `values.yaml`. Ensure you are using an Istio manifest which disables the default Istio Ingress gateway.
-Check this [guide](/tyk-self-managed/istio/) for a detailed installation.
+See [As an Ingress with Istio Service Mesh]({{< ref "/content/tyk-on-prem/installation/kubernetes/tyk-kubernetes-ingress-controller.md" >}}) for more details.
 
 
 ## Next Steps Tutorials
