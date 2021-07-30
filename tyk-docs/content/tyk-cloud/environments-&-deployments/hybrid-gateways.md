@@ -148,7 +148,7 @@ Follow the notes from the installation output to get connection details and pass
   export REDIS_PASSWORD=$(kubectl get secret --namespace tyk tyk-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
 ```
 
-The DNS name of the redis as set by Bitnami is `tyk-redis-master.tyk.svc.cluster.local:6379`
+The DNS name of your Redis as set by Bitnami is `tyk-redis-master.tyk.svc.cluster.local:6379`
 You can update them in your local `values.yaml` file under `redis.addrs` and `redis.pass`
 Alternatively, you can use `--set` flag to set it in Tyk installation. For example  `--set redis.pass=$REDIS_PASSWORD` 
 
