@@ -198,7 +198,7 @@ To set up an ingress for your Tyk Gateways see our [Tyk Operator GitHub reposito
 ### Istio Service Mesh with Tyk as an Ingress
 To use Tyk's Gateways as the ingress to your Istio Service Mesh simply change `gateway.enableIstioIngress: true` in your
 `values.yaml`. Ensure you are using an Istio manifest which disables the default Istio Ingress gateway.
-See [As an Ingress with Istio Service Mesh]({{< ref "/content/tyk-on-prem/installation/kubernetes/tyk-kubernetes-ingress-controller.md" >}}) for more details.
+See [Install Tyk as an ingress with Istio Service Mesh]({{< ref "/content/tyk-on-prem/installation/kubernetes/tyk-kubernetes-ingress-controller.md" >}}) for more details.
 
 
 ## Next Steps Tutorials
