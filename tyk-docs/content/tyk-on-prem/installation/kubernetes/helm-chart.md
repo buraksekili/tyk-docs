@@ -13,8 +13,8 @@ url: "/tyk-self-managed/tyk-helm-chart"
 ## Introduction
 
 This is the preferred (and easiest) way to install *Tyk Self-Managed* on Kubernetes. 
-It will install full Tyk platform with *Tyk manager*, *Tyk gateways* and *Tyk pumps* into your Kubernetes cluster where 
-you can add and manage APIs via the *Tyk Operator*, and the *Tyk manager* (i.e *Tyk dashboard*).
+It will install full Tyk platform with *Tyk Manager*, *Tyk Gateways* and *Tyk Pumps* into your Kubernetes cluster where 
+you can add and manage APIs via the *Tyk Operator*, and the *Tyk Manager* (i.e *Tyk Dashboard*).
 
 ### Prerequisites
 
@@ -25,9 +25,9 @@ If you are evaluating Tyk on Kubernetes, [contact us](https://tyk.io/about/conta
 The following are required for a Tyk Self-managed installation:
  - Redis   - Should be installed in the cluster or reachable from inside the cluster (for SaaS option).
              You can find instructions for a simple Redis installation bellow.
- - MongoDB - Should be installed in the cluster or be reachable by the *Tyk Manager* (for SaaS option).
+ - MongoDB or SQL - Should be installed in the cluster or be reachable by the *Tyk Manager* (for SaaS option).
 
-Installation instructions for Redis and MongoDB are detailed below.
+Installation instructions for Redis and MongoDB/SQL are detailed below.
             
 ## Installation 
 
@@ -43,7 +43,7 @@ helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
 helm repo update
 ```
 
-### Create namespace for tyk deployment
+### Create namespace for Tyk deployment
 ```bash
 kubectl create namespace tyk
 ```
@@ -57,8 +57,11 @@ helm show values tyk-helm/tyk-pro > values.yaml
 ```
 
 ### Installing the data stores
-For Redis and MongoDB you can use these rather excellent charts provided by Bitnami
+For Redis, MongoDB or SQL you can use these rather excellent charts provided by Bitnami
 
+{{< tabs_start >}}
+{{< tab_start "Redis" >}}
+<br />
 #### Redis
 ```bash
 helm install tyk-redis bitnami/redis -n tyk
@@ -78,7 +81,9 @@ Follow the notes from the installation output to get connection details and pass
 The DNS name of your Redis as set by Bitnami is `tyk-redis-master.tyk.svc.cluster.local:6379` (Tyk needs the name including the port)
 You can update them in your local `values.yaml` file under `redis.addrs` and `redis.pass`
 Alternatively, you can use `--set` flag to set it in Tyk installation. For example  `--set redis.pass=$REDIS_PASSWORD` 
-
+{{< tab_end >}}
+{{< tab_start "MongoDB" >}}
+<br />
 #### MongoDB
 ```bash
 helm install tyk-mongo bitnami/mongodb --set "replicaSet.enabled=true" -n tyk
@@ -99,6 +104,12 @@ a minimum of 2 to remedy this issue.
 
 {{< /note >}}
 
+{{< tab_end >}}
+{{< tab_start "SQL" >}}
+<br />
+**SQL TEXT TO GO HERE**
+{{< tab_end >}}
+{{< tabs_end >}}
 
 #### Quick Redis and MongoDB PoC installation
 {{< warning  success >}}

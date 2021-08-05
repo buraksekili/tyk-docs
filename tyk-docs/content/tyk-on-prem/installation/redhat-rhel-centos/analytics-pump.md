@@ -59,7 +59,7 @@ This configuration should also work (with some tweaks) for CentOS.
 
 ### Prerequisites
 
-*   We are assuming that both Redis and MongoDB are installed (these are installed as part of the Tyk Gateway and Dashboard installation guides)
+*   We are assuming that Redis and either MongoDB or SQL are installed (these are installed as part of the Tyk Gateway and Dashboard installation guides)
 
 ### Step 1: Set up YUM Repositories
 

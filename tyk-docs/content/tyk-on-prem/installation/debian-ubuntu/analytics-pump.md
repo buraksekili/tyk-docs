@@ -62,7 +62,7 @@ This tutorial has been tested Ubuntu 16.04 & 18.04 with few if any modifications
 
 ### Prerequisites
 
-- You have installed MongoDB and Redis.
+- You have installed Redis and either MongoDB or SQL.
 - You have installed the Tyk Dashboard.
 
 #### Step 1: Set up our APT repositories
@@ -162,6 +162,7 @@ You can verify if Tyk Pump is running and working by tailing the log file:
 ```bash
 sudo tail -f /var/log/upstart/tyk-pump.log
 ```
+
 
 [1]: https://packagecloud.io
 {{< tab_end >}}

@@ -78,7 +78,9 @@ Before installing the Tyk components in the order below, you need to first insta
 
 ## Getting Started
 
-### Install MongoDB 4.0
+### Install MongoDB or SQL
+
+#### Install MongoDB 4.0
 
 You should follow the [online tutorial for installing MongoDb](https://docs.mongodb.com/v4.0/tutorial/install-mongodb-on-ubuntu/). We will be using version 4.0. As part of the Mongo installation you need to perform the following:
 
@@ -89,6 +91,9 @@ You should follow the [online tutorial for installing MongoDb](https://docs.mong
 5. Start MongoDB
 6. Check the `mongod` service is running
 
+#### Install SQL
+
+**SQL TEXT HERE**
 ### Install Redis
 
 ```bash

@@ -103,7 +103,11 @@ helm repo update
 kubectl create namespace tyk-ingress
 ```
 
-## Step Six - Install MongoDB
+## Step Six - Install MongoDB or SQL
+
+{{< tabs_start >}}
+{{< tab_start "MongoDB" >}}
+<br />
 
 ```{.copyWrapper}
 helm install tyk-mongo stable/mongodb --set "replicaSet.enabled=true" -n tyk-ingress
@@ -112,6 +116,12 @@ helm install tyk-mongo stable/mongodb --set "replicaSet.enabled=true" -n tyk-ing
 export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace tyk-ingress tyk-mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
 ```
 
+{{< tab_end >}}
+{{< tab_start "SQL" >}}
+
+**SQL TEXT HERE**
+{{< tab_end >}}
+{{< tabs_end >}}
 ## Step Seven - Install Redis
 
 ```{.copyWrapper}
