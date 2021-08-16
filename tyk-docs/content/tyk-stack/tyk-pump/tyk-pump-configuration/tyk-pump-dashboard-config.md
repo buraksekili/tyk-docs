@@ -20,9 +20,9 @@ Following these steps will give us analytics in the following Dashboard location
 
 There are 3 steps we need to do.  
 
-1.  Set "enable_analytics" to true in "tyk.conf"
-2.  Set "use_sharded_analytics" to true in "tyk_analytics.conf"
-3.  Use the following pump.conf:
+1.  Set `enable_analytics` to true in your `tyk.conf`.
+2.  Set `use_sharded_analytics` to true in `tyk_analytics.conf`.
+3.  Use the following in your `pump.conf`:
 
 ```{.json}
 {
@@ -66,7 +66,7 @@ There are 3 steps we need to do.
 }
 ```
 
-That's it, now we just have to restart the tyk-pump
+That's it, now we just have to restart your Tyk Pump
 
 ```
 $ docker restart tyk-pump
@@ -74,11 +74,11 @@ $ docker restart tyk-pump
 
 ### More
 
-There are 3 different pumps we want to look at:
+There are 3 different pumps you need to look at:
 
-1. mongo 
-2. mongo-pump-selective
-3. mongo-pump-aggregate
+1. `mongo` 
+2. `mongo-pump-selective`
+3. `mongo-pump-aggregate`
 
 ### Mongo
 
