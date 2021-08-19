@@ -18,8 +18,8 @@ This API is very small, and has no granular permissions system. It is used purel
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
-data-postman-var-1="11226386-ac5d1cc5-27f4-4af5-a1df-02636719ac4c"
-data-postman-collection-url="entityId=11226386-ac5d1cc5-27f4-4af5-a1df-02636719ac4c&entityType=collection&workspaceId=6ff9d973-7556-433f-993a-9ed0c33de1e0"></div>
+data-postman-var-1="17155284-f9cc8548-5c01-4e52-98b8-2d9ac3e77c69"
+data-postman-collection-url="entityId=17155284-f9cc8548-5c01-4e52-98b8-2d9ac3e77c69&entityType=collection&workspaceId=379673ec-4cc5-4b8e-bef5-8a6a988071cb"></div>
 <script type="text/javascript">
   (function (p,o,s,t,m,a,n) {
     !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
