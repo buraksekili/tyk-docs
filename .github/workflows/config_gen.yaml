@@ -69,4 +69,3 @@ jobs:
           git add -A
           git diff-index --quiet HEAD || git commit -m "Updated swagger.yml from gateway:$BRANCH"
           git push
-

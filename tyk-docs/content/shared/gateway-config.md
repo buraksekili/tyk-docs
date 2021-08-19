@@ -1667,4 +1667,3 @@ EV: **TYK_GW_JWTSSLINSECURESKIPVERIFY**<br />
 Type: `bool`<br />
 
 Skip TLS verification for JWT JWKs url validation
-
