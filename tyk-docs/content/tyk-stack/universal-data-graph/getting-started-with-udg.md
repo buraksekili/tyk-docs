@@ -12,7 +12,7 @@ aliases:
 
 {{< youtube TGITEGnJH6c >}} 
 
-In this getting started tutorial we will combine 2 different HTTP services (Users and Reviews) into one single unified UDG API. So instead of querying these two services separately (and probably merging their responses later) we'll be use UDG so that we can get result from both the API's in one single response.
+In this getting started tutorial we will combine 2 different HTTP services (Users and Reviews) into one single unified UDG API. Instead of querying these two services separately (and probably merging their responses later) we'll use UDG to get result from both the API's in one single response.
 
 ### Prerequisites 
 

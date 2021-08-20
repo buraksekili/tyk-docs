@@ -19,7 +19,7 @@ To start with a Universal Data Graph from scratch head over to the dashboard and
 
 - 2. Set Authentication
 
-To get started easily you should set the API to Keyless. To do this, scroll down to the Authentication section. Keep in mind that you should not use Keyless for most production environments.
+To get started easily we'll set the API to Keyless. To do this, scroll down to the Authentication section. But keep in mind that you should not use Keyless for most production environments.
 
 - 3. Create Schema
 

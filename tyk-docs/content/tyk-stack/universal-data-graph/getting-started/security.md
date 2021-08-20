@@ -12,7 +12,7 @@ aliases:
 
 {{< youtube lRLLFLv2rN4 >}} 
 
-Due to the nature of graphql, clients can craft very complex or large queries which can cause your upstream APIs to go down or have performance issues.
+Due to the nature of graphql, clients can craft complex or large queries which can cause your upstream APIs to go down or have performance issues.
 
 Some of the common strategies to mitigate these risks include 
 
@@ -69,7 +69,7 @@ Although we can directly create keys by selecting this API but we'll use policy 
     - Click Add Policy
     - Select our API from Access Rights table
     - Expand `Global Limits and Quota` section
-    - Unselect Unlimited query depth and set limit to 5
+    - Unselect `Unlimited Query Depth` and set limit to `5`
     - Switch to configuration tab
     - Set policy name (eg. user-reviews-policy)
     - Set expiration date for the keys that would be created using this policy

@@ -14,11 +14,11 @@ aliases:
 
 It is also possible to restrict user's based on fields using policies. For example you can create two policies 
 
-1. For read only access for users to only execute queries.
+1. For read-only access for users to only execute queries.
 
 2. For read and write access to run mutations and queries both. 
 
-### Creating keys with read only access
+### Creating keys with read-only access
 
   - ##### Create Policy
     - Navigate to policies page
