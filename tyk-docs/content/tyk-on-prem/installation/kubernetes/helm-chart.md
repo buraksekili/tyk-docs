@@ -32,7 +32,8 @@ Installation instructions for Redis and MongoDB are detailed below.
 ## Installation
 
 This is our official Helm repository [https://helm.tyk.io/public/helm/charts/](https://helm.tyk.io/public/helm/charts/).
-You can also find the *Tyk Self-Managed* Helm chart in [artifacthub](https://artifacthub.io/packages/helm/tyk-helm/tyk-pro).
+You can also find the *Tyk Self-Managed* Helm Chart in [artifacthub](https://artifacthub.io/packages/helm/tyk-helm/tyk-pro).
+<div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/tyk-helm/tyk-pro" data-theme="light" data-header="true" data-responsive="false"><blockquote><p lang="en" dir="ltr"><b>tyk-pro</b>: This chart deploys full Tyk platform. Tyk Gateway is a fully open source Enterprise API Gateway, supporting REST, GraphQL, TCP and gRPC protocols. Tyk Gateway is provided ‘Batteries-included’, with no feature lockout. It enables organisations and businesses around the world to protect, secure, and process APIs and well as review and audit the consumed apis.</p>&mdash; Open in <a href="https://artifacthub.io/packages/helm/tyk-helm/tyk-pro">Artifact Hub</a></blockquote></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
 
 If you are interested in contributing, suggesting changes or creating PRs, please use our
 [GitHub repo](https://github.com/TykTechnologies/tyk-helm-chart/tree/master/tyk-pro).
