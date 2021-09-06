@@ -30,20 +30,32 @@ You can also find the *Tyk OSS* Helm chart in [artifacthub](https://artifacthub.
 If you are interested in contributing, suggesting changes or creating PRs, please use our
 [GitHub repo](https://github.com/TykTechnologies/tyk-helm-chart/tree/master/tyk-headless).
 
-### Add Tyk official Helm repo
+### Interactive tutorial
+
+Get hands-on practice with a live environment. This will walk you through the simplest steps to complete the task, but you can find full configuration details in the docs page below.
+<div data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm" id="tyk-install-oss-k8s-helm"style="height: 600px; padding-top: 20px;"</div>
+
+### Step 1 - Add Tyk official Helm repo
 
 ```bash
 helm repo add tyk-helm https://helm.tyk.io/public/helm/charts/
+```
+
+Update the repo for the latest information from the chart repositories as information is cached locally.
+
+```bash
 helm repo update
 ```
 
-### Create namespace for Tyk deployment
+### Step 2 - Create namespace for Tyk deployment
+
+Although not essential, we recommend creating a Tyk namespace for your deployment.
 
 ```bash
 kubectl create namespace tyk
 ```
 
-### Getting values.yaml
+### Step 3 - Getting values.yaml
 
 Before we proceed with installation of the chart you need to set some custom values.
 To see what options are configurable on a chart and save that options to a custom values.yaml file run:
@@ -52,9 +64,23 @@ To see what options are configurable on a chart and save that options to a custo
 helm show values tyk-helm/tyk-headless > values.yaml
 ```
 
-### Installing Redis
+Some of the necessary configuration paramteres will be explained in the next steps.
 
-For Redis you can use these rather excellent chart provided by Bitnami.
+### Step 4 - Installing Redis
+
+#### Recommended: via the _Bitnami_ chart
+
+You can first add and update the rather excellent helm chart provided by Bitnami.
+
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+```bash
+helm repo update
+```
+
+And then use that to install Redis into the Tyk namespace.
 
 ```bash
 helm install tyk-redis bitnami/redis -n tyk
@@ -75,21 +101,21 @@ The DNS name of your Redis as set by Bitnami is `tyk-redis-master.tyk.svc.cluste
 You can update them in your local `values.yaml` file under `redis.addrs` and `redis.pass`
 Alternatively, you can use `--set` flag to set it in Tyk installation. For example  `--set redis.pass=$REDIS_PASSWORD`
 
+#### Evaluation only: via _simple-redis_ chart
 
 {{< warning  success >}}
 **Warning**
 
 Another option for Redis, to get started quickly, is to use our *simple-redis* chart.
-Please note that these provided charts must not ever be used in production and for anything
-but a quick start evaluation only. Use external redis or Official Redis Helm chart in any other case.
-We provide this chart, so you can quickly have *Tyk gateway* running, however it is not meant for long term storage of data for example.
+Please note that these charts must never be used in production and are for a quick start evaluation only. Use external redis or Official Redis Helm chart in any other case.
+We provide this chart, so you can quickly have *Tyk gateway* running, however it is not meant for long term storage of data.
 {{< /warning >}}
 
 ```bash
 helm install redis tyk-helm/simple-redis -n tyk
 ```
 
-### Installing Tyk Open Source Gateway
+### Step 5 - Installing Tyk Open Source Gateway
 
 ```bash
 helm install tyk-ce tyk-helm/tyk-headless -f values.yaml -n tyk
@@ -103,12 +129,12 @@ it's very similar to the above commands.
 
 {{< youtube mkyl38sBAF0 >}}
 
-#### Using TLS
+#### Optional - Using TLS
 You can turn on the TLS option under the gateway section in your local `values.yaml` file which will make your Gateway
 listen on port 443 and load up a dummy certificate.
 You can set your own default certificate by replacing the file in the `certs/` folder.
 
-#### Mounting Files
+#### Optional - Mounting Files
 To mount files to any of the Tyk stack components, add the following to the mounts array in the section of that component.
 For example:
  ```bash
@@ -117,7 +143,7 @@ For example:
   mountPath: /etc/certs
 ```
 
-#### Tyk Ingress
+#### Optional - Tyk Ingress
 To set up an ingress for your Tyk Gateways see our [Tyk Operator GitHub repository](https://github.com/TykTechnologies/tyk-operator).
 
 ### Next Steps Tutorials
