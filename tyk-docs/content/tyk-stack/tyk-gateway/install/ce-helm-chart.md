@@ -16,6 +16,7 @@ This is the preferred (and easiest) way to install the Tyk OSS Gateway on Kubern
 It will install Tyk gateway in your Kubernetes cluster where you can add and manage APIs directly or via the *Tyk Operator*.
 
 ## Prerequisites
+
 The following are required for a Tyk OSS installation:
  - Redis   - required for all the Tyk installations and must be installed in the cluster or reachable from inside K8s.
              You can find instructions for a simple Redis installation bellow.
@@ -32,7 +33,8 @@ If you are interested in contributing, suggesting changes or creating PRs, pleas
 
 ### Interactive tutorial
 
-Get hands-on practice with a live environment. This will walk you through the simplest steps to complete the task, but you can find full configuration details in the docs page below. 
+Get hands-on practice with a live environment. This will walk you through the simplest steps to complete the task, 
+but you can find full configuration details in the docs page below.
 <div data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm" id="tyk-install-oss-k8s-helm" style="height: 600px; padding-top: 20px;"</div>
 
 ### Step 1 - Add Tyk official Helm repo
@@ -88,7 +90,7 @@ helm install tyk-redis bitnami/redis -n tyk
 
 Follow the notes from the installation output to get connection details and password.
 
-```
+```bash
   Redis(TM) can be accessed on the following DNS names from within your cluster:
 
     tyk-redis-master.tyk.svc.cluster.local for read/write operations (port 6379)
@@ -130,13 +132,16 @@ it's very similar to the above commands.
 {{< youtube mkyl38sBAF0 >}}
 
 #### Optional - Using TLS
+
 You can turn on the TLS option under the gateway section in your local `values.yaml` file which will make your Gateway
 listen on port 443 and load up a dummy certificate.
 You can set your own default certificate by replacing the file in the `certs/` folder.
 
 #### Optional - Mounting Files
+
 To mount files to any of the Tyk stack components, add the following to the mounts array in the section of that component.
 For example:
+
  ```bash
  - name: aws-mongo-ssl-cert
   filename: rds-combined-ca-bundle.pem
@@ -144,9 +149,11 @@ For example:
 ```
 
 #### Optional - Tyk Ingress
+
 To set up an ingress for your Tyk Gateways see our [Tyk Operator GitHub repository](https://github.com/TykTechnologies/tyk-operator).
 
 ### Next Steps Tutorials
+
 Follow the Tutorials on the Open Source tabs for the following:
 
 1. [Add an API]({{< ref "/content/getting-started/tutorials/create-api.md" >}})
