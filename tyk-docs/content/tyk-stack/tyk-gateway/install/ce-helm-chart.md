@@ -104,7 +104,10 @@ it's very similar to the above commands.
 {{< youtube mkyl38sBAF0 >}}
 
 #### Online Demo
-<div data-katacoda-id="craigtyk/tyk-install-oss-k8s-helm" id="tyk-install-oss-k8s-helm"style="height: 600px; padding-top: 20px;"</div>
+<div id="tyk-install-oss-k8s-helm"
+    data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm"
+    style="height: 600px; padding-top: 20px;">
+</div>
 
 #### Using TLS
 You can turn on the TLS option under the gateway section in your local `values.yaml` file which will make your Gateway 
