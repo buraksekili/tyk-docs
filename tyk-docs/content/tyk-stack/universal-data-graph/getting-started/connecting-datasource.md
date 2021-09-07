@@ -131,7 +131,12 @@ Notes
 - You can reuse response filed using templating syntax example `{{.object.id}}`
 ```
 
-> You can find the solution for the challenge in the above video.
+{{< note success >}}
+**Note**
+
+You can find the solution for the challenge in the above video.
+
+{{< /note >}}
 
 <hr />
 
