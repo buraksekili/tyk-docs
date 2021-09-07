@@ -14,7 +14,7 @@ aliases:
 
 Now that we have stitched are Query fields to appropriate datasources, doing the same for Mutations should be quite similar. 
 
-- ### 1. Extend Schema 
+### 1. Extend Schema 
 
 Well extend our schema to add and delete the review. In the schema tab replace your Mutation type with follows and update the API.
 
@@ -27,7 +27,7 @@ type Mutation {
 
 Here, `addReview` would expect `text` and `userId` as arguments which we'd use to make a POST request to our Review service.
 
-- ### 2. Attach datasource. 
+### 2. Attach datasource. 
 
   - Navigate to datasources section in your schema tab and select `addReview` field. 
   - Set type as `REST`
@@ -37,7 +37,7 @@ Here, `addReview` would expect `text` and `userId` as arguments which we'd use t
   - Set headers (optional)
   - Keep field mapping disabled
 
-- ### 3. Add arguments to POST body (request payload). 
+### 3. Add arguments to POST body (request payload). 
 
 You can use the templating syntax to relay arguments to POST body as follows 
 
@@ -51,7 +51,7 @@ You can use the templating syntax to relay arguments to POST body as follows
 Click on "Update Field and Data Source" and update the API
 
 
-- ### 4. Execute a mutation operation 
+### 4. Execute a mutation operation 
 
 We can now test our mutation operation with the playground in API designer using the following query 
 
@@ -77,7 +77,7 @@ which should return us following response.
 }
 ```
 
-- ### Challenge
+### Challenge
 
 Configure a datasource to delete a review using review id.
 
@@ -92,8 +92,12 @@ Notes
 - Enable field mapping to map your API response 
 
 ```
+{{< note success >}}
+**Note**
 
-> You can find the solution for the challenge in the above video.
+You can find the solution for the challenge in the above video.
+
+{{< /note >}}
 
 <hr />
 
