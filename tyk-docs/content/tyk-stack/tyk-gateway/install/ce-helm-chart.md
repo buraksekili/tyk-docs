@@ -35,7 +35,7 @@ If you are interested in contributing, suggesting changes or creating PRs, pleas
 
 Get hands-on practice with a live environment. This will walk you through the simplest steps to complete the task, 
 but you can find full configuration details in the docs page below.
-<div data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm" id="tyk-install-oss-k8s-helm" style="height: 600px; padding-top: 20px;"</div>
+<div data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm" id="tyk-install-oss-k8s-helm" data-katacoda-color="00d9ba" style="height: 600px; padding-top: 20px;"</div>
 
 ### Step 1 - Add Tyk official Helm repo
 
