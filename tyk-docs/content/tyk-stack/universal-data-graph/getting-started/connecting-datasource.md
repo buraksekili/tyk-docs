@@ -20,17 +20,17 @@ You can attach datasource to each individual field and can also re-use the datas
 
 We will start with attaching datasource to user query.
 
-- ### 1. Select field to attach datasource.
+1. Select field to attach datasource.
 
-- ###  2. Click on user field and toggle the defile datasource.
+2. Click on user field and toggle the defile datasource.
 
-- ###  3. Select Datasource type.
+3. Select Datasource type.
 
 Since our upstream services are REST we'll select REST as datasource type but other kind of datasources can be used.(eg. Internal or Graphql)
 
 You can learn more about it [here](../../concepts/datasources/)
 
-- ###  4. Enter URL for root field.
+4. Enter URL for root field.
 
 We will use the url for our `Users` service which returns details of an user for given `id`  i.e `http://localhost:4000/users/:id`.
 
@@ -42,21 +42,21 @@ To learn more about arguments click [here](../../concepts/arguments/)
 
 To learn more about reusing response fields click [here](../../concepts/reusing_response_fields)
 
-- ###  5. Enter datasource name.
+5. Enter datasource name.
 
 Enter a unique datasource name your configuration to reuse it in the future. We will name this as `getUserById` for the given example
 
-- ###  6. Select HTTP method for the URL.
+6. Select HTTP method for the URL.
 
 You can select the HTTP method for your upstream url. Which should be `GET` in our case.
 
-- ###  7. Add headers (Optional)
+7. Add headers (Optional)
 
 If you upstream expects headers, you can supply them using this.
 
 You can also use templating syntax here to reuse request headers.
 
-- ###  8. Select field mapping
+8. Select field mapping
 
 Keep the field mapping disabled by default.
 
@@ -64,13 +64,13 @@ You can use field mapping to map the API response with your schema.
 
 You can learn more about field mapping [here](../../concepts/field_mappings)
 
-- ###  9. Update Configuration
+9. Update Configuration
 
 Click on 'Update Field and Data Source'
 
 It is important to update datasource configuration before updating the API in order to reflect the changes in your api definition.
 
-- ###  10. Update API and Test
+10. Update API and Test
 
 Click Update the API.
 
