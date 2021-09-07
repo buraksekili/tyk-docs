@@ -109,8 +109,9 @@ Alternatively, you can use `--set` flag to set it in Tyk installation. For examp
 **Warning**
 
 Another option for Redis, to get started quickly, is to use our *simple-redis* chart.
-Please note that these charts must never be used in production and are for a quick start evaluation only. Use external redis or Official Redis Helm chart in any other case.
-We provide this chart, so you can quickly have *Tyk gateway* running, however it is not meant for long term storage of data.
+Please note that these charts must never be used in production and are for a quick start evaluation only.
+Use external redis or Official Redis Helm chart in any other case.
+We provide this chart so you can quickly have *Tyk gateway* running, it is not meant for long term storage of data.
 {{< /warning >}}
 
 ```bash
