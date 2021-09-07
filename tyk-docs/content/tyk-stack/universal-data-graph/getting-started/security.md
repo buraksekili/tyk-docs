@@ -24,14 +24,14 @@ Some of the common strategies to mitigate these risks include
 For this tutorial we'll mitigate these risks using `Query Depth Limit` but you can also use common strategies like rate limiting and throttling, which you can read more about [here](../../../getting-started/key-concepts/rate-limiting/)
 
 
-- ### 1. Set authentication mode
+### 1. Set authentication mode
 
 In you Api designer core settings tab scroll down to Authentication section and set the authentication mode `Authentication Token` and update the API.
 
 Our API is not open and keyless anymore and would need appropriate Authentication token to execute queries.
 
 
-- ### 2. Applying to query depth
+### 2. Applying to query depth
 
 Currently if users want they could run queries with unlimited depth as follows 
 
@@ -64,7 +64,7 @@ To avoid these kind of scenarios we will set query depth limit on the keys creat
 
 Although we can directly create keys by selecting this API but we'll use policy as it will make it easier to update keys for this API in future. You can read more about policies [here](../../../getting-started/key-concepts/what-is-a-security-policy/)
 
-  - ##### Create Policy
+  ##### Create Policy
     - Navigate to policies page
     - Click Add Policy
     - Select our API from Access Rights table
@@ -75,7 +75,7 @@ Although we can directly create keys by selecting this API but we'll use policy 
     - Set expiration date for the keys that would be created using this policy
     - Click on create policy
 
-  - ##### Create a key using above policy
+  ##### Create a key using above policy
     - Navigate to keys page
     - Click Add Key
     - Select our newly created policy
@@ -90,4 +90,9 @@ Now if you try to query our UDG API using the  key you should see an error as fo
 }
 ```
 
-> Watch the video above to see how you can use these policies to publish your UDG apis on portal with documentation and playground
+{{< note success >}}
+**Note**
+
+Watch the video above to see how you can use these policies to publish your UDG APIs on your portal with documentation and playground.
+
+{{< /note >}}
