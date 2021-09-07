@@ -12,16 +12,16 @@ aliases:
 
 {{< youtube daNXHS5azbk >}} 
 
-- 1. Create Api
+1. Create Api
 
 To start with a Universal Data Graph from scratch head over to the dashboard and click on “APIs” in the left menu. Then click the “Add New API” and fill the form according to the following screenshot. You might want to give your Graph an individual name.
 
 
-- 2. Set Authentication
+2. Set Authentication
 
 To get started easily we'll set the API to Keyless. To do this, scroll down to the Authentication section. But keep in mind that you should not use Keyless for most production environments.
 
-- 3. Create Schema
+3. Create Schema
 
 Switch to schema tab in your designer and you should already see a default schema. We will edit the schema as follows to connect with our datasources later.
 
