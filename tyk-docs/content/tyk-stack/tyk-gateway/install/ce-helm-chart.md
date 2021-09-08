@@ -32,7 +32,7 @@ You can find full configuration details in the steps below.
     data-katacoda-color="00d9ba"
     style="height: 600px; padding-top: 20px;">
 </div>
-
+  
 ## Installation 
 
 This is our official Helm repository [https://helm.tyk.io/public/helm/charts/](https://helm.tyk.io/public/helm/charts/).
