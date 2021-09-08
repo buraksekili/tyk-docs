@@ -23,6 +23,16 @@ The following are required for a Tyk OSS installation:
  - MongoDB - Required only if you chose to use the MongoDB Tyk pump with your Tyk OSS installation. Same goes with any 
              [other pump](/analytics-and-reporting/other-data-stores/) you choose to use.
              
+## Interactive tutorial
+
+Get hands-on practice deploying a simple configuration within a live environment! 
+You can find full configuration details in the steps below.
+<div id="tyk-install-oss-k8s-helm"
+    data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm"
+    data-katacoda-color="00d9ba"
+    style="height: 600px; padding-top: 20px;">
+</div>
+
 ## Installation 
 
 This is our official Helm repository [https://helm.tyk.io/public/helm/charts/](https://helm.tyk.io/public/helm/charts/).
@@ -30,15 +40,6 @@ You can also find the *Tyk OSS* Helm chart in [artifacthub](https://artifacthub.
 
 If you are interested in contributing, suggesting changes or creating PRs, please use our 
 [GitHub repo](https://github.com/TykTechnologies/tyk-helm-chart/tree/master/tyk-headless).
-
-### Interactive tutorial
-Get hands-on practice deploying a simple configuration within a live environment!
-<div id="tyk-install-oss-k8s-helm"
-    data-katacoda-id="tyk-education/tyk-install-oss-k8s-helm"
-    data-katacoda-color="00d9ba"
-    style="height: 600px; padding-top: 20px;">
-</div>
-You can find full configuration details in the steps below.
 
 ### Step 1 - Add Tyk official Helm repo
 
