@@ -10,6 +10,8 @@ aliases:
   - /tyk-configuration-reference/tyk-pump-dashboard-config/
 ---
 
+**ADD SQL**
+
 Following these steps will give us analytics in the following Dashboard locations:
 
 * Activity by API

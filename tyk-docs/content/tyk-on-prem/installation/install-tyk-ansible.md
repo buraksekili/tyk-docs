@@ -37,7 +37,7 @@ $ sh scripts/init.sh
 
 5. Run ansible-playbook to install the following:
 - Redis
-- MongoDB
+- MongoDB or one of our supported [SQL Platforms]({{< ref "/content/tyk-stack/tyk-manager/database-options.md" >}})
 - Tyk Dashboard
 - Tyk Gateway
 - Tyk Pump
@@ -46,7 +46,7 @@ $ sh scripts/init.sh
 $ ansible-playbook playbook.yml -t tyk-pro -t redis -t mongodb
 ```
 
-You can choose to not install Redis or MongoDB by removing the `-t redis` or `-t mongodb` respectively. However Redis and MongoDB are a requirment and need to be installed for the Tyk Pro to run.
+You can choose to not install Redis or MongoDB/SQL by removing the `-t redis` or `-t mongodb` (**ADD SQL FLAG**) respectively. However Redis and MongoDB/SQL are a requirement and need to be installed for the Tyk Pro to run.
 
 {{< note success >}}
 **Note**  
@@ -87,6 +87,10 @@ For a production environment, we recommend that the Gateway, Dashboard and Pump 
 | mongodb_version | `4.4` | MongoDB version |
 
 Read more about MongoDB configuration [here](https://github.com/ansible-collections/community.mongodb).
+
+**Add SQL Variables**
+
+Read more about SQL configuration [here]({{< ref "/content/planning-for-production/database-settings/sql-configuration.md" >}})
 
 - `vars/redis.yml`
 

@@ -127,12 +127,12 @@ sudo yum install -y mongodb-org tyk-dashboard redis
 
 ### Step 5: Start MongoDB and Redis
 
-In many cases MongoDB or Redis might not be running, so let's start that:
+In many cases MongoDB/SQL or Redis might not be running, so let's start that:
 ```bash
 sudo service mongod start
 sudo service redis start
 ```
-
+**ADD SQL**
 ### Step 6: Configure Tyk Dashboard
 
 We can set the Dashboard up with a similar setup command, the script below will get the Dashboard set up for the local instance.
@@ -147,7 +147,7 @@ You need to replace `<hostname>` for `--redishost=<hostname>`, and `<IP Address>
 ```bash
 sudo /opt/tyk-dashboard/install/setup.sh --listenport=3000 --redishost=<hostname> --redisport=6379 --mongo=mongodb://<IP Address>/tyk_analytics --tyk_api_hostname=$HOSTNAME --tyk_node_hostname=http://localhost --tyk_node_port=8080 --portal_root=/portal --domain="XXX.XXX.XXX.XXX"
 ```
-
+**ADD SQL**
 {{< note success >}}
 **Note**  
 

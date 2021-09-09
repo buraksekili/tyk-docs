@@ -37,6 +37,8 @@ Please visit the public [GitHub Readme](https://github.com/TykTechnologies/tyk-p
 
 The Tyk Dashboard uses the `mongo-pump-aggregate` collection to display analytics. This is different than the standard `mongo` pump plugin that will store individual analytic items into MongoDB. The aggregate functionality was built to be fast, as querying raw analytics is expensive in large data sets. See [Pump Dashboard Config](/docs/tyk-configuration-reference/tyk-pump-dashboard-config/) for more details.
 
+**ADD SQL**
+
 ### Capping analytics data
 
 Tyk Gateways can generate a lot of analytics data. Be sure to read about [capping your Dashboard analytics](/docs/analytics-and-reporting/capping-analytics-data-storage/)

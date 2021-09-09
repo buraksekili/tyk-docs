@@ -45,6 +45,7 @@ By default the Tyk Dashboard uses MongoDB. You can use the following as a drop-i
 * [DocumentDB](https://aws.amazon.com/documentdb/)
 * [Azure Cosmos DB version 3.2](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-feature-support)
 * MongoDB 3.x and 4.0.x
+* From v4.0, we now also support the following [SQL Platforms]({{< ref "/content/tyk-stack/tyk-manager/database-options.md" >}})
 
 {{< note success >}}
 **Note**  
