@@ -15,7 +15,7 @@ aliases:
 ---
 ## What is Tyk On-Premises / Self-Managed ?
 
-Tyk Self-Managed is the way to install our Full Lifecycle API Management solution in your own infrastructure.  There is no calling home, and there are no usage limits.  You have full control.
+Tyk Self-Managed is the way to install our Full Lifecycle API Management solution in your own infrastructure. There is no calling home, and there are no usage limits.  You have full control.
 
 ## Installing Tyk Self-Managed:
 Please visit our [Self-Managed installation](/docs/tyk-self-managed/install/) page to get started.
@@ -34,7 +34,7 @@ The full Tyk Self-Managed system consists of:
 * [Tyk Multi-Data Center Bridge](/docs/tyk-multi-data-centre/) (Optional, add-on): Allows for the configuration of a Tyk ecosystem that spans many data centers and clouds.
 
 ## Architecture
-![Tyk Self-Managed Architecture][1]
+{{< img src="/img/diagrams/diagram_docs_self-managed@2x.png" alt="Tyk Self-Managed Archtecture" >}}
 
 ## Dependencies & Database Support
 
@@ -105,5 +105,3 @@ The `service` command can usually be used with SysVinit scripts, as well as invo
 
 Please consult with respective init system documentation for more details on how to use and configure it.
 
-
-[1]: /docs/img/diagrams/dashboard3.png
