@@ -53,7 +53,7 @@ API Definition example:
 
 [Bundle reading](/docs/plugins/how-to-serve/plugin-bundles/)
 
-A gRPC plugin can use the standard bundling mechanism that we use for the rest of our rich plugins. The essential difference with a standard rich plugin bundle is that the the bundle contains the actual code, which will be executed by Tyk, whereas a gRPC plugin bundle contains just a custom middleware definition, and you handle the execution of your code independently, e.g. a gRPC server, listening on port 8080.
+A gRPC plugin can use the standard bundling mechanism that we use for the rest of our rich plugins. The essential difference with a standard rich plugin bundle is that  bundle contains the actual code, which will be executed by Tyk, whereas a gRPC plugin bundle contains just a custom middleware definition, and you handle the execution of your code independently, e.g. a gRPC server, listening on port 8080.
 
 This is what a manifest could look like:
 

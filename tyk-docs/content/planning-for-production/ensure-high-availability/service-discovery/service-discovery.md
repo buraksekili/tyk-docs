@@ -22,7 +22,7 @@ We recommend using the SD module in conjunction with the circuit breaker feature
 
 ## Service Discovery: Dashboard
 
-The Service Discovery settings are located in the Core tab from the the API Designer.
+The Service Discovery settings are located in the Core tab from  API Designer.
 
 ![Service discovery](/docs/img/2.10/service_discovery_settings.png)
 
