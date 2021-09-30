@@ -67,8 +67,13 @@ Explanation to the command above:
 2. Make sure to specify your Tyk version via a Docker tag. For example `v2.9.4.2` . 
 3. The final argument is the plugin name. For the example `my-post-plugin.so`
 
-#### Versions from 3.2.2
-We now support plugins with dependencies in `go.mod`. If a dependency that your plugin uses is also used by the gateway, the version _used by the gateway_ will be used in your plugin. This may mask conflicts between transitive dependencies. 
+#### Tyk v3.2.2+
+Tyk as of `v3.2.2` uses Go 1.15 and thus requires plugins to be written with `go.mod` or `vendoring`
+
+Please follow [this](https://github.com/TykTechnologies/custom-plugins/tree/master/plugins/go-plugin-v322-example) guide to build a go plugin using `v3.2.2+`
+
+##### Plugin version clashes
+If a dependency that your plugin uses is also used by the gateway, the version _used by the gateway_ will be used in your plugin. This may mask conflicts between transitive dependencies. 
 
 {{< img src="/img/diagrams/goplugins.drawio.svg" alt="Go plugin dependencies " >}}
 
