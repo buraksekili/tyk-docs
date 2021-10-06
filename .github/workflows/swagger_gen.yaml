@@ -1,0 +1,46 @@
+name: Swagger Generator
+on: 
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Docs Branch'
+        required: true
+        default: 'master'
+      gatewayBranch:
+        description: 'Gateway Branch'
+        required: true
+        default: 'master'
+
+jobs:
+  swagger-gen:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout docs
+      uses: actions/checkout@master
+      with:
+        path: ./tyk-docs
+        token: ${{ secrets.REPO_TOKEN }}
+        ref: ${{ github.event.inputs.branch }}
+
+    - name: Checkout gateway
+      uses: actions/checkout@master
+      with:
+        repository: TykTechnologies/tyk
+        path: ./tyk
+        token: ${{ secrets.REPO_TOKEN }}
+        ref: ${{ github.event.inputs.gatewayBranch }}    
+
+    - name: Copy Swagger
+      run: |
+        cat ./tyk/swagger.yml > ./tyk-docs/tyk-docs/static/others/gateway-swagger.yml
+        
+    - name: Commit change
+      env:
+        BRANCH: ${{ github.event.inputs.gatewayBranch }}
+      run: |
+          cd ./tyk-docs
+          git config --global user.name 'Leonid Bugaev'
+          git config --global user.email 'leonsbox@gmail.com'
+          git add -A
+          git commit -m "Updated swagger.yml from gateway:$BRANCH"
+          git push
