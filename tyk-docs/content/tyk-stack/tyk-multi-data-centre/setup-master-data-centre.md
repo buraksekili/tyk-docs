@@ -19,22 +19,6 @@ We will assume that the following components are up and running in your master D
 * Gateway / Gateway Cluster
 * Working Tyk-Pro [Self-Managed installation](/docs/tyk-self-managed/install/)
 
-### Default Ports
-
-| Application             | Port           |
-|-------------------------|----------------|
-|MongoDB                  |      27017     |
-|Redis                    |      6379      |
-|**Tyk Dashboard**        |                |
-|Developer Portal         |      3000      |
-|Admin Dashboard          |      3000      |
-|Admin Dashboard API      |      3000      |
-|**Tyk Gateway**          |                |
-|Management API           |      8080      |
-|**MDCB**                 |                |
-|RPC Listen               |      9091      |
-|Healthcheck              |      8181      |
-
 ## MDCB Component Installation
 The MDCB component will only need to be able to connect to Redis and MongoDB directly from within the master DC. It does not require access to the Tyk Gateway(s) or Dashboard application.
 The MDCB component will however by default expose an RPC service on port 9091, which worker DCs will need connectivity to.
