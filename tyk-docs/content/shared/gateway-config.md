@@ -542,6 +542,12 @@ Type: `int`<br />
 
 The number of RPC connections in the pool. Basically it creates a set of connections that you can re-use as needed.
 
+### slave_options.key_space_sync_interval
+EV: **TYK_GW_SLAVEOPTIONS_KEYSPACESYNCINTERVAL**<br />
+Type: `float32`<br />
+
+You can use this to set a period for which the Gateway will check if there are changes in keys that must be synchronized. If this value is not set then it will default to 10 seconds.
+
 ### management_node
 EV: **TYK_GW_MANAGEMENTNODE**<br />
 Type: `bool`<br />
@@ -1002,6 +1008,12 @@ Type: `bool`<br />
 
 Set this to `true` to have Tyk automatically divide the analytics records in multiple analytics keys.
 This is especially useful when `storage.enable_cluster` is set to `true` since it will distribute the analytic keys across all the cluster nodes.
+
+### analytics_config.purge_interval
+EV: **TYK_GW_ANALYTICSCONFIG_PURGEINTERVAL**<br />
+Type: `float32`<br />
+
+You can set the interval length on how often the tyk Gateway will purge analytics data. This value is in seconds and defaults to 10 seconds.
 
 ### enable_separate_analytics_store
 EV: **TYK_GW_ENABLESEPERATEANALYTICSSTORE**<br />
