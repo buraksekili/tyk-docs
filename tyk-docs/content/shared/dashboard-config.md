@@ -720,3 +720,24 @@ Type: `string`<br />
 
 StatsD prefix
 
+### edge_endpoints
+EV: **TYK_DB_EDGEENDPOINTS**<br />
+Type: `[]Endpoint`<br />
+
+List of Edge Gateways, that will be displayed in the Dashboard UI, so that you can select to which specific Gateway(s) you want to load an API into. Example:
+```
+  "edge_endpoints": [
+    {
+      "name": "US West",
+      "endpoint": "https://payable-matter-gw.aws-euw2.cloud-ara.tyk.io",
+      "tags": ["edge", "aws-eu-west-2"]
+    },
+    {
+      "name": "EU West",
+      "endpoint": "video-taped-gokart-gw.aws-usw2.cloud-ara.tyk.io",
+      "tags": ["edge", "aws-us-west-2"]
+    }
+  ]
+```
+
+For every `Edge Gateway` there needs to be defined, its name, the ingress URL and a list of tags that APIs will use for triggering Gateways to load its configuration.

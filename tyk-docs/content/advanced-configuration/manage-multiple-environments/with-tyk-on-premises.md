@@ -30,6 +30,13 @@ Setting up a gateway to be a shard, or a zone, is very easy. All you do is tell 
 
 Tags are always treated as OR conditions, so this node will pick up all APIs that are marked as `internal` or `node-1`.
 
+
+{{< note success >}}
+**Note**
+
+In order to expose more details about the Gateway to the Dashboard, you can now configure the [edge_endpoints](/docs/tyk-dashboard/configuration/#edge_endpoints) section in the tyk-analytics.conf, and the Dashboard UI will pick that up and present you a list of Gateways you can chose from when creating an API.
+{{< /note >}}
+
 ## 2. Tag an API for a shard using the Dashboard
 
 To add an API Tag to a an API configuration in the dashboard, first ensure you are in the API Editor, and have selected the *Advanced Options* tab:
@@ -43,6 +50,20 @@ Once you have reached this section, scroll down to the *Segment Tags* section:
 In this section, set the tag name you want to apply, and click the *Add* button.
 
 When you save the API, the tags will become immediately active, and if any gateways are configured to only load tagged API Definitions then this configuration will only be loaded by the relevant gateway.
+
+### Exposed Gateway tags to Dashboard UI
+
+Starting with version 3.2.2 of Tyk Dashboard, if [edge_endpoints](/docs/tyk-dashboard/configuration/#edge_endpoints) are being configured in tyk-analytics.conf, Dashboard will automatically pick that list up for you, and present it in the  UI at the moment of API creation.
+
+![List of available Gateways](/docs/img/dashboard/list-gateways.png)
+
+Once you select one or more Gateways, the *Segment Tags* section will be automatically prefilled with the tag values from the `edge_endpoints` configuration.
+
+![List of segment tags](/docs/img/dashboard/list-segment-tags.png)
+
+In the same, for every Gateway selected, there will be an API URL presented at the top of the page, within *Core Settings* tab.
+
+![List of API URLs](/docs/img/dashboard/list-api-urls.png)
 
 ## Target an API Definition via JSON
 
