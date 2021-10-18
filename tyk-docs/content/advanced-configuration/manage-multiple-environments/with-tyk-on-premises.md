@@ -39,21 +39,21 @@ In order to expose more details about the Gateway to the Dashboard, you can now 
 
 ## 2. Tag an API for a shard using the Dashboard
 
-To add an API Tag to a an API configuration in the dashboard, first ensure you are in the API Editor, and have selected the *Advanced Options* tab:
+To add an API Tag to a an API configuration in the Dashboard, Select Edit from your API options, and select the *Advanced Options* tab:
 
 ![Advanced options tab location](/docs/img/2.10/advanced_options_designer.png)
 
-Once you have reached this section, scroll down to the *Segment Tags* section:
+Then scroll down to the *Segment Tags* section:
 
 ![Segement tags section](/docs/img/2.10/segment_tags.png)
 
-In this section, set the tag name you want to apply, and click the *Add* button.
+In this section, set the tag name you want to apply, and click *Add*.
 
-When you save the API, the tags will become immediately active, and if any gateways are configured to only load tagged API Definitions then this configuration will only be loaded by the relevant gateway.
+When you save the API, the tags will become immediately active, and if any Gateways are configured to only load tagged API Definitions then this configuration will only be loaded by the relevant Gateway.
 
 ### Exposed Gateway tags to Dashboard UI
 
-Starting with version 3.2.2 of Tyk Dashboard, if [edge_endpoints](/docs/tyk-dashboard/configuration/#edge_endpoints) are being configured in tyk-analytics.conf, Dashboard will automatically pick that list up for you, and present it in the  UI at the moment of API creation.
+From version 3.2.2 of the Tyk Dashboard, if [edge_endpoints](/docs/tyk-dashboard/configuration/#edge_endpoints) are being configured in tyk-analytics.conf, your Dashboard will automatically pick that list up for you, and display it in the UI when you create your API.
 
 ![List of available Gateways](/docs/img/dashboard/system-management/list-gateways.png)
 
@@ -61,7 +61,7 @@ Once you select one or more Gateways, the *Segment Tags* section will be automat
 
 ![List of segment tags](/docs/img/dashboard/system-management/list-segment-tags.png)
 
-In the same, for every Gateway selected, there will be an API URL presented at the top of the page, within *Core Settings* tab.
+Also, for every Gateway selected, there will be an API URL presented at the top of the page, within the *Core Settings* tab.
 
 ![List of API URLs](/docs/img/dashboard/system-management/list-api-urls.png)
 
@@ -73,7 +73,7 @@ In your API definition, add a tags section to the root of the API Definition:
 "tags": ["internal"]
 ```
 
-This will also set the tags for the API and when API requests are made through this gateway, these tags will be transferred in to the analytics data set.
+This will also set the tags for the API and when API requests are made through this Gateway, these tags will be transferred in to the analytics data set.
 
 # API Tagging with On-Premises
 
