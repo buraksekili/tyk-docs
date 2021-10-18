@@ -1,10 +1,10 @@
 ---
 date: 2020-08-04T11:56:24Z
-title: On-Premises
+title: Tyk Self-Managed
 menu: 
   main:
     parent: "Manage Multiple Environments"
-    identifier: multiple-environments-on-premises
+    identifier: multiple-environments-self-managed
 weight: 3
 ---
 
