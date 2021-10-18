@@ -55,15 +55,15 @@ When you save the API, the tags will become immediately active, and if any gatew
 
 Starting with version 3.2.2 of Tyk Dashboard, if [edge_endpoints](/docs/tyk-dashboard/configuration/#edge_endpoints) are being configured in tyk-analytics.conf, Dashboard will automatically pick that list up for you, and present it in the  UI at the moment of API creation.
 
-![List of available Gateways](/docs/img/dashboard/list-gateways.png)
+![List of available Gateways](/docs/img/dashboard/system-management/list-gateways.png)
 
 Once you select one or more Gateways, the *Segment Tags* section will be automatically prefilled with the tag values from the `edge_endpoints` configuration.
 
-![List of segment tags](/docs/img/dashboard/list-segment-tags.png)
+![List of segment tags](/docs/img/dashboard/system-management/list-segment-tags.png)
 
 In the same, for every Gateway selected, there will be an API URL presented at the top of the page, within *Core Settings* tab.
 
-![List of API URLs](/docs/img/dashboard/list-api-urls.png)
+![List of API URLs](/docs/img/dashboard/system-management/list-api-urls.png)
 
 ## Target an API Definition via JSON
 
