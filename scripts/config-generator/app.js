@@ -67,7 +67,7 @@ process.argv[2].split(',').forEach(async a => {
       // Path for file
       `./${product.path.dir}${branch}/${product.path.file}.md`,
       // Josnified and prettified output of the script
-      h.generateMarkdown(variables)
+      h.generateMarkdown(variables, 'apis' == p)
     )
   // Log eroror message on the usability of the script
   } else console.log(

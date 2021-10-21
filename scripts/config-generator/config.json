@@ -66,5 +66,17 @@
       "dir": "/node/home/tyk-config-info-generator/info/",
       "file": "mdcb"
     }
+  },
+  "apis": {
+    "prefix": "TYK_APIS",
+    "entrypoint": {
+      "path": "repos/TykTechnologies/tyk/contents/apidef/oas/root.go",
+      "struct": "XTykAPIGateway"
+    },
+    "dependencies": {},
+    "path": {
+      "dir": "/node/home/tyk-config-info-generator/info/",
+      "file": "apis"
+    }
   }
 }

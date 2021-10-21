@@ -17,8 +17,8 @@ const fetchFile = async (path, branch = 'master') => {
   })
 }
 
-const generateMarkdown = variables => {
-  let markdown = "---\n---\n", configs = {}
+const generateMarkdown = (variables, skipEnv) => {
+  let markdown = "", configs = {}
 
   variables.forEach(item => configs[item.json] = item)
 
@@ -26,7 +26,7 @@ const generateMarkdown = variables => {
     if (! item.json.includes('-') && item.description) {
       if ('variable' === item.flavour) {
         markdown += `### ${item.json}\n`
-        markdown += `EV: **${item.env}**<br />\n`
+        if (! skipEnv) markdown += `EV: **${item.env}**<br />\n`
         markdown += `Type: \`${item.type}\`<br />\n\n`
         markdown += `${transformDescription(item.description)}\n\n`
       } else if ('header' === item.flavour) {
