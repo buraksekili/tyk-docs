@@ -163,6 +163,7 @@ Type: `[]CertData`<br />
 Deprecated. SSL certificates used by Gateway server.
 
 **CertData Object**
+
 | Variable | Type | Key | Description |
 | ----------- | ----------- | ----------- | ----------- |
 | Name | string | domain_name | Domain name |
