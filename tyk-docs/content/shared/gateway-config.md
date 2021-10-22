@@ -1,5 +1,3 @@
----
----
 ### hostname
 EV: **TYK_GW_HOSTNAME**<br />
 Type: `string`<br />
@@ -164,23 +162,12 @@ Type: `[]CertData`<br />
 
 Deprecated. SSL certificates used by Gateway server.
 
-### http_server_options.certificates.domain_name
-EV: **TYK_GW_HTTPSERVEROPTIONS_CERTIFICATES_NAME**<br />
-Type: `[]string`<br />
-
-Domain name
-
-### http_server_options.certificates.cert_file
-EV: **TYK_GW_HTTPSERVEROPTIONS_CERTIFICATES_CERTFILE**<br />
-Type: `[]string`<br />
-
-Path to certificate file
-
-### http_server_options.certificates.key_file
-EV: **TYK_GW_HTTPSERVEROPTIONS_CERTIFICATES_KEYFILE**<br />
-Type: `[]string`<br />
-
-Path to private key file
+**CertData Object**
+| Variable | Type | Key | Description |
+| ----------- | ----------- | ----------- | ----------- |
+| Name | string | domain_name | Domain name |
+| CertFile | string | cert_file | Path to certificate file |
+| KeyFile | string | key_file | Path to private key file |
 
 ### http_server_options.ssl_certificates
 EV: **TYK_GW_HTTPSERVEROPTIONS_SSLCERTIFICATES**<br />
