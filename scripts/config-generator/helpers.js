@@ -75,7 +75,7 @@ const noteTransformer = description => {
 }
 
 const arrayObjectTransformer = (type, nested, description) => {
-  let d = `**${type.slice(2)} Object**` +
+  let d = `**${type.slice(2)} Object**\n` +
     '\n| Variable | Type | Key | Description |' +
     '\n| ----------- | ----------- | ----------- | ----------- |'
 
