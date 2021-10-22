@@ -537,6 +537,7 @@ For example:
 ```
 
 **CertData Object**
+
 | Variable | Type | Key | Description |
 | ----------- | ----------- | ----------- | ----------- |
 | Name | string | domain_name |  |
