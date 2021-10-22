@@ -539,9 +539,9 @@ For example:
 **CertData Object**
 | Variable | Type | Key | Description |
 | ----------- | ----------- | ----------- | ----------- |
-| Name | string | domain_name | undefined |
-| CertFile | string | cert_file | undefined |
-| KeyFile | string | key_file | undefined |
+| Name | string | domain_name |  |
+| CertFile | string | cert_file |  |
+| KeyFile | string | key_file |  |
 
 ### http_server_options.min_version
 EV: **TYK_DB_HTTPSERVEROPTIONS_MINVERSION**<br />
