@@ -26,6 +26,11 @@ const variablesGlobalRegexNoJSON   = new RegExp(commentStr + '*\\t+' + keyStr + 
 const variablesRegexNoJSON         = new RegExp(commentStr + '*\\t+' + keyStr + ' +' + typeStr)
 const mapRegex                     = new RegExp('map\\[([\\.\\w]+)\\](\\[\\])?')
 
+// TODOs
+// - Confirm arrays and mappings env variable construction
+// - Add nested structs description
+// - Investigate duplicate entries
+
 // Fetch the seclected product(s) from the argument
 process.argv[2].split(',').forEach(async a => {
   const [ p, branch = 'master' ] = a.split(':'),
@@ -184,7 +189,7 @@ function getVariables(struct, data, prefix, dependencies) {
 // Iternate through the different variables and pull their information as well
 // as recursively going in and resolving types that have their own structs
 function getVariablesHelper(variables, re, data, prefix, dependencies, configs) {
-  let match, description, key, type, json, mapMatch, map, header, vars, obj
+  let match, description, key, type, json, mapMatch, map, config, header, vars
 
   variables.forEach(variable => {
     match  = variable.match(re)
@@ -217,21 +222,11 @@ function getVariablesHelper(variables, re, data, prefix, dependencies, configs) 
       )
     // Types with [] prefix
     } else if (type.startsWith('[]') && testVariableRegex(type.slice(2), data)) {
-      obj = []
+      header = true
 
-      getStruct(type.slice(2), data, prefix, dependencies).forEach(variable => {
-        obj.push(createVariableObject(ARRAY, key, map, json, prefix, variable))
-      })
-
-      vars.push({
-        flavour: 'variable',
-        description: description,
-        key: key,
-        json: json,
-        type: type,
-        nested: obj,
-      })
-      
+      getStruct(type.slice(2), data, prefix, dependencies).forEach(variable =>
+        vars.push(createVariableObject(ARRAY, key, map, json, prefix, variable))
+      )
     // Add support for configs that have dependencies on other configs
     } else if (type.includes('.') && type.split('.')[0] in dependencies) {
       const [ k, struct ] = type.split('.')
@@ -284,26 +279,26 @@ function testVariableRegex(type, data) {
 
 function createVariableObject(type, key, map, json, prefix, variable) {
   const object = {
+    flavour: 'variable',
     description: variable.description,
-    type: variable.type,
+    key: `${key}_${variable.key}`,
+    json: `${json}.${variable.json}`,
   }
 
   switch (type) {
     case TYPE:
-      object.flavour = 'variable'
-      object.env = `${prefix}_${key.toUpperCase()}_${variable.key.toUpperCase()}`
-      object.key = `${key}_${variable.key}`
-      object.json = `${json}.${variable.json}`
+      object.env  = `${prefix}_${key.toUpperCase()}_${variable.key.toUpperCase()}`
+      object.type = variable.type
       break
 
     case ARRAY:
-      object.key = variable.key
-      object.json = variable.json
+      // TODO: is this correct?
+      object.env  = `${prefix}_${key.toUpperCase()}_${variable.key.toUpperCase()}`
+      object.type = `[]${variable.type}`
       break
   }
 
   if (map) object.type = `${map}${object.type}`
-  if (variable.nested) object.nested = variable.nested
 
   return object
 }
