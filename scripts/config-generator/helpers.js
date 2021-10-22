@@ -79,7 +79,7 @@ const arrayObjectTransformer = (type, nested, description) => {
     '\n| Variable | Type | Key | Description |' +
     '\n| ----------- | ----------- | ----------- | ----------- |'
 
-  nested.forEach(item => d += `\n| ${item.key} | ${item.type} | ${item.json} | ${item.description} |`)
+  nested.forEach(item => d += `\n| ${item.key} | ${item.type} | ${item.json} | ${item.description || ''} |`)
 
   return description + '\n\n' + d
 }
