@@ -28,7 +28,7 @@ Setting up a gateway to be a shard, or a zone, is very easy. All you do is tell 
 ...
 ```
 
-Tags are always treated as OR conditions, so this node will pick up all APIs that are marked as `internal` or `node-1`.
+Tags are always treated as OR conditions, so this node will pick up all APIs that are marked as `private-gw` or `edge`.
 
 
 {{< note success >}}
