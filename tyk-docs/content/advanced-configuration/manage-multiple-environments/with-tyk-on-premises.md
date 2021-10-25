@@ -23,7 +23,7 @@ Setting up a gateway to be a shard, or a zone, is very easy. All you do is tell 
 ...
 "db_app_conf_options": {
   "node_is_segmented": true,
-  "tags": ["internal", "node-1"]
+  "tags": ["private-gw", "edge"]
 },
 ...
 ```
@@ -70,7 +70,7 @@ Also, for every Gateway selected, there will be an API URL presented at the top 
 In your API definition, add a tags section to the root of the API Definition:
 
 ```{.copyWrapper}
-"tags": ["internal"]
+"tags": ["private-gw"]
 ```
 
 This will also set the tags for the API and when API requests are made through this Gateway, these tags will be transferred in to the analytics data set.

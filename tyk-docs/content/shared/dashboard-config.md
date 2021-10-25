@@ -728,14 +728,14 @@ List of Edge Gateways, that will be displayed in the Dashboard UI, so that you c
 ```
   "edge_endpoints": [
     {
-      "name": "US West",
+      "name": "Private Gateway",
       "endpoint": "https://payable-matter-gw.aws-euw2.cloud-ara.tyk.io",
-      "tags": ["edge", "aws-eu-west-2"]
+      "tags": ["edge", "private-gw"]
     },
     {
-      "name": "EU West",
+      "name": "Public Gateway",
       "endpoint": "video-taped-gokart-gw.aws-usw2.cloud-ara.tyk.io",
-      "tags": ["edge", "aws-us-west-2"]
+      "tags": ["edge", "public-gw"]
     }
   ]
 ```
