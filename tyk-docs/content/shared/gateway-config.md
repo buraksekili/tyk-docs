@@ -954,9 +954,6 @@ Path to a MaxMind GeoIP database
 The analytics GeoIP DB can be replaced on disk. It will cleanly auto-reload every hour.
 
 ### analytics_config.normalise_urls
-EV: **TYK_GW_ANALYTICSCONFIG_NORMALISEURLS**<br />
-Type: `NormalisedURLConfig`<br />
-
 This section describes methods that enable you to normalise inbound URLs in your analytics to have more meaningful per-path data.
 
 ### analytics_config.normalise_urls.enabled
@@ -1522,6 +1519,9 @@ Type: `string`<br />
 StatsD prefix
 
 ### event_handlers
+EV: **TYK_GW_EVENTHANDLERS**<br />
+Type: `apidef.EventHandlerMetaConfig`<br />
+
 Event System
 
 ### hide_generator_header
@@ -1667,3 +1667,4 @@ EV: **TYK_GW_JWTSSLINSECURESKIPVERIFY**<br />
 Type: `bool`<br />
 
 Skip TLS verification for JWT JWKs url validation
+
