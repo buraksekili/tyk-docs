@@ -1,5 +1,3 @@
----
----
 ### listen_port
 EV: **TYK_DB_LISTENPORT**<br />
 Type: `int`<br />
@@ -71,6 +69,12 @@ Type: `string`<br />
 
 Path to the PEM file which contains both client certificate and private key. This is required for Mutual TLS.
 
+### mongo_session_consistency
+EV: **TYK_DB_MONGOSESSIONCONSISTENCY**<br />
+Type: `string`<br />
+
+Mongo session constency: “strong”, “eventual”, or “monotonic”. default is “strong”
+
 ### mongo_batch_size
 EV: **TYK_DB_MONGOBATCHSIZE**<br />
 Type: `int`<br />
@@ -83,6 +87,156 @@ EV: **TYK_DB_PAGESIZE**<br />
 Type: `int`<br />
 
 The page size that the dashboard should use. Defaults to 10.
+
+### storage.main.postgres.prefer_simple_protocol
+EV: **TYK_DB_STORAGE_MAIN_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+Type: `bool`<br />
+
+disables implicit prepared statement usage
+
+### storage.main.mysql.default_string_size
+EV: **TYK_DB_STORAGE_MAIN_MYSQL_DEFAULTSTRINGSIZE**<br />
+Type: `uint`<br />
+
+default size for string fields. By default set to: 256
+
+### storage.main.mysql.disable_datetime_precision
+EV: **TYK_DB_STORAGE_MAIN_MYSQL_DISABLEDATETIMEPRECISION**<br />
+Type: `bool`<br />
+
+disable datetime precision, which not supported before MySQL 5.6
+
+### storage.main.mysql.dont_support_rename_index
+EV: **TYK_DB_STORAGE_MAIN_MYSQL_DONTSUPPORTRENAMEINDEX**<br />
+Type: `bool`<br />
+
+drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+
+### storage.main.mysql.dont_support_rename_column
+EV: **TYK_DB_STORAGE_MAIN_MYSQL_DONTSUPPORTRENAMECOLUMN**<br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB
+
+### storage.main.mysql.skip_initialize_with_version
+EV: **TYK_DB_STORAGE_MAIN_MYSQL_SKIPINITIALIZEWITHVERSION**<br />
+Type: `bool`<br />
+
+auto configure based on currently MySQL version
+
+### storage.analytics.postgres.prefer_simple_protocol
+EV: **TYK_DB_STORAGE_ANALYTICS_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+Type: `bool`<br />
+
+disables implicit prepared statement usage
+
+### storage.analytics.mysql.default_string_size
+EV: **TYK_DB_STORAGE_ANALYTICS_MYSQL_DEFAULTSTRINGSIZE**<br />
+Type: `uint`<br />
+
+default size for string fields. By default set to: 256
+
+### storage.analytics.mysql.disable_datetime_precision
+EV: **TYK_DB_STORAGE_ANALYTICS_MYSQL_DISABLEDATETIMEPRECISION**<br />
+Type: `bool`<br />
+
+disable datetime precision, which not supported before MySQL 5.6
+
+### storage.analytics.mysql.dont_support_rename_index
+EV: **TYK_DB_STORAGE_ANALYTICS_MYSQL_DONTSUPPORTRENAMEINDEX**<br />
+Type: `bool`<br />
+
+drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+
+### storage.analytics.mysql.dont_support_rename_column
+EV: **TYK_DB_STORAGE_ANALYTICS_MYSQL_DONTSUPPORTRENAMECOLUMN**<br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB
+
+### storage.analytics.mysql.skip_initialize_with_version
+EV: **TYK_DB_STORAGE_ANALYTICS_MYSQL_SKIPINITIALIZEWITHVERSION**<br />
+Type: `bool`<br />
+
+auto configure based on currently MySQL version
+
+### storage.logs.postgres.prefer_simple_protocol
+EV: **TYK_DB_STORAGE_LOGS_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+Type: `bool`<br />
+
+disables implicit prepared statement usage
+
+### storage.logs.mysql.default_string_size
+EV: **TYK_DB_STORAGE_LOGS_MYSQL_DEFAULTSTRINGSIZE**<br />
+Type: `uint`<br />
+
+default size for string fields. By default set to: 256
+
+### storage.logs.mysql.disable_datetime_precision
+EV: **TYK_DB_STORAGE_LOGS_MYSQL_DISABLEDATETIMEPRECISION**<br />
+Type: `bool`<br />
+
+disable datetime precision, which not supported before MySQL 5.6
+
+### storage.logs.mysql.dont_support_rename_index
+EV: **TYK_DB_STORAGE_LOGS_MYSQL_DONTSUPPORTRENAMEINDEX**<br />
+Type: `bool`<br />
+
+drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+
+### storage.logs.mysql.dont_support_rename_column
+EV: **TYK_DB_STORAGE_LOGS_MYSQL_DONTSUPPORTRENAMECOLUMN**<br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB
+
+### storage.logs.mysql.skip_initialize_with_version
+EV: **TYK_DB_STORAGE_LOGS_MYSQL_SKIPINITIALIZEWITHVERSION**<br />
+Type: `bool`<br />
+
+auto configure based on currently MySQL version
+
+### storage.uptime.postgres.prefer_simple_protocol
+EV: **TYK_DB_STORAGE_UPTIME_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+Type: `bool`<br />
+
+disables implicit prepared statement usage
+
+### storage.uptime.mysql.default_string_size
+EV: **TYK_DB_STORAGE_UPTIME_MYSQL_DEFAULTSTRINGSIZE**<br />
+Type: `uint`<br />
+
+default size for string fields. By default set to: 256
+
+### storage.uptime.mysql.disable_datetime_precision
+EV: **TYK_DB_STORAGE_UPTIME_MYSQL_DISABLEDATETIMEPRECISION**<br />
+Type: `bool`<br />
+
+disable datetime precision, which not supported before MySQL 5.6
+
+### storage.uptime.mysql.dont_support_rename_index
+EV: **TYK_DB_STORAGE_UPTIME_MYSQL_DONTSUPPORTRENAMEINDEX**<br />
+Type: `bool`<br />
+
+drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+
+### storage.uptime.mysql.dont_support_rename_column
+EV: **TYK_DB_STORAGE_UPTIME_MYSQL_DONTSUPPORTRENAMECOLUMN**<br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB
+
+### storage.uptime.mysql.skip_initialize_with_version
+EV: **TYK_DB_STORAGE_UPTIME_MYSQL_SKIPINITIALIZEWITHVERSION**<br />
+Type: `bool`<br />
+
+auto configure based on currently MySQL version
+
+### admin_secret
+EV: **TYK_DB_ADMINSECRET**<br />
+Type: `string`<br />
+
+This secret is to be used by a special set of endpoints that we call “Admin APIs”. This API is part of the super-admin context and therefore has a separate endpoint prefix `/admin`. It also requires a special auth header called admin-auth. This purpose of these endpoints is to allow functionality that regular Dashboard users should not have, such as create new organisations, create super users etc. See the [Admin API](https://tyk.io/docs/dashboard-admin-api/) for more information on these endpoints.
 
 ### shared_node_secret
 EV: **TYK_DB_NODESECRET**<br />
@@ -351,11 +505,44 @@ Type: `bool`<br />
 
 If you prefer to have your URLs start with https, set this option to true.
 
+### host_config.secure_cookies
+EV: **TYK_DB_HOSTCONFIG_SECURECOOKIES**<br />
+Type: `bool`<br />
+
+This enables HTTPS “secure” cookies.
+
+### http_server_options
+This section is reserved for settings relating to the HTTP server that powers the Dashboard.
+
 ### http_server_options.use_ssl
 EV: **TYK_DB_HTTPSERVEROPTIONS_USESSL**<br />
 Type: `bool`<br />
 
 Enable to use SSL.
+
+### http_server_options.certificates
+EV: **TYK_DB_HTTPSERVEROPTIONS_CERTIFICATES**<br />
+Type: `[]CertData`<br />
+
+Add a certificate block for each domain being covered by the application.
+
+For example:
+
+```
+{
+  "domain_name": "*.banana.com",
+  "cert_file": "new.cert.cert",
+  "key_file": "new.cert.key"
+}
+```
+
+**CertData Object**
+
+| Variable | Type | Key | Description |
+| ----------- | ----------- | ----------- | ----------- |
+| Name | string | domain_name |  |
+| CertFile | string | cert_file |  |
+| KeyFile | string | key_file |  |
 
 ### http_server_options.min_version
 EV: **TYK_DB_HTTPSERVEROPTIONS_MINVERSION**<br />
@@ -374,6 +561,17 @@ EV: **TYK_DB_HTTPSERVEROPTIONS_SSLINSECURESKIPVERIFY**<br />
 Type: `bool`<br />
 
 Disable TLS verifiation
+
+### http_server_options.prefer_server_ciphers
+EV: **TYK_DB_HTTPSERVEROPTIONS_PREFERSERVERCIPHERSUITES**<br />
+Type: `bool`<br />
+
+A boolean value to control whether the server selects the preferred ciphersuite for the client, or the preferred ciphersuite for the server. If set to true, the server preferences in the order of the elements listed in `ssl_ciphers` is used.
+
+For more information see [TLS and SSL](https://tyk.io/docs/basic-config-and-security/security/tls-and-ssl/)
+
+### security
+This section controls login limits for both the Dashboard and the Developer Portal. The path for you audit log is also set here.
 
 ### security.allow_admin_reset_password
 EV: **TYK_DB_SECURITY_ALLOWADMINRESETPASSWORD**<br />
@@ -442,40 +640,42 @@ Type: `string`<br />
 If CSP enabled, specify space separated string, with list of allowed resources.
 
 ### security.open_policy
-Open Policy Agent (OPA) Configuration. See [Open Policy Agent]({{< ref "/content/tyk-stack/tyk-manager/open-policy-agent.md" >}})
+EV: **TYK_DB_SECURITY_OPENPOLICY**<br />
+Type: `OpenPolicy`<br />
+
+OpenPolicy configuration
 
 ### security.open_policy.enabled
 EV: **TYK_DB_SECURITY_OPENPOLICY_ENABLED**<br />
 Type: `bool`<br />
 
-Enables support for OPA.
+Enable OpenPolicy
 
 ### security.open_policy.debug
 EV: **TYK_DB_SECURITY_OPENPOLICY_DEBUG**<br />
 Type: `bool`<br />
 
-Enable OPA debugging mode.
+Enable OpenPolicy debug mode
 
 ### security.open_policy.enable_api
 EV: **TYK_DB_SECURITY_OPENPOLICY_ENABLEAPI**<br />
 Type: `bool`<br />
 
-Enables access to the OPA API, even for users with an Admin role.
+Enable modify OpenPolicy rules via UI and API
 
 ### security.additional_permissions
 EV: **TYK_DB_SECURITY_ADDITIONALPERMISSIONS**<br />
 Type: `map[ObjectGroup]string`<br />
 
-This option allows you to provide a list of additional permissions, that can be applied for existing or newly created users or user groups.
+Through this options, you can provide a list of additional permissions, that can be applief for existing or newly created users or user groups. Example:
 
-Example:
-
-```{copy.Wrapper}
+```
 {
-    "api_developer": "API Developer",
-    "custom_permission": "Custom Permission"
+  "api_developer": "API Developer",
+  "custom_permission": "Custom Permission"
 }
 ```
+
 ### security.private_certificate_encoding_secret
 EV: **TYK_DB_SECURITY_PRIVATECERTIFICATEENCODINGSECRET**<br />
 Type: `string`<br />
@@ -720,3 +920,24 @@ Type: `string`<br />
 
 StatsD prefix
 
+### edge_endpoints
+EV: **TYK_DB_EDGEENDPOINTS**<br />
+Type: `[]Endpoint`<br />
+
+List of Edge Gateways, that will be displayed in the Dashboard UI, so that you can select to which specific Gateway(s) you want to load an API into. Example:
+```
+  "edge_endpoints": [
+    {
+      "name": "Private Gateway",
+      "endpoint": "https://payable-matter-gw.aws-euw2.cloud-ara.tyk.io",
+      "tags": ["edge", "private-gw"]
+    },
+    {
+      "name": "Public Gateway",
+      "endpoint": "video-taped-gokart-gw.aws-usw2.cloud-ara.tyk.io",
+      "tags": ["edge", "public-gw"]
+    }
+  ]
+```
+
+For every `Edge Gateway` there needs to be defined, its name, the ingress URL and a list of tags that APIs will use for triggering Gateways to load its configuration.
