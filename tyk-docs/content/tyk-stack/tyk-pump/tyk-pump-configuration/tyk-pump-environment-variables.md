@@ -145,3 +145,4 @@ TYK_PMP_PUMPS_PROM_META_PATH= "/metrics"
 
 You have now configured all 3 pumps specified in your config file with environment variables.
 
+{{< include "pump-config.md" >}}
