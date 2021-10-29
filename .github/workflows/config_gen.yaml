@@ -11,7 +11,7 @@ on:
         required: true
         default: 'master'
       repo:
-        description: 'Project ID. Allowed values: gateway, dashboard'     
+        description: 'Project ID. Allowed values: gateway, dashboard, pump'     
         required: true
         default: ''
 

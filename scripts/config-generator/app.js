@@ -12,8 +12,13 @@ const WITHOUT_JSON = 2
 // Define different types of variables
 const TYPE  = 1
 const ARRAY = 2
+const PUMP  = 3
 
-const commentStr = '(\\t+\\/\\/[ %\-><\\}\\{#"`’“”\\*\\?\':\\/\\(\\)\\[\\]\\.,\\w]*\\n)'
+// Define Pumps key value
+const PUMPS = 'Pumps'
+const GHAPIURL = 'https://api.github.com/'.length
+
+const commentStr = '(\\t+\\/\\/[ %\-><\\}\\{#"`’“”\\*\\?\':\\/\\(\\)\\[\\]\\.@,\\w]*\\n)'
 const keyStr     = '([_\\w]+)'
 const typeStr    = '([\\{\\}\\*\\.\\[\\]\\w]+)'
 const jsonStr    = 'json:"([-\\.\\w]+)"'
@@ -25,6 +30,8 @@ const variablesRegexWithJSON       = new RegExp(commentStr + '*\\t+' + keyStr + 
 const variablesGlobalRegexNoJSON   = new RegExp(commentStr + '*\\t+' + keyStr + ' +' + typeStr, 'g')
 const variablesRegexNoJSON         = new RegExp(commentStr + '*\\t+' + keyStr + ' +' + typeStr)
 const mapRegex                     = new RegExp('map\\[([\\.\\w]+)\\](\\[\\])?')
+const pumpConfig                   = new RegExp('\\/\\/ @PumpConf ([a-zA-Z]+)\\ntype ([a-zA-Z]+) struct {', 's')
+const expandConfig                 = new RegExp('\\t+\\/\\/ TYKCONFIGEXPAND\\n\\t+([\\.\\w]+)( [a-zA-Z\\`\\"\\:\\,]+)?\\n', 's')
 
 // Fetch the seclected product(s) from the argument
 process.argv[2].split(',').forEach(async a => {
@@ -34,12 +41,29 @@ process.argv[2].split(',').forEach(async a => {
   // Check if the user provided a correct argument
   if (product) {
     // Create directory if it does not exist
-    fs.mkdirSync(`./${product.path.dir}${branch}`, { recursive: true })
+    fs.mkdirSync(`${product.path.dir}${branch}`, { recursive: true })
 
     // Fetch all required files
     product.entrypoint.file = await h.fetchFile(product.entrypoint.path, branch)
     for (const [ key, path ] of Object.entries(product.dependencies)) {
       product.dependencies[key] = await h.fetchFile(path)
+    }
+
+    // If generating configs for the Tyk Pump then pull in all the pumps in the
+    // pumps folder and add them to the dependencies.
+    if (CONFIGS.pump.prefix === product.prefix) {
+      // Get the pumps folder structure
+      const pumpsFolder = await h.getPumpsFolder(branch)
+
+      let file, m
+      for (let i = 0; i < pumpsFolder.length; ++i) {
+        // Fetch pump file
+        file = await h.fetchFile(pumpsFolder[i].url.slice(GHAPIURL))
+
+        // Check if file is a pump. If so, add it to the dependency list.
+        m = file.match(pumpConfig)
+        if (m) product.dependencies[`pumps.${m[2]}`] = file
+      }
     }
 
     const variables = getStruct(
@@ -52,7 +76,7 @@ process.argv[2].split(',').forEach(async a => {
     // Write the result in the file associated the product selected
     fs.writeFileSync(
       // Path for file
-      `./${product.path.dir}${branch}/${product.path.file}.json`,
+      `${product.path.dir}${branch}/${product.path.file}.json`,
       // Josnified and prettified output of the script
       JSON.stringify(variables, null, 2)
     )
@@ -60,7 +84,7 @@ process.argv[2].split(',').forEach(async a => {
     // Write the markdown in the file associated the product selected
     fs.writeFileSync(
       // Path for file
-      `./${product.path.dir}${branch}/${product.path.file}.md`,
+      `${product.path.dir}${branch}/${product.path.file}.md`,
       // Josnified and prettified output of the script
       h.generateMarkdown(variables)
     )
@@ -90,6 +114,8 @@ function getStruct(name, data, prefix, dependencies) {
     struct = innerStructHelper(WITH_JSON, struct, data, prefix, dependencies)
     // Add support for structs that don't have json
     struct = innerStructHelper(WITHOUT_JSON, struct, data, prefix, dependencies)
+    // Add support for structs that don't have json
+    struct = expandStruct(struct, prefix, dependencies)
 
     // Return the output of the getVariables function which is list of
     // variables with all its info
@@ -123,7 +149,7 @@ function innerStructHelper(mode, struct, data, prefix, dependencies) {
 
       p = ""
       if (variable.description) p += `\t\/\/ ${variable.description.trim()}\n`
-      p+= `\t${key}_${variable.key} ${variable.type}`
+      p+= `\t${key}.${variable.key} ${variable.type}`
       p+= WITH_JSON === mode ? ` \`json:"${json}.${variable.json}"\`\n` : '\n'
 
       return p
@@ -139,6 +165,30 @@ function innerStructHelper(mode, struct, data, prefix, dependencies) {
   }
 
   // Return the modified struct
+  return struct
+}
+
+function expandStruct(struct, prefix, dependencies) {
+  let result, name, parsed
+  while (expandConfig.test(struct)) {
+    result = struct.match(expandConfig)
+
+    if (result) {
+      name = result[1]
+      if (dependencies[name]) {
+        parsed = getStruct(name.split('.').pop(), dependencies[name], prefix, dependencies).map(variable => {
+          p = ""
+          if (variable.description) p += `\t\/\/ ${variable.description.trim()}\n`
+          p+= `\t${variable.key} ${variable.type} \`json:"${variable.json}"\`\n`
+
+          return p
+        }).join('')
+      }
+
+      struct = struct.replace(expandConfig, parsed)
+    }
+  }
+
   return struct
 }
 
@@ -212,9 +262,24 @@ function getVariablesHelper(variables, re, data, prefix, dependencies, configs) 
     if (testVariableRegex(type, data)) {
       header = true
 
-      getStruct(type, data, prefix, dependencies).forEach(variable =>
-        vars.push(createVariableObject(TYPE, key, map, json, prefix, variable))
-      )
+      getStruct(type, data, prefix, dependencies).forEach(async variable => {
+        if ('TYK_PMP_META' === variable.env) {
+
+          let m, name, pump
+          Object.keys(dependencies).map(key => {
+            if (key.startsWith('pumps.')) {
+              pump = dependencies[key]
+              m = pump.match(pumpConfig)
+              name = m[1]
+
+              getStruct(m[2], pump, `TYK_PMP_PUMPS_${name.toUpperCase()}_META`, dependencies).forEach(variable =>
+                vars.push(createVariableObject(PUMP, name, false, undefined, 'TYK_PMP', variable))
+              )
+            }
+          })
+
+        } else vars.push(createVariableObject(TYPE, key, map, json, prefix, variable))
+      })
     // Types with [] prefix
     } else if (type.startsWith('[]') && testVariableRegex(type.slice(2), data)) {
       obj = []
@@ -231,20 +296,14 @@ function getVariablesHelper(variables, re, data, prefix, dependencies, configs) 
         type: type,
         nested: obj,
       })
-      
+
     // Add support for configs that have dependencies on other configs
-    } else if (type.includes('.') && type.split('.')[0] in dependencies) {
-      const [ k, struct ] = type.split('.')
+    } else if (type in dependencies) {
       header = true
 
-      getStruct(struct, dependencies[k], prefix, dependencies).forEach(variable =>
+      getStruct(type.split('.')[1], dependencies[type], prefix, dependencies).forEach(variable =>
         vars.push(createVariableObject(TYPE, key, map, json, prefix, variable))
       )
-
-      if ('MongoConf' === struct)
-        getStruct('BaseMongoConf', dependencies[k], prefix, dependencies).forEach(variable =>
-          vars.push(createVariableObject(TYPE, key, map, json, prefix, variable))
-        )
 
     // Basic types or types not found or not supported
     } else {
@@ -288,11 +347,22 @@ function createVariableObject(type, key, map, json, prefix, variable) {
     type: variable.type,
   }
 
+  let env = key.toUpperCase()
+
+  if (prefix === CONFIGS.pump.prefix && PUMPS === key) {
+    key = `${PUMPS}.{PMP_NAME}`
+    env = `${PUMPS.toUpperCase()}_{PMP_NAME}`
+    json = `${json}.{PMP_NAME}`
+  }
+  else if (map) object.type = `${map}${object.type}`
+
+  if (variable.nested) object.nested = variable.nested
+
   switch (type) {
     case TYPE:
-      object.flavour = 'variable'
-      object.env = `${prefix}_${key.toUpperCase()}_${variable.key.toUpperCase()}`
-      object.key = `${key}_${variable.key}`
+      object.flavour = variable.flavour || 'variable'
+      object.env = `${prefix}_${env}_${variable.key.toUpperCase()}`
+      object.key = `${key}.${variable.key}`
       object.json = `${json}.${variable.json}`
       break
 
@@ -300,10 +370,13 @@ function createVariableObject(type, key, map, json, prefix, variable) {
       object.key = variable.key
       object.json = variable.json
       break
-  }
 
-  if (map) object.type = `${map}${object.type}`
-  if (variable.nested) object.nested = variable.nested
+    case PUMP:
+      object.flavour = variable.flavour || 'variable'
+      object.key = variable.key
+      object.env = variable.env
+      object.json = `pumps.${key}.meta.${variable.json}`
+  }
 
   return object
 }

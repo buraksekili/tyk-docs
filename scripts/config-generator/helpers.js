@@ -1,22 +1,37 @@
 const https = require('https')
 
 // Fetch config file from github repo
-const fetchFile = async (path, branch = 'master') => {
+const fetchFile = async (path, branch) => new Promise(resolve => {
+  https.get(`https://api.github.com/${path}${branch ? `?ref=${branch}` : ''}`, {
+    headers: {
+      'Authorization': `token ${process.env.TOKEN}`,
+      'Accept': 'application/vnd.github.v3.raw',
+      'User-Agent': 'request'
+    }
+  }, res => {
+    const body = []
+    res.on('data', chunk => body.push(chunk))
+    res.on('end', () => resolve(Buffer.concat(body).toString()))
+  })
+})
+
+// Get pumps folder from tyk-pump repo
+const getPumpsFolder = async (branch) => {
   return new Promise(resolve => {
-    https.get(`https://api.github.com/${path}?ref=${branch}`, {
+    https.get(`https://api.github.com/repos/TykTechnologies/tyk-pump/contents/pumps${branch ? `?ref=${branch}` : ''}`, {
       headers: {
-        'Authorization': `token ${process.env.TOKEN}`,
         'Accept': 'application/vnd.github.v3.raw',
         'User-Agent': 'request'
       }
     }, res => {
-      const body = []
+      const body = [], pumps = {}
       res.on('data', chunk => body.push(chunk))
-      res.on('end', () => resolve(Buffer.concat(body).toString()))
+      res.on('end', () => resolve(JSON.parse(Buffer.concat(body).toString())))
     })
   })
 }
 
+// Generate Markdown for the documentation
 const generateMarkdown = variables => {
   let markdown = "", configs = {}
 
@@ -79,12 +94,13 @@ const arrayObjectTransformer = (type, nested, description) => {
     '\n| Variable | Type | Key | Description |' +
     '\n| ----------- | ----------- | ----------- | ----------- |'
 
-  nested.forEach(item => d += `\n| ${item.key} | ${item.type} | ${item.json} | ${item.description || ''} |`)
+  nested.forEach(item => d += `\n| ${item.key} | ${item.type} | ${item.json} | ${item.description} |`)
 
   return description + '\n\n' + d
 }
 
 module.exports = {
   fetchFile: fetchFile,
+  getPumpsFolder: getPumpsFolder,
   generateMarkdown: generateMarkdown
 }

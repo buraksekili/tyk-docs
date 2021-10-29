@@ -6,7 +6,8 @@
       "struct": "Config"
     },
     "dependencies": {
-      "apidef": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go"
+      "apidef.AuthProviderMeta": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go",
+      "apidef.SessionProviderMeta": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
@@ -32,9 +33,10 @@
       "struct": "TykPumpConfiguration"
     },
     "dependencies": {
-      "pumps": "repos/TykTechnologies/tyk-pump/contents/pumps/mongo.go",
-      "storage": "repos/TykTechnologies/tyk-pump/contents/storage/redis.go",
-      "analytics": "repos/TykTechnologies/tyk-pump/contents/analytics/analytics_filters.go"
+      "storage.RedisStorageConfig": "repos/TykTechnologies/tyk-pump/contents/storage/redis.go",
+      "analytics.AnalyticsFilters": "repos/TykTechnologies/tyk-pump/contents/analytics/analytics_filters.go",
+      "BaseMongoConf": "repos/TykTechnologies/tyk-pump/contents/pumps/mongo.go",
+      "SQLConf": "repos/TykTechnologies/tyk-pump/contents/pumps/sql.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
@@ -48,7 +50,7 @@
       "struct": "Configuration"
     },
     "dependencies": {
-      "tyk": "repos/TykTechnologies/tyk-identity-broker/contents/tyk-api/tyk_api.go"
+      "tyk.TykAPI": "repos/TykTechnologies/tyk-identity-broker/contents/tyk-api/tyk_api.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
