@@ -640,9 +640,6 @@ Type: `string`<br />
 If CSP enabled, specify space separated string, with list of allowed resources.
 
 ### security.open_policy
-EV: **TYK_DB_SECURITY_OPENPOLICY**<br />
-Type: `OpenPolicy`<br />
-
 OpenPolicy configuration
 
 ### security.open_policy.enabled
@@ -920,24 +917,3 @@ Type: `string`<br />
 
 StatsD prefix
 
-### edge_endpoints
-EV: **TYK_DB_EDGEENDPOINTS**<br />
-Type: `[]Endpoint`<br />
-
-List of Edge Gateways, that will be displayed in the Dashboard UI, so that you can select to which specific Gateway(s) you want to load an API into. Example:
-```
-  "edge_endpoints": [
-    {
-      "name": "Private Gateway",
-      "endpoint": "https://payable-matter-gw.aws-euw2.cloud-ara.tyk.io",
-      "tags": ["edge", "private-gw"]
-    },
-    {
-      "name": "Public Gateway",
-      "endpoint": "video-taped-gokart-gw.aws-usw2.cloud-ara.tyk.io",
-      "tags": ["edge", "public-gw"]
-    }
-  ]
-```
-
-For every `Edge Gateway` there needs to be defined, its name, the ingress URL and a list of tags that APIs will use for triggering Gateways to load its configuration.
