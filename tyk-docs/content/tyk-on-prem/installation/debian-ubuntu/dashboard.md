@@ -132,6 +132,8 @@ gpg: Good signature from "Team Tyk (package signing) <team@tyk.io>" [ultimate]
 
 ## Configure Tyk Dashboard
 
+{{< tabs_start >}}
+{{< tab_start "MongDB" >}}
 ### Prerequisites
 
 You need to ensure the MongoDB and Redis services are running before proceeding.
@@ -168,6 +170,13 @@ What we have done here is:
 - `--tyk_node_port=8080`: Tell the dashboard that the Tyk node it should communicate with is on port 8080.
 - `--portal_root=/portal`: We want the portal to be shown on `/portal` of whichever domain we set for the portal.
 
+{{< tab_end >}}
+{{< tab_start "SQL" >}}
+
+Add SQL info here
+
+{{< tab_end >}}
+{{< tabs_end >}}
 ### Step 1: Enter your Dashboard License
 
 Add your license in `/opt/tyk-dashboard/tyk_analytics.conf` in the `license` field.

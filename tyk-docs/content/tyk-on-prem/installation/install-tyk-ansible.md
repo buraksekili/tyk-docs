@@ -37,7 +37,7 @@ $ sh scripts/init.sh
 
 5. Run ansible-playbook to install the following:
 - Redis
-- MongoDB or one of our supported [SQL Platforms]({{< ref "/content/tyk-stack/tyk-manager/database-options.md" >}})
+- MongoDB or one of our supported [SQL Platforms] **Add link**
 - Tyk Dashboard
 - Tyk Gateway
 - Tyk Pump
@@ -90,7 +90,7 @@ Read more about MongoDB configuration [here](https://github.com/ansible-collecti
 
 **Add SQL Variables**
 
-Read more about SQL configuration [here]({{< ref "/content/planning-for-production/database-settings/sql-configuration.md" >}})
+Read more about SQL configuration [here]
 
 - `vars/redis.yml`
 
