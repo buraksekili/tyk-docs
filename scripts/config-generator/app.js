@@ -149,7 +149,7 @@ function innerStructHelper(mode, struct, data, prefix, dependencies) {
 
       p = ""
       if (variable.description) p += `\t\/\/ ${variable.description.trim()}\n`
-      p+= `\t${key}.${variable.key} ${variable.type}`
+      p+= `\t${key}_${variable.key} ${variable.type}`
       p+= WITH_JSON === mode ? ` \`json:"${json}.${variable.json}"\`\n` : '\n'
 
       return p
@@ -362,7 +362,7 @@ function createVariableObject(type, key, map, json, prefix, variable) {
     case TYPE:
       object.flavour = variable.flavour || 'variable'
       object.env = `${prefix}_${env}_${variable.key.toUpperCase()}`
-      object.key = `${key}.${variable.key}`
+      object.key = `${key}_${variable.key}`
       object.json = `${json}.${variable.json}`
       break
 
