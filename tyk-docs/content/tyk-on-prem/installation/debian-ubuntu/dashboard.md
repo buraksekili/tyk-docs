@@ -169,12 +169,9 @@ What we have done here is:
 - `--tyk_node_hostname=http://localhost`: The Tyk Dashboard needs to see a Tyk node in order to create new tokens, so we need to tell it where we can find one, in this case, use the one installed locally.
 - `--tyk_node_port=8080`: Tell the dashboard that the Tyk node it should communicate with is on port 8080.
 - `--portal_root=/portal`: We want the portal to be shown on `/portal` of whichever domain we set for the portal.
-
 {{< tab_end >}}
 {{< tab_start "SQL" >}}
-
 Add SQL info here
-
 {{< tab_end >}}
 {{< tabs_end >}}
 ### Step 1: Enter your Dashboard License
@@ -237,5 +234,5 @@ To set up your [Developer Portal]({{< ref "/content/tyk-stack/tyk-developer-port
 [1]: https://packagecloud.io/tyk
 [2]: /docs/getting-started/installation/with-tyk-on-premises/on-ubuntu/#prerequisites
 [3]: /docs/img/dashboard/system-management/bootstrap_screen.png
-{{< tab_end >}}
-{{< tabs_end >}}
+
+
