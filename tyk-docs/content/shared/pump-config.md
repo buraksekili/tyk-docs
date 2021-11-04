@@ -1,12 +1,12 @@
 ### purge_delay
-EV: **TYK_PMP_PURGEDELAY**<br />
+EV: <b>TYK_PMP_PURGEDELAY</b><br />
 Type: `int`<br />
 
 The number of seconds the Pump waits between checking for analytics data and purge it from
 Redis.
 
 ### purge_chunk
-EV: **TYK_PMP_PURGECHUNK**<br />
+EV: <b>TYK_PMP_PURGECHUNK</b><br />
 Type: `int64`<br />
 
 The maximum number of records to pull from Redis at a time. If it's unset or `0`, all the
@@ -14,24 +14,20 @@ analytics records in Redis are pulled. If it's set, `storage_expiration_time` is
 reset the analytics record TTL.
 
 ### storage_expiration_time
-EV: **TYK_PMP_STORAGEEXPIRATIONTIME**<br />
+EV: <b>TYK_PMP_STORAGEEXPIRATIONTIME</b><br />
 Type: `int64`<br />
 
 The number of seconds for the analytics records TTL. It only works if `purge_chunk` is
 enabled. Defaults to `60` seconds.
 
 ### dont_purge_uptime_data
-EV: **TYK_PMP_DONTPURGEUPTIMEDATA**<br />
+EV: <b>TYK_PMP_DONTPURGEUPTIMEDATA</b><br />
 Type: `bool`<br />
 
 Setting this to `false` will create a pump that pushes uptime data to Uptime Pump, so the
 Dashboard can read it. Disable by setting to `true`.
 
-### uptime_pump_config.mongo_url
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_MONGOURL**<br />
-Type: `string`<br />
-
-#### Mongo Uptime Pump
+### Mongo Uptime Pump
 In `uptime_pump_config` you can configure a mongo uptime pump. By default, the uptime pump
 is going to be `mongo` type, so it's not necessary to specify it here. The minimum required
 configurations for uptime pumps are:
@@ -41,41 +37,43 @@ configurations for uptime pumps are:
 * `mongo_url` - The uptime pump mongo connection url. It is usually something like
 "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}".
 
+### uptime_pump_config.mongo_url
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MONGOURL</b><br />
+Type: `string`<br />
+
+
+
 ### uptime_pump_config.collection_name
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONNAME**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONNAME</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### uptime_pump_config.max_insert_batch_size_bytes
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_MAXINSERTBATCHSIZEBYTES**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### uptime_pump_config.max_document_size_bytes
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_MAXDOCUMENTSIZEBYTES**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### uptime_pump_config.collection_cap_max_size_bytes
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPMAXSIZEBYTES**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPMAXSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### uptime_pump_config.collection_cap_enable
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPENABLE**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPENABLE</b><br />
 Type: `bool`<br />
 
 [ADD COMMENT]
 
-### uptime_pump_config.type
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_TYPE**<br />
-Type: `string`<br />
-
-#### SQL Uptime Pump
+### SQL Uptime Pump
 *Supported in Tyk Pump v1.5.0+*
 
 In `uptime_pump_config` you can configure a SQL uptime pump. To do that, you need to add the
@@ -94,34 +92,70 @@ An example of a SQL Postgres uptime pump would be:
 
 Take into account that you can also set `log_level` field into the `uptime_pump_config` to `debug`,
 `info` or `warning`. By default, the SQL logger verbosity is `silent`.
+
+### uptime_pump_config.type
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_TYPE</b><br />
+Type: `string`<br />
+
+
 The supported and tested types are `mysql` and `postgres`. [VALIDATE]
 
 ### uptime_pump_config.connection_string
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_CONNECTIONSTRING**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_CONNECTIONSTRING</b><br />
 Type: `string`<br />
 
 Specifies the connection string to the database.
 
 ### uptime_pump_config.postgres
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES</b><br />
 Type: `PostgresConfig`<br />
 
 Postgres configurations.
 
 ### uptime_pump_config.postgres.prefer_simple_protocol
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
 Type: `bool`<br />
 
 Disables implicit prepared statement usage.
 
 ### uptime_pump_config.mysql
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_MYSQL**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL</b><br />
 Type: `MysqlConfig`<br />
 
 Mysql configurations.
 
+### uptime_pump_config.mysql.default_string_size
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DEFAULTSTRINGSIZE</b><br />
+Type: `uint`<br />
+
+Default size for string fields. Defaults to `256`.
+
+### uptime_pump_config.mysql.disable_datetime_precision
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DISABLEDATETIMEPRECISION</b><br />
+Type: `bool`<br />
+
+Disable datetime precision, which not supported before MySQL 5.6.
+
+### uptime_pump_config.mysql.dont_support_rename_index
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
+Type: `bool`<br />
+
+Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
+
+### uptime_pump_config.mysql.dont_support_rename_column
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB.
+
+### uptime_pump_config.mysql.skip_initialize_with_version
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
+Type: `bool`<br />
+
+Auto configure based on currently MySQL version.
+
 ### uptime_pump_config.uptime_type
-EV: **TYK_PMP_UPTIMEPUMPCONFIG_UPTIMETYPE**<br />
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_UPTIMETYPE</b><br />
 Type: `string`<br />
 
 Determines the uptime type. Options are `mongo` and `sql`. Defaults to `mongo`.
@@ -135,7 +169,7 @@ want a Kafka pump which is called `PROD` you need to create `TYK_PMP_PUMPS_PROD_
 and configure it using the `TYK_PMP_PUMPS_PROD_` prefix.
 
 ### pumps.{PMP_NAME}.name
-EV: **TYK_PMP_PUMPS_{PMP_NAME}_NAME**<br />
+EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_NAME</b><br />
 Type: `string`<br />
 
 Deprecated.
@@ -180,7 +214,7 @@ An example of configuration would be:
 ```
 
 ### pumps.{PMP_NAME}.timeout
-EV: **TYK_PMP_PUMPS_{PMP_NAME}_TIMEOUT**<br />
+EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_TIMEOUT</b><br />
 Type: `int`<br />
 
 You can configure a different timeout for each pump with the configuration option `timeout`.
@@ -210,14 +244,14 @@ following warning message: `Pump PMP_NAME is taking more time than the value con
 purge_delay. You should try lowering the timeout configured for this pump.`. 
 
 ### pumps.{PMP_NAME}.omit_detailed_recording
-EV: **TYK_PMP_PUMPS_{PMP_NAME}_OMITDETAILEDRECORDING**<br />
+EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_OMITDETAILEDRECORDING</b><br />
 Type: `bool`<br />
 
 Setting this to true will avoid writing raw_request and raw_response fields for each request
 in pumps. Defaults to `false`.
 
 ### pumps.{PMP_NAME}.max_record_size
-EV: **TYK_PMP_PUMPS_{PMP_NAME}_MAXRECORDSIZE**<br />
+EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_MAXRECORDSIZE</b><br />
 Type: `int`<br />
 
 Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
@@ -234,55 +268,55 @@ information. This can also be set at a pump level. For example:
 ```
 
 ### pumps.CSV.meta.csv_dir
-EV: **TYK_PMP_PUMPS_CSV_META_CSVDIR**<br />
+EV: <b>TYK_PMP_PUMPS_CSV_META_CSVDIR</b><br />
 Type: `string`<br />
 
 The directory where the CSV will be stored. [VALIDATE]
 
 ### pumps.DogStatsd.meta.namespace
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_NAMESPACE**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_NAMESPACE</b><br />
 Type: `string`<br />
 
 Prefix for your metrics to datadog.
 
 ### pumps.DogStatsd.meta.address
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_ADDRESS**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ADDRESS</b><br />
 Type: `string`<br />
 
 Address of the datadog agent including host & port.
 
 ### pumps.DogStatsd.meta.sample_rate
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_SAMPLERATE**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_SAMPLERATE</b><br />
 Type: `float64`<br />
 
 Defaults to `1` which equates to `100%` of requests. To sample at `50%`, set to `0.5`.
 
 ### pumps.DogStatsd.meta.async_uds
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDS**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDS</b><br />
 Type: `bool`<br />
 
 Enable async UDS over UDP https://github.com/Datadog/datadog-go#unix-domain-sockets-client.
 
 ### pumps.DogStatsd.meta.async_uds_write_timeout_seconds
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDSWRITETIMEOUT**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDSWRITETIMEOUT</b><br />
 Type: `int`<br />
 
 Integer write timeout in seconds if `async_uds: true`.
 
 ### pumps.DogStatsd.meta.buffered
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_BUFFERED**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_BUFFERED</b><br />
 Type: `bool`<br />
 
 Enable buffering of messages.
 
 ### pumps.DogStatsd.meta.buffered_max_messages
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_BUFFEREDMAXMESSAGES**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_BUFFEREDMAXMESSAGES</b><br />
 Type: `int`<br />
 
 Max messages in single datagram if `buffered: true`. Default 16.
 
 ### pumps.DogStatsd.meta.tags
-EV: **TYK_PMP_PUMPS_DOGSTATSD_META_TAGS**<br />
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_TAGS</b><br />
 Type: `[]string`<br />
 
 List of tags to be added to the metric. The possible options are listed in the below example.
@@ -337,21 +371,21 @@ On startup, you should see the loaded configs when initializing the dogstatsd pu
 ```
 
 ### pumps.Elasticsearch.meta.index_name
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_INDEXNAME**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_INDEXNAME</b><br />
 Type: `string`<br />
 
 The name of the index that all the analytics data will be placed in. Defaults to
 "tyk_analytics".
 
 ### pumps.Elasticsearch.meta.elasticsearch_url
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_ELASTICSEARCHURL**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ELASTICSEARCHURL</b><br />
 Type: `string`<br />
 
 If sniffing is disabled, the URL that all data will be sent to. Defaults to
 "http://localhost:9200".
 
 ### pumps.Elasticsearch.meta.use_sniffing
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_ENABLESNIFFING**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ENABLESNIFFING</b><br />
 Type: `bool`<br />
 
 If sniffing is enabled, the "elasticsearch_url" will be used to make a request to get a
@@ -359,47 +393,47 @@ list of all the nodes in the cluster, the returned addresses will then be used. 
 `false`.
 
 ### pumps.Elasticsearch.meta.document_type
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_DOCUMENTTYPE**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DOCUMENTTYPE</b><br />
 Type: `string`<br />
 
 The type of the document that is created in ES. Defaults to "tyk_analytics".
 
 ### pumps.Elasticsearch.meta.rolling_index
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_ROLLINGINDEX**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ROLLINGINDEX</b><br />
 Type: `bool`<br />
 
 Appends the date to the end of the index name, so each days data is split into a different
 index name. E.g. tyk_analytics-2016.02.28. Defaults to `false`.
 
 ### pumps.Elasticsearch.meta.extended_stats
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_EXTENDEDSTATISTICS**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_EXTENDEDSTATISTICS</b><br />
 Type: `bool`<br />
 
 If set to `true` will include the following additional fields: Raw Request, Raw Response and
 User Agent.
 
 ### pumps.Elasticsearch.meta.generate_id
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_GENERATEID**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_GENERATEID</b><br />
 Type: `bool`<br />
 
 When enabled, generate _id for outgoing records. This prevents duplicate records when
 retrying ES. [VALIDATE]
 
 ### pumps.Elasticsearch.meta.decode_base64
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_DECODEBASE64**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DECODEBASE64</b><br />
 Type: `bool`<br />
 
 Allows for the base64 bits to be decode before being passed to ES.
 
 ### pumps.Elasticsearch.meta.version
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_VERSION**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_VERSION</b><br />
 Type: `string`<br />
 
 Specifies the ES version. Use "3" for ES 3.X, "5" for ES 5.X, "6" for ES 6.X, "7" for ES
 7.X . Defaults to "3".
 
 ### pumps.Elasticsearch.meta.disable_bulk
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_DISABLEBULK**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DISABLEBULK</b><br />
 Type: `bool`<br />
 
 Disable batch writing. Defaults to false.
@@ -408,69 +442,69 @@ Disable batch writing. Defaults to false.
 Batch writing trigger configuration. Each option is an OR with eachother:
 
 ### pumps.Elasticsearch.meta.bulk_config.workers
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_WORKERS**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_WORKERS</b><br />
 Type: `int`<br />
 
 Number of workers. Defaults to 1.
 
 ### pumps.Elasticsearch.meta.bulk_config.flush_interval
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_FLUSHINTERVAL**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_FLUSHINTERVAL</b><br />
 Type: `int`<br />
 
 Specifies the time in seconds to flush the data and send it to ES. Default disabled.
 
 ### pumps.Elasticsearch.meta.bulk_config.bulk_actions
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKACTIONS**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKACTIONS</b><br />
 Type: `int`<br />
 
 Specifies the number of requests needed to flush the data and send it to ES. Defaults to
 1000 requests. If it is needed, can be disabled with -1.
 
 ### pumps.Elasticsearch.meta.bulk_config.bulk_size
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKSIZE**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKSIZE</b><br />
 Type: `int`<br />
 
 Specifies the size (in bytes) needed to flush the data and send it to ES. Defaults to 5MB.
 If it is needed, can be disabled with -1.
 
 ### pumps.Elasticsearch.meta.auth_api_key_id
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEYID**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEYID</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Elasticsearch.meta.auth_api_key
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEY**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEY</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Elasticsearch.meta.auth_basic_username
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_USERNAME**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_USERNAME</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Elasticsearch.meta.auth_basic_password
-EV: **TYK_PMP_PUMPS_ELASTICSEARCH_META_PASSWORD**<br />
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_PASSWORD</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Graylog.meta.host
-EV: **TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGHOST**<br />
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGHOST</b><br />
 Type: `string`<br />
 
 Graylog host.
 
 ### pumps.Graylog.meta.port
-EV: **TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGPORT**<br />
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGPORT</b><br />
 Type: `int`<br />
 
 Graylog port.
 
 ### pumps.Graylog.meta.tags
-EV: **TYK_PMP_PUMPS_GRAYLOG_META_TAGS**<br />
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_TAGS</b><br />
 Type: `[]string`<br />
 
 List of tags to be added to the metric. The possible options are listed in the below example.
@@ -487,37 +521,37 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `oauth_id` [VALIDATE]
 
 ### pumps.Influx.meta.database_name
-EV: **TYK_PMP_PUMPS_INFLUX_META_DATABASENAME**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_DATABASENAME</b><br />
 Type: `string`<br />
 
 InfluxDB pump database name.
 
 ### pumps.Influx.meta.address
-EV: **TYK_PMP_PUMPS_INFLUX_META_ADDR**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_ADDR</b><br />
 Type: `string`<br />
 
 InfluxDB pump host.
 
 ### pumps.Influx.meta.username
-EV: **TYK_PMP_PUMPS_INFLUX_META_USERNAME**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_USERNAME</b><br />
 Type: `string`<br />
 
 InfluxDB pump database username. [VALIDATE]
 
 ### pumps.Influx.meta.password
-EV: **TYK_PMP_PUMPS_INFLUX_META_PASSWORD**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_PASSWORD</b><br />
 Type: `string`<br />
 
 InfluxDB pump database password. [VALIDATE]
 
 ### pumps.Influx.meta.fields
-EV: **TYK_PMP_PUMPS_INFLUX_META_FIELDS**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_FIELDS</b><br />
 Type: `[]string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Influx.meta.tags
-EV: **TYK_PMP_PUMPS_INFLUX_META_TAGS**<br />
+EV: <b>TYK_PMP_PUMPS_INFLUX_META_TAGS</b><br />
 Type: `[]string`<br />
 
 List of tags to be added to the metric. The possible options are listed in the below example.
@@ -534,134 +568,134 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `oauth_id` [VALIDATE]
 
 ### pumps.Kafka.meta.broker
-EV: **TYK_PMP_PUMPS_KAFKA_META_BROKER**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_BROKER</b><br />
 Type: `[]string`<br />
 
 The list of brokers used to discover the partitions available on the kafka cluster. E.g.
 "localhost:9092".
 
 ### pumps.Kafka.meta.client_id
-EV: **TYK_PMP_PUMPS_KAFKA_META_CLIENTID**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_CLIENTID</b><br />
 Type: `string`<br />
 
 Unique identifier for client connections established with Kafka.
 
 ### pumps.Kafka.meta.topic
-EV: **TYK_PMP_PUMPS_KAFKA_META_TOPIC**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_TOPIC</b><br />
 Type: `string`<br />
 
 The topic that the writer will produce messages to.
 
 ### pumps.Kafka.meta.timeout
-EV: **TYK_PMP_PUMPS_KAFKA_META_TIMEOUT**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_TIMEOUT</b><br />
 Type: `time.Duration`<br />
 
 Timeout is the maximum amount of time will wait for a connect or write to complete.
 
 ### pumps.Kafka.meta.compressed
-EV: **TYK_PMP_PUMPS_KAFKA_META_COMPRESSED**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_COMPRESSED</b><br />
 Type: `bool`<br />
 
 Enable "github.com/golang/snappy" codec to be used to compress Kafka messages. By default
 is `false`.
 
 ### pumps.Kafka.meta.meta_data
-EV: **TYK_PMP_PUMPS_KAFKA_META_METADATA**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_METADATA</b><br />
 Type: `map[string]string`<br />
 
 Can be used to set custom metadata inside the kafka message.
 
 ### pumps.Kafka.meta.use_ssl
-EV: **TYK_PMP_PUMPS_KAFKA_META_USESSL**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_USESSL</b><br />
 Type: `bool`<br />
 
 Enables SSL connection.
 
 ### pumps.Kafka.meta.ssl_insecure_skip_verify
-EV: **TYK_PMP_PUMPS_KAFKA_META_SSLINSECURESKIPVERIFY**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLINSECURESKIPVERIFY</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client verifies the kafka server's certificate chain and host
 name.
 
 ### pumps.Kafka.meta.ssl_cert_file
-EV: **TYK_PMP_PUMPS_KAFKA_META_SSLCERTFILE**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLCERTFILE</b><br />
 Type: `string`<br />
 
 Can be used to set custom certificate file for authentication with kafka.
 
 ### pumps.Kafka.meta.ssl_key_file
-EV: **TYK_PMP_PUMPS_KAFKA_META_SSLKEYFILE**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLKEYFILE</b><br />
 Type: `string`<br />
 
 Can be used to set custom key file for authentication with kafka.
 
 ### pumps.Kafka.meta.sasl_mechanism
-EV: **TYK_PMP_PUMPS_KAFKA_META_SASLMECHANISM**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_SASLMECHANISM</b><br />
 Type: `string`<br />
 
 SASL mechanism configuration - standard mechanism names are listed
 (here)[https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml]. [VALIDATE]
 
 ### pumps.Kafka.meta.sasl_username
-EV: **TYK_PMP_PUMPS_KAFKA_META_USERNAME**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_USERNAME</b><br />
 Type: `string`<br />
 
 SASL username.
 
 ### pumps.Kafka.meta.sasl_password
-EV: **TYK_PMP_PUMPS_KAFKA_META_PASSWORD**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_PASSWORD</b><br />
 Type: `string`<br />
 
 SASL password.
 
 ### pumps.Kafka.meta.sasl_algorithm
-EV: **TYK_PMP_PUMPS_KAFKA_META_ALGORITHM**<br />
+EV: <b>TYK_PMP_PUMPS_KAFKA_META_ALGORITHM</b><br />
 Type: `string`<br />
 
 SASL algorithm.
 
 ### pumps.Logzio.meta.check_disk_space
-EV: **TYK_PMP_PUMPS_LOGZIO_META_CHECKDISKSPACE**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_CHECKDISKSPACE</b><br />
 Type: `bool`<br />
 
 Set the sender to check if it crosses the maximum allowed disk usage. Default value is
 `true`.
 
 ### pumps.Logzio.meta.disk_threshold
-EV: **TYK_PMP_PUMPS_LOGZIO_META_DISKTHRESHOLD**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_DISKTHRESHOLD</b><br />
 Type: `int`<br />
 
 Set disk queue threshold, once the threshold is crossed the sender will not enqueue the
 received logs. Default value is `98` (percentage of disk).
 
 ### pumps.Logzio.meta.drain_duration
-EV: **TYK_PMP_PUMPS_LOGZIO_META_DRAINDURATION**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_DRAINDURATION</b><br />
 Type: `string`<br />
 
 Set drain duration (flush logs on disk). Default value is `3s`.
 
 ### pumps.Logzio.meta.queue_dir
-EV: **TYK_PMP_PUMPS_LOGZIO_META_QUEUEDIR**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_QUEUEDIR</b><br />
 Type: `string`<br />
 
 The directory for the queue.
 
 ### pumps.Logzio.meta.token
-EV: **TYK_PMP_PUMPS_LOGZIO_META_TOKEN**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_TOKEN</b><br />
 Type: `string`<br />
 
 Token for sending data to your logzio account.
 
 ### pumps.Logzio.meta.url
-EV: **TYK_PMP_PUMPS_LOGZIO_META_URL**<br />
+EV: <b>TYK_PMP_PUMPS_LOGZIO_META_URL</b><br />
 Type: `string`<br />
 
 If you do not want to use the default Logzio url i.e. when using a proxy. Default is
 `https://listener.logz.io:8071`.
 
 ### pumps.Moesif.meta.application_id
-EV: **TYK_PMP_PUMPS_MOESIF_META_APPLICATIONID**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_APPLICATIONID</b><br />
 Type: `string`<br />
 
 Moesif Application Id. You can find your Moesif Application Id from
@@ -670,61 +704,61 @@ recommends creating separate Application Ids for each environment such as Produc
 Staging, and Development to keep data isolated. 
 
 ### pumps.Moesif.meta.request_header_masks
-EV: **TYK_PMP_PUMPS_MOESIF_META_REQUESTHEADERMASKS**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_REQUESTHEADERMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific request header field.
 
 ### pumps.Moesif.meta.response_header_masks
-EV: **TYK_PMP_PUMPS_MOESIF_META_RESPONSEHEADERMASKS**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_RESPONSEHEADERMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific response header field.
 
 ### pumps.Moesif.meta.request_body_masks
-EV: **TYK_PMP_PUMPS_MOESIF_META_REQUESTBODYMASKS**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_REQUESTBODYMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific - request body field.
 
 ### pumps.Moesif.meta.response_body_masks
-EV: **TYK_PMP_PUMPS_MOESIF_META_RESPONSEBODYMASKS**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_RESPONSEBODYMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific response body field.
 
 ### pumps.Moesif.meta.disable_capture_request_body
-EV: **TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTUREREQUESTBODY**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTUREREQUESTBODY</b><br />
 Type: `bool`<br />
 
 An option to disable logging of request body. Default value is `false`.
 
 ### pumps.Moesif.meta.disable_capture_response_body
-EV: **TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTURERESPONSEBODY**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTURERESPONSEBODY</b><br />
 Type: `bool`<br />
 
 An option to disable logging of response body. Default value is `false`.
 
 ### pumps.Moesif.meta.user_id_header
-EV: **TYK_PMP_PUMPS_MOESIF_META_USERIDHEADER**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_USERIDHEADER</b><br />
 Type: `string`<br />
 
 An optional field name to identify User from a request or response header.
 
 ### pumps.Moesif.meta.company_id_header
-EV: **TYK_PMP_PUMPS_MOESIF_META_COMPANYIDHEADER**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_COMPANYIDHEADER</b><br />
 Type: `string`<br />
 
 An optional field name to identify Company (Account) from a request or response header.
 
 ### pumps.Moesif.meta.enable_bulk
-EV: **TYK_PMP_PUMPS_MOESIF_META_ENABLEBULK**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_ENABLEBULK</b><br />
 Type: `bool`<br />
 
 Set this to `true` to enable `bulk_config`.
 
 ### pumps.Moesif.meta.bulk_config
-EV: **TYK_PMP_PUMPS_MOESIF_META_BULKCONFIG**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_BULKCONFIG</b><br />
 Type: `map[string]interface{}`<br />
 
 Batch writing trigger configuration.
@@ -739,51 +773,51 @@ seconds) how often background thread runs to send events to moesif. Type: int. D
 is `2` seconds.
 
 ### pumps.Moesif.meta.authorization_header_name
-EV: **TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONHEADERNAME**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONHEADERNAME</b><br />
 Type: `string`<br />
 
 An optional request header field name to used to identify the User in Moesif. Default value
 is `authorization`.
 
 ### pumps.Moesif.meta.authorization_user_id_field
-EV: **TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONUSERIDFIELD**<br />
+EV: <b>TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONUSERIDFIELD</b><br />
 Type: `string`<br />
 
 An optional field name use to parse the User from authorization header in Moesif. Default
 value is `sub`.
 
 ### pumps.Mongo.meta.collection_name
-EV: **TYK_PMP_PUMPS_MONGO_META_COLLECTIONNAME**<br />
+EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONNAME</b><br />
 Type: `string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Mongo.meta.max_insert_batch_size_bytes
-EV: **TYK_PMP_PUMPS_MONGO_META_MAXINSERTBATCHSIZEBYTES**<br />
+EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.Mongo.meta.max_document_size_bytes
-EV: **TYK_PMP_PUMPS_MONGO_META_MAXDOCUMENTSIZEBYTES**<br />
+EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.Mongo.meta.collection_cap_max_size_bytes
-EV: **TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPMAXSIZEBYTES**<br />
+EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPMAXSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.Mongo.meta.collection_cap_enable
-EV: **TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPENABLE**<br />
+EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPENABLE</b><br />
 Type: `bool`<br />
 
 [ADD COMMENT]
 
 ### pumps.MongoAggregate.meta.use_mixed_collection
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_USEMIXEDCOLLECTION**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_USEMIXEDCOLLECTION</b><br />
 Type: `bool`<br />
 
 If set to `true` your pump will store analytics to both your organisation defined
@@ -792,113 +826,113 @@ collection. When set to 'false' your pump will only store analytics to your org 
 collection.
 
 ### pumps.MongoAggregate.meta.track_all_paths
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_TRACKALLPATHS**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_TRACKALLPATHS</b><br />
 Type: `bool`<br />
 
 Specifies if it should store aggregated data for all the endpoints. By default, `false`
 which means that only store aggregated data for `tracked endpoints`.
 
 ### pumps.MongoAggregate.meta.ignore_tag_prefix_list
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNORETAGPREFIXLIST**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Specifies prefixes of tags that should be ignored.
 
 ### pumps.MongoAggregate.meta.threshold_len_tag_list
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_THRESHOLDLENTAGLIST**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_THRESHOLDLENTAGLIST</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.MongoAggregate.meta.store_analytics_per_minute
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_STOREANALYTICSPERMINUTE**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
 [ADD COMMENT]
 
 ### pumps.MongoAggregate.meta.ignore_aggregations
-EV: **TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNOREAGGREGATIONSLIST**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNOREAGGREGATIONSLIST</b><br />
 Type: `[]string`<br />
 
 [ADD COMMENT]
 
 ### pumps.MongoSelective.meta.max_insert_batch_size_bytes
-EV: **TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXINSERTBATCHSIZEBYTES**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.MongoSelective.meta.max_document_size_bytes
-EV: **TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXDOCUMENTSIZEBYTES**<br />
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.Prometheus.meta.listen_address
-EV: **TYK_PMP_PUMPS_PROMETHEUS_META_ADDR**<br />
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_META_ADDR</b><br />
 Type: `string`<br />
 
 The full URL to your Prometheus instance, {HOST}:{PORT}. For example `localhost:9090`.
 
 ### pumps.Prometheus.meta.path
-EV: **TYK_PMP_PUMPS_PROMETHEUS_META_PATH**<br />
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_META_PATH</b><br />
 Type: `string`<br />
 
 The path to the Prometheus collection. For example `/metrics`.
 
 ### pumps.Splunk.meta.collector_token
-EV: **TYK_PMP_PUMPS_SPLUNK_META_COLLECTORTOKEN**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_COLLECTORTOKEN</b><br />
 Type: `string`<br />
 
 Address of the datadog agent including host & port.
 
 ### pumps.Splunk.meta.collector_url
-EV: **TYK_PMP_PUMPS_SPLUNK_META_COLLECTORURL**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_COLLECTORURL</b><br />
 Type: `string`<br />
 
 Endpoint the Pump will send analytics too.  Should look something like:
 `https://splunk:8088/services/collector/event`.
 
 ### pumps.Splunk.meta.ssl_insecure_skip_verify
-EV: **TYK_PMP_PUMPS_SPLUNK_META_SSLINSECURESKIPVERIFY**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLINSECURESKIPVERIFY</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client verifies the Splunk server's certificate chain and host name.
 
 ### pumps.Splunk.meta.ssl_cert_file
-EV: **TYK_PMP_PUMPS_SPLUNK_META_SSLCERTFILE**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLCERTFILE</b><br />
 Type: `string`<br />
 
 SSL cert file location. [VALIDATE]
 
 ### pumps.Splunk.meta.ssl_key_file
-EV: **TYK_PMP_PUMPS_SPLUNK_META_SSLKEYFILE**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLKEYFILE</b><br />
 Type: `string`<br />
 
 SSL cert key location. [VALIDATE]
 
 ### pumps.Splunk.meta.ssl_server_name
-EV: **TYK_PMP_PUMPS_SPLUNK_META_SSLSERVERNAME**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLSERVERNAME</b><br />
 Type: `string`<br />
 
 URL to Splunk server. [VALIDATE]
 
 ### pumps.Splunk.meta.obfuscate_api_keys
-EV: **TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYS**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYS</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client should hide the API key. In case you still need substring
 of the value, check the next option. Default value is `false`.
 
 ### pumps.Splunk.meta.obfuscate_api_keys_length
-EV: **TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYSLENGTH**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYSLENGTH</b><br />
 Type: `int`<br />
 
 Define the number of the characters from the end of the API key. The `obfuscate_api_keys`
 should be set to `true`. Default value is `0`.
 
 ### pumps.Splunk.meta.fields
-EV: **TYK_PMP_PUMPS_SPLUNK_META_FIELDS**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_FIELDS</b><br />
 Type: `[]string`<br />
 
 Define which Analytics fields should participate in the Splunk event. Check the available
@@ -907,27 +941,27 @@ fields in the example below. Default value is `["method",
 "org_id", "oauth_id", "raw_request", "request_time", "raw_response", "ip_address"]`.
 
 ### pumps.Splunk.meta.ignore_tag_prefix_list
-EV: **TYK_PMP_PUMPS_SPLUNK_META_IGNORETAGPREFIXLIST**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Choose which tags to be ignored by the Splunk Pump. Keep in mind that the tag name and value
 are hyphenated. Default value is `[]`.
 
 ### pumps.Splunk.meta.enable_batch
-EV: **TYK_PMP_PUMPS_SPLUNK_META_ENABLEBATCH**<br />
+EV: <b>TYK_PMP_PUMPS_SPLUNK_META_ENABLEBATCH</b><br />
 Type: `bool`<br />
 
 If this is set to `true`, pump is going to send the analytics records in batch to Splunk.
 Default value is `false`.
 
 ### pumps.SQL.meta.type
-EV: **TYK_PMP_PUMPS_SQL_META_TYPE**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_TYPE</b><br />
 Type: `string`<br />
 
 The supported and tested types are `mysql` and `postgres`. [VALIDATE]
 
 ### pumps.SQL.meta.connection_string
-EV: **TYK_PMP_PUMPS_SQL_META_CONNECTIONSTRING**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_CONNECTIONSTRING</b><br />
 Type: `string`<br />
 
 Specifies the connection string to the database.
@@ -936,7 +970,7 @@ Specifies the connection string to the database.
 Postgres configurations.
 
 ### pumps.SQL.meta.postgres.prefer_simple_protocol
-EV: **TYK_PMP_PUMPS_SQL_META_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
 Type: `bool`<br />
 
 Disables implicit prepared statement usage.
@@ -944,8 +978,38 @@ Disables implicit prepared statement usage.
 ### pumps.SQL.meta.mysql
 Mysql configurations.
 
+### pumps.SQL.meta.mysql.default_string_size
+EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
+Type: `uint`<br />
+
+Default size for string fields. Defaults to `256`.
+
+### pumps.SQL.meta.mysql.disable_datetime_precision
+EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
+Type: `bool`<br />
+
+Disable datetime precision, which not supported before MySQL 5.6.
+
+### pumps.SQL.meta.mysql.dont_support_rename_index
+EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
+Type: `bool`<br />
+
+Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
+
+### pumps.SQL.meta.mysql.dont_support_rename_column
+EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB.
+
+### pumps.SQL.meta.mysql.skip_initialize_with_version
+EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
+Type: `bool`<br />
+
+Auto configure based on currently MySQL version.
+
 ### pumps.SQL.meta.table_sharding
-EV: **TYK_PMP_PUMPS_SQL_META_TABLESHARDING**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_TABLESHARDING</b><br />
 Type: `bool`<br />
 
 Specifies if all the analytics records are going to be stored in one table or in multiple
@@ -955,100 +1019,100 @@ going to be stored in `tyk_aggregated_YYYYMMDD` table, where `YYYYMMDD` is going
 depending on the date.
 
 ### pumps.SQL.meta.log_level
-EV: **TYK_PMP_PUMPS_SQL_META_LOGLEVEL**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_LOGLEVEL</b><br />
 Type: `string`<br />
 
 Specifies the SQL log verbosity. The possible values are: `info`,`error` and `warning`. By
 default, the value is `silent`, which means that it won't log any SQL query.
 
 ### pumps.SQL.meta.batch_size
-EV: **TYK_PMP_PUMPS_SQL_META_BATCHSIZE**<br />
+EV: <b>TYK_PMP_PUMPS_SQL_META_BATCHSIZE</b><br />
 Type: `int`<br />
 
 Specifies the amount of records that are going to be written each batch. Type int. By
 default, it writes 1000 records max per batch.
 
 ### pumps.SQLAggregate.meta.postgres.prefer_simple_protocol
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES_PREFERSIMPLEPROTOCOL**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
 Type: `bool`<br />
 
 disables implicit prepared statement usage
 
 ### pumps.SQLAggregate.meta.mysql.default_string_size
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DEFAULTSTRINGSIZE**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
 Type: `uint`<br />
 
 default size for string fields. By default set to: 256
 
 ### pumps.SQLAggregate.meta.mysql.disable_datetime_precision
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DISABLEDATETIMEPRECISION**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
 Type: `bool`<br />
 
 disable datetime precision, which not supported before MySQL 5.6
 
 ### pumps.SQLAggregate.meta.mysql.dont_support_rename_index
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMEINDEX**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
 Type: `bool`<br />
 
 drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
 
 ### pumps.SQLAggregate.meta.mysql.dont_support_rename_column
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMECOLUMN**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
 Type: `bool`<br />
 
 `change` when rename column, rename column not supported before MySQL 8, MariaDB
 
 ### pumps.SQLAggregate.meta.mysql.skip_initialize_with_version
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_SKIPINITIALIZEWITHVERSION**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
 Type: `bool`<br />
 
 auto configure based on currently MySQL version
 
 ### pumps.SQLAggregate.meta.track_all_paths
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS</b><br />
 Type: `bool`<br />
 
 Specifies if it should store aggregated data for all the endpoints. By default, `false`
 which means that only store aggregated data for `tracked endpoints`.
 
 ### pumps.SQLAggregate.meta.ignore_tag_prefix_list
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNORETAGPREFIXLIST**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Specifies prefixes of tags that should be ignored.
 
 ### pumps.SQLAggregate.meta.threshold_len_tag_list
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_THRESHOLDLENTAGLIST**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_THRESHOLDLENTAGLIST</b><br />
 Type: `int`<br />
 
 [ADD COMMENT]
 
 ### pumps.SQLAggregate.meta.store_analytics_per_minute
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_STOREANALYTICSPERMINUTE**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
 [ADD COMMENT]
 
 ### pumps.SQLAggregate.meta.ignore_aggregations
-EV: **TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNOREAGGREGATIONSLIST**<br />
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNOREAGGREGATIONSLIST</b><br />
 Type: `[]string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Statsd.meta.address
-EV: **TYK_PMP_PUMPS_STATSD_META_ADDRESS**<br />
+EV: <b>TYK_PMP_PUMPS_STATSD_META_ADDRESS</b><br />
 Type: `string`<br />
 
 Address of statsd including host & port.
 
 ### pumps.Statsd.meta.fields
-EV: **TYK_PMP_PUMPS_STATSD_META_FIELDS**<br />
+EV: <b>TYK_PMP_PUMPS_STATSD_META_FIELDS</b><br />
 Type: `[]string`<br />
 
 [ADD COMMENT]
 
 ### pumps.Statsd.meta.tags
-EV: **TYK_PMP_PUMPS_STATSD_META_TAGS**<br />
+EV: <b>TYK_PMP_PUMPS_STATSD_META_TAGS</b><br />
 Type: `[]string`<br />
 
 List of tags to be added to the metric. The possible options are listed in the below example.
@@ -1065,39 +1129,39 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `oauth_id` [VALIDATE]
 
 ### pumps.StdOut.meta.format
-EV: **TYK_PMP_PUMPS_STDOUT_META_FORMAT**<br />
+EV: <b>TYK_PMP_PUMPS_STDOUT_META_FORMAT</b><br />
 Type: `string`<br />
 
 Format of the analytics logs. Default is `text` if `json` is not explicitly specified. When
 JSON logging is used all pump logs to stdout will be JSON.
 
 ### pumps.StdOut.meta.log_field_name
-EV: **TYK_PMP_PUMPS_STDOUT_META_LOGFIELDNAME**<br />
+EV: <b>TYK_PMP_PUMPS_STDOUT_META_LOGFIELDNAME</b><br />
 Type: `string`<br />
 
 Root name of the JSON object the analytics record is nested in.
 
 ### pumps.Syslog.meta.transport
-EV: **TYK_PMP_PUMPS_SYSLOG_META_TRANSPORT**<br />
+EV: <b>TYK_PMP_PUMPS_SYSLOG_META_TRANSPORT</b><br />
 Type: `string`<br />
 
 Possible values are `udp, tcp, tls` in string form.
 
 ### pumps.Syslog.meta.network_addr
-EV: **TYK_PMP_PUMPS_SYSLOG_META_NETWORKADDR**<br />
+EV: <b>TYK_PMP_PUMPS_SYSLOG_META_NETWORKADDR</b><br />
 Type: `string`<br />
 
 Host & Port combination of your syslog daemon ie: `"localhost:5140"`.
 
 ### pumps.Syslog.meta.log_level
-EV: **TYK_PMP_PUMPS_SYSLOG_META_LOGLEVEL**<br />
+EV: <b>TYK_PMP_PUMPS_SYSLOG_META_LOGLEVEL</b><br />
 Type: `int`<br />
 
 The severity level, an integer from 0-7, based off the Standard: 
 [Syslog Severity Levels](https://en.wikipedia.org/wiki/Syslog#Severity_level).
 
 ### pumps.Syslog.meta.tag
-EV: **TYK_PMP_PUMPS_SYSLOG_META_TAG**<br />
+EV: <b>TYK_PMP_PUMPS_SYSLOG_META_TAG</b><br />
 Type: `string`<br />
 
 Prefix tag
@@ -1118,7 +1182,7 @@ that FluentD can correctly read the logs.
 ```
 
 ### analytics_storage_type
-EV: **TYK_PMP_ANALYTICSSTORAGETYPE**<br />
+EV: <b>TYK_PMP_ANALYTICSSTORAGETYPE</b><br />
 Type: `string`<br />
 
 Sets the analytics storage type. Where the pump will be fetching data from. Currently, only
@@ -1144,58 +1208,58 @@ Example Redis storage configuration:
 ```
 
 ### statsd_connection_string
-EV: **TYK_PMP_STATSDCONNECTIONSTRING**<br />
+EV: <b>TYK_PMP_STATSDCONNECTIONSTRING</b><br />
 Type: `string`<br />
 
 Deprecated. Statdsd pump connection string. [VALIDATE]
 
 ### statsd_prefix
-EV: **TYK_PMP_STATSDPREFIX**<br />
+EV: <b>TYK_PMP_STATSDPREFIX</b><br />
 Type: `string`<br />
 
 Deprecated. Statdsd pump key name prefix. [VALIDATE]
 
 ### log_level
-EV: **TYK_PMP_LOGLEVEL**<br />
+EV: <b>TYK_PMP_LOGLEVEL</b><br />
 Type: `string`<br />
 
 Set the logger details for tyk-pump. The posible values are: `info`,`debug`,`error` and
 `warn`. By default, the log level is `info`.
 
 ### log_format
-EV: **TYK_PMP_LOGFORMAT**<br />
+EV: <b>TYK_PMP_LOGFORMAT</b><br />
 Type: `string`<br />
 
 Set the logger format. The possible values are: `text` and `json`. By default, the log
 format is `text`.
 
-### health_check_endpoint_name
-EV: **TYK_PMP_HEALTHCHECKENDPOINTNAME**<br />
-Type: `string`<br />
-
 ### Health Check
-
 From v2.9.4, we have introduced a `/health` endpoint to confirm the Pump is running. You
 need to configure the following settings. This returns a HTTP 200 OK response if the Pump is
 running.
 
+### health_check_endpoint_name
+EV: <b>TYK_PMP_HEALTHCHECKENDPOINTNAME</b><br />
+Type: `string`<br />
+
+
 The default is "hello".
 
 ### health_check_endpoint_port
-EV: **TYK_PMP_HEALTHCHECKENDPOINTPORT**<br />
+EV: <b>TYK_PMP_HEALTHCHECKENDPOINTPORT</b><br />
 Type: `int`<br />
 
 The default port is 8083.
 
 ### omit_detailed_recording
-EV: **TYK_PMP_OMITDETAILEDRECORDING**<br />
+EV: <b>TYK_PMP_OMITDETAILEDRECORDING</b><br />
 Type: `bool`<br />
 
 Setting this to true will avoid writing raw_request and raw_response fields for each request
 in pumps. Defaults to false.
 
 ### max_record_size
-EV: **TYK_PMP_MAXRECORDSIZE**<br />
+EV: <b>TYK_PMP_MAXRECORDSIZE</b><br />
 Type: `int`<br />
 
 Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
