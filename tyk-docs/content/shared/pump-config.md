@@ -141,7 +141,7 @@ Type: `string`<br />
 Deprecated.
 
 ### pumps.{PMP_NAME}.type
-EV: **TYK_PMP_PUMPS_\{PMP_NAME\}_TYPE**<br />
+EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
