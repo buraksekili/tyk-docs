@@ -1,5 +1,7 @@
 const https = require('https')
 
+const tykConfigHeaderRegex = new RegExp('TYKCONFIGHEADERSTART\\nHEADER ([ \\w]+)\\n(.*)\\nTYKCONFIGHEADEREND', 's')
+
 // Fetch config file from github repo
 const fetchFile = async (path, branch) => new Promise(resolve => {
   https.get(`https://api.github.com/${path}${branch ? `?ref=${branch}` : ''}`, {
@@ -33,15 +35,27 @@ const getPumpsFolder = async (branch) => {
 
 // Generate Markdown for the documentation
 const generateMarkdown = variables => {
-  let markdown = "", configs = {}
+  let markdown = "", configs = {}, description, match
 
   variables.forEach(item => configs[item.json] = item)
 
   Object.values(configs).forEach(item => {
+    description = item.description
     if (! item.json.includes('-') && item.description) {
+      if (description.includes('TYKCONFIGHEADERSTART')) {
+        match = description.match(tykConfigHeaderRegex)
+
+        markdown += `### ${match[1]}\n`
+        markdown += `${transformDescription({
+          type: 'header',
+          description: match[2],
+        })}\n\n`
+
+        item.description = description.replace(match[0], '')
+      }
       if ('variable' === item.flavour) {
         markdown += `### ${item.json}\n`
-        markdown += `EV: **${item.env}**<br />\n`
+        markdown += `EV: <b>${item.env}</b><br />\n`
         markdown += `Type: \`${item.type}\`<br />\n\n`
         markdown += `${transformDescription(item)}\n\n`
       } else if ('header' === item.flavour) {
