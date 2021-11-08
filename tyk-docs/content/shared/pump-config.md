@@ -47,38 +47,20 @@ Type: `string`<br />
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONNAME</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
-
-### uptime_pump_config.max_insert_batch_size_bytes
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MAXINSERTBATCHSIZEBYTES</b><br />
-Type: `int`<br />
-
-[ADD COMMENT]
-
-### uptime_pump_config.max_document_size_bytes
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MAXDOCUMENTSIZEBYTES</b><br />
-Type: `int`<br />
-
-[ADD COMMENT]
-
-### uptime_pump_config.collection_cap_max_size_bytes
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPMAXSIZEBYTES</b><br />
-Type: `int`<br />
-
-[ADD COMMENT]
+Specifies the mongo collection name.
 
 ### uptime_pump_config.collection_cap_enable
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONCAPENABLE</b><br />
 Type: `bool`<br />
 
-[ADD COMMENT]
+Enable collection capping. It's used to set a maximum size of the collection.
 
 ### SQL Uptime Pump
 *Supported in Tyk Pump v1.5.0+*
 
 In `uptime_pump_config` you can configure a SQL uptime pump. To do that, you need to add the
 field `uptime_type` with `sql` value. You can also use different types of SQL Uptime pumps,
-like `postgres` or `sqlite` using the `type` field. 
+like `postgres` or `sqlite` using the `type` field.
 
 An example of a SQL Postgres uptime pump would be:
 ```{.json}
@@ -98,7 +80,7 @@ EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_TYPE</b><br />
 Type: `string`<br />
 
 
-The supported and tested types are `mysql` and `postgres`. [VALIDATE]
+The supported and tested types are `sqlite` and `postgres`.
 
 ### uptime_pump_config.connection_string
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_CONNECTIONSTRING</b><br />
@@ -219,7 +201,7 @@ Type: `int`<br />
 
 You can configure a different timeout for each pump with the configuration option `timeout`.
 Its default value is `0` seconds, which means that the pump will wait for the writing
-operation forever. 
+operation forever.
 
 An example of this configuration would be:
 ```{.json}
@@ -236,12 +218,12 @@ An example of this configuration would be:
 In case that any pump doesn't have a configured timeout, and it takes more seconds to write
 than the value configured for the purge loop in the `purge_delay` config option, you will
 see the following warning message: `Pump PMP_NAME is taking more time than the value
-configured of purge_delay. You should try to set a timeout for this pump.`. 
+configured of purge_delay. You should try to set a timeout for this pump.`.
 
 In case that you have a configured timeout, but it still takes more seconds to write than
 the value configured for the purge loop in the `purge_delay` config option, you will see the
 following warning message: `Pump PMP_NAME is taking more time than the value configured of
-purge_delay. You should try lowering the timeout configured for this pump.`. 
+purge_delay. You should try lowering the timeout configured for this pump.`.
 
 ### pumps.{PMP_NAME}.omit_detailed_recording
 EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_OMITDETAILEDRECORDING</b><br />
@@ -271,7 +253,7 @@ information. This can also be set at a pump level. For example:
 EV: <b>TYK_PMP_PUMPS_CSV_META_CSVDIR</b><br />
 Type: `string`<br />
 
-The directory where the CSV will be stored. [VALIDATE]
+The directory and the filename where the CSV data will be stored.
 
 ### pumps.DogStatsd.meta.namespace
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_NAMESPACE</b><br />
@@ -417,7 +399,7 @@ EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_GENERATEID</b><br />
 Type: `bool`<br />
 
 When enabled, generate _id for outgoing records. This prevents duplicate records when
-retrying ES. [VALIDATE]
+retrying ES.
 
 ### pumps.Elasticsearch.meta.decode_base64
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DECODEBASE64</b><br />
@@ -471,25 +453,25 @@ If it is needed, can be disabled with -1.
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEYID</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
+API Key ID used for APIKey auth in ES. It's send to ES in the Authorization header as ApiKey base64(auth_api_key_id:auth_api_key)
 
 ### pumps.Elasticsearch.meta.auth_api_key
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEY</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
+API Key used for APIKey auth in ES. It's send to ES in the Authorization header as ApiKey base64(auth_api_key_id:auth_api_key)
 
 ### pumps.Elasticsearch.meta.auth_basic_username
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_USERNAME</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
+Basic auth username. It's send to ES in the Authorization header as username:password encoded in base64.
 
 ### pumps.Elasticsearch.meta.auth_basic_password
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_PASSWORD</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
+Basic auth password. It's send to ES in the Authorization header as username:password encoded in base64.
 
 ### pumps.Graylog.meta.host
 EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGHOST</b><br />
@@ -509,7 +491,8 @@ Type: `[]string`<br />
 
 List of tags to be added to the metric. The possible options are listed in the below example.
 
-If no tag is specified the fallback behavior is to use the below tags:
+If no tag is specified the fallback behaviour is to don't send anything.
+The possible values are:
 - `path`
 - `method`
 - `response_code`
@@ -518,7 +501,11 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `api_id`
 - `org_id`
 - `tracked`
-- `oauth_id` [VALIDATE]
+- `oauth_id`
+- `raw_request`
+- `raw_response`
+- `request_time`
+- `ip_address`
 
 ### pumps.Influx.meta.database_name
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_DATABASENAME</b><br />
@@ -536,19 +523,22 @@ InfluxDB pump host.
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_USERNAME</b><br />
 Type: `string`<br />
 
-InfluxDB pump database username. [VALIDATE]
+InfluxDB pump database username.
 
 ### pumps.Influx.meta.password
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_PASSWORD</b><br />
 Type: `string`<br />
 
-InfluxDB pump database password. [VALIDATE]
+InfluxDB pump database password.
 
 ### pumps.Influx.meta.fields
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_FIELDS</b><br />
 Type: `[]string`<br />
 
-[ADD COMMENT]
+Define which Analytics fields should be sent to InfluxDB. Check the available
+fields in the example below. Default value is `["method",
+"path", "response_code", "api_key", "time_stamp", "api_version", "api_name", "api_id",
+"org_id", "oauth_id", "raw_request", "request_time", "raw_response", "ip_address"]`.
 
 ### pumps.Influx.meta.tags
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_TAGS</b><br />
@@ -634,8 +624,7 @@ Can be used to set custom key file for authentication with kafka.
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_SASLMECHANISM</b><br />
 Type: `string`<br />
 
-SASL mechanism configuration - standard mechanism names are listed
-(here)[https://www.iana.org/assignments/sasl-mechanisms/sasl-mechanisms.xhtml]. [VALIDATE]
+SASL mechanism configuration. Only "plain" and "scram" are supported.
 
 ### pumps.Kafka.meta.sasl_username
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_USERNAME</b><br />
@@ -653,7 +642,8 @@ SASL password.
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_ALGORITHM</b><br />
 Type: `string`<br />
 
-SASL algorithm.
+SASL algorithm. It's the algorithm specified for scram mechanism. It could be sha-512 or sha-256.
+Defaults to "sha-256".
 
 ### pumps.Logzio.meta.check_disk_space
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_CHECKDISKSPACE</b><br />
@@ -701,7 +691,7 @@ Type: `string`<br />
 Moesif Application Id. You can find your Moesif Application Id from
 [_Moesif Dashboard_](https://www.moesif.com/) -> _Top Right Menu_ -> _API Keys_ . Moesif
 recommends creating separate Application Ids for each environment such as Production,
-Staging, and Development to keep data isolated. 
+Staging, and Development to keep data isolated.
 
 ### pumps.Moesif.meta.request_header_masks
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_REQUESTHEADERMASKS</b><br />
@@ -790,31 +780,34 @@ value is `sub`.
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONNAME</b><br />
 Type: `string`<br />
 
-[ADD COMMENT]
+Specifies the mongo collection name.
 
 ### pumps.Mongo.meta.max_insert_batch_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Maximum insert batch size for mongo selective pump. If the batch we are writing surpass this value, it will be send in multiple batchs.
+Defaults to 10Mb.
 
 ### pumps.Mongo.meta.max_document_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Maximum document size. If the document exceed this value, it will be skipped.
+Defaults to 10Mb.
 
 ### pumps.Mongo.meta.collection_cap_max_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPMAXSIZEBYTES</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Amount of bytes of the capped collection in 64bits architectures.
+Defaults to 5GB.
 
 ### pumps.Mongo.meta.collection_cap_enable
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPENABLE</b><br />
 Type: `bool`<br />
 
-[ADD COMMENT]
+Enable collection capping. It's used to set a maximum size of the collection.
 
 ### pumps.MongoAggregate.meta.use_mixed_collection
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_USEMIXEDCOLLECTION</b><br />
@@ -842,31 +835,37 @@ Specifies prefixes of tags that should be ignored.
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_THRESHOLDLENTAGLIST</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Determines the threshold of amount of tags of an aggregation. If the amount of tags is superior to the threshold,
+it will print an alert.
+Defaults to 1000.
 
 ### pumps.MongoAggregate.meta.store_analytics_per_minute
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
-[ADD COMMENT]
+Determines if the aggregations should be made per minute instead of per hour.
 
 ### pumps.MongoAggregate.meta.ignore_aggregations
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNOREAGGREGATIONSLIST</b><br />
 Type: `[]string`<br />
 
-[ADD COMMENT]
+This list determines which aggregations are going to be dropped and not stored in the collection.
+Posible values are: "APIID","errors","versions","apikeys","oauthids","geo","tags","endpoints","keyendpoints",
+"oauthendpoints", and "apiendpoints".
 
 ### pumps.MongoSelective.meta.max_insert_batch_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Maximum insert batch size for mongo selective pump. If the batch we are writing surpass this value, it will be send in multiple batchs.
+Defaults to 10Mb.
 
 ### pumps.MongoSelective.meta.max_document_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
-[ADD COMMENT]
+Maximum document size. If the document exceed this value, it will be skipped.
+Defaults to 10Mb.
 
 ### pumps.Prometheus.meta.listen_address
 EV: <b>TYK_PMP_PUMPS_PROMETHEUS_META_ADDR</b><br />
@@ -903,19 +902,19 @@ Controls whether the pump client verifies the Splunk server's certificate chain 
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLCERTFILE</b><br />
 Type: `string`<br />
 
-SSL cert file location. [VALIDATE]
+SSL cert file location.
 
 ### pumps.Splunk.meta.ssl_key_file
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLKEYFILE</b><br />
 Type: `string`<br />
 
-SSL cert key location. [VALIDATE]
+SSL cert key location.
 
 ### pumps.Splunk.meta.ssl_server_name
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLSERVERNAME</b><br />
 Type: `string`<br />
 
-URL to Splunk server. [VALIDATE]
+SSL Server name used in the TLS connection.
 
 ### pumps.Splunk.meta.obfuscate_api_keys
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYS</b><br />
@@ -958,7 +957,7 @@ Default value is `false`.
 EV: <b>TYK_PMP_PUMPS_SQL_META_TYPE</b><br />
 Type: `string`<br />
 
-The supported and tested types are `mysql` and `postgres`. [VALIDATE]
+The supported and tested types are `sqlite` and `postgres`.
 
 ### pumps.SQL.meta.connection_string
 EV: <b>TYK_PMP_PUMPS_SQL_META_CONNECTIONSTRING</b><br />
@@ -1081,23 +1080,11 @@ Type: `[]string`<br />
 
 Specifies prefixes of tags that should be ignored.
 
-### pumps.SQLAggregate.meta.threshold_len_tag_list
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_THRESHOLDLENTAGLIST</b><br />
-Type: `int`<br />
-
-[ADD COMMENT]
-
 ### pumps.SQLAggregate.meta.store_analytics_per_minute
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
-[ADD COMMENT]
-
-### pumps.SQLAggregate.meta.ignore_aggregations
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNOREAGGREGATIONSLIST</b><br />
-Type: `[]string`<br />
-
-[ADD COMMENT]
+Determines if the aggregations should be made per minute instead of per hour.
 
 ### pumps.Statsd.meta.address
 EV: <b>TYK_PMP_PUMPS_STATSD_META_ADDRESS</b><br />
@@ -1109,7 +1096,7 @@ Address of statsd including host & port.
 EV: <b>TYK_PMP_PUMPS_STATSD_META_FIELDS</b><br />
 Type: `[]string`<br />
 
-[ADD COMMENT]
+Define which Analytics fields should have its own metric calculation. This should be set to ["request_time"]. [VALIDATE]
 
 ### pumps.Statsd.meta.tags
 EV: <b>TYK_PMP_PUMPS_STATSD_META_TAGS</b><br />
@@ -1157,7 +1144,7 @@ Host & Port combination of your syslog daemon ie: `"localhost:5140"`.
 EV: <b>TYK_PMP_PUMPS_SYSLOG_META_LOGLEVEL</b><br />
 Type: `int`<br />
 
-The severity level, an integer from 0-7, based off the Standard: 
+The severity level, an integer from 0-7, based off the Standard:
 [Syslog Severity Levels](https://en.wikipedia.org/wiki/Syslog#Severity_level).
 
 ### pumps.Syslog.meta.tag
@@ -1166,7 +1153,7 @@ Type: `string`<br />
 
 Prefix tag
 
-When working with FluentD, you should provide a 
+When working with FluentD, you should provide a
 [FluentD Parser](https://docs.fluentd.org/input/syslog) based on the OS you are using so
 that FluentD can correctly read the logs.
 
@@ -1186,7 +1173,7 @@ EV: <b>TYK_PMP_ANALYTICSSTORAGETYPE</b><br />
 Type: `string`<br />
 
 Sets the analytics storage type. Where the pump will be fetching data from. Currently, only
-the `redis` option is supported. [VALIDATE]
+the `redis` option is supported.
 
 ### analytics_storage_config
 Example Redis storage configuration:
@@ -1274,4 +1261,10 @@ information. This can also be set at a pump level. For example:
   }
 }
 ```
+
+### omit_config_file
+EV: <b>TYK_PMP_OMITCONFIGFILE</b><br />
+Type: `bool`<br />
+
+Defines if tyk-pump should ignore all the values in configuration file. Specially useful when setting all configurations in environment variables.
 
