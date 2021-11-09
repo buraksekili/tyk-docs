@@ -34,7 +34,7 @@ jobs:
       run: |
         cd ./tyk-docs/scripts/config-generator
         TOKEN=${{ secrets.REPO_TOKEN }} node app.js ${{ github.event.inputs.mode }}:${{ github.event.inputs.repoBranch }}
-        cp node/home/tyk-config-info-generator/info/${{ github.event.inputs.repoBranch }}/${{ github.event.inputs.repo }}.md ../../tyk-docs/content/shared/${{ github.event.inputs.mode }}-config.md
+        cp node/home/tyk-config-info-generator/info/${{ github.event.inputs.repoBranch }}/${{ github.event.inputs.mode }}.md ../../tyk-docs/content/shared/${{ github.event.inputs.mode }}-config.md
         
     - name: Commit configuration change
       env:

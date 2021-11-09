@@ -1,12 +1,14 @@
 {
   "gateway": {
     "prefix": "TYK_GW",
+    "mode": "config",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk/contents/config/config.go",
       "struct": "Config"
     },
     "dependencies": {
-      "apidef": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go"
+      "apidef.AuthProviderMeta": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go",
+      "apidef.SessionProviderMeta": "repos/TykTechnologies/tyk/contents/apidef/api_definitions.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
@@ -15,6 +17,7 @@
   },
   "dashboard": {
     "prefix": "TYK_DB",
+    "mode": "config",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk-analytics/contents/config/config.go",
       "struct": "Config"
@@ -27,14 +30,16 @@
   },
   "pump": {
     "prefix": "TYK_PMP",
+    "mode": "config",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk-pump/contents/config.go",
       "struct": "TykPumpConfiguration"
     },
     "dependencies": {
-      "pumps": "repos/TykTechnologies/tyk-pump/contents/pumps/mongo.go",
-      "storage": "repos/TykTechnologies/tyk-pump/contents/storage/redis.go",
-      "analytics": "repos/TykTechnologies/tyk-pump/contents/analytics/analytics_filters.go"
+      "storage.RedisStorageConfig": "repos/TykTechnologies/tyk-pump/contents/storage/redis.go",
+      "analytics.AnalyticsFilters": "repos/TykTechnologies/tyk-pump/contents/analytics/analytics_filters.go",
+      "BaseMongoConf": "repos/TykTechnologies/tyk-pump/contents/pumps/mongo.go",
+      "SQLConf": "repos/TykTechnologies/tyk-pump/contents/pumps/sql.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
@@ -43,12 +48,13 @@
   },
   "tib": {
     "prefix": "TYK_TIB",
+    "mode": "config",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk-identity-broker/contents/configuration/config.go",
       "struct": "Configuration"
     },
     "dependencies": {
-      "tyk": "repos/TykTechnologies/tyk-identity-broker/contents/tyk-api/tyk_api.go"
+      "tyk.TykAPI": "repos/TykTechnologies/tyk-identity-broker/contents/tyk-api/tyk_api.go"
     },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
@@ -57,6 +63,7 @@
   },
   "mdcb": {
     "prefix": "TYK_MDCB",
+    "mode": "config",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk-sink/contents/config/config.go",
       "struct": "SinkConfig"
@@ -69,11 +76,17 @@
   },
   "apis": {
     "prefix": "TYK_APIS",
+    "mode": "apis",
     "entrypoint": {
       "path": "repos/TykTechnologies/tyk/contents/apidef/oas/root.go",
       "struct": "XTykAPIGateway"
     },
-    "dependencies": {},
+    "dependencies": {
+      "Upstream": "repos/TykTechnologies/tyk/contents/apidef/oas/upstream.go",
+      "Server": "repos/TykTechnologies/tyk/contents/apidef/oas/server.go",
+      "*Middleware": "repos/TykTechnologies/tyk/contents/apidef/oas/middleware.go",
+      "*Authentication": "repos/TykTechnologies/tyk/contents/apidef/oas/authentication.go"
+    },
     "path": {
       "dir": "/node/home/tyk-config-info-generator/info/",
       "file": "apis"
