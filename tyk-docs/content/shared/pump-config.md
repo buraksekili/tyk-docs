@@ -94,11 +94,47 @@ Type: `PostgresConfig`<br />
 
 Postgres configurations.
 
+### uptime_pump_config.postgres.prefer_simple_protocol
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
+Type: `bool`<br />
+
+Disables implicit prepared statement usage.
+
 ### uptime_pump_config.mysql
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL</b><br />
 Type: `MysqlConfig`<br />
 
 Mysql configurations.
+
+### uptime_pump_config.mysql.default_string_size
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DEFAULTSTRINGSIZE</b><br />
+Type: `uint`<br />
+
+Default size for string fields. Defaults to `256`.
+
+### uptime_pump_config.mysql.disable_datetime_precision
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DISABLEDATETIMEPRECISION</b><br />
+Type: `bool`<br />
+
+Disable datetime precision, which not supported before MySQL 5.6.
+
+### uptime_pump_config.mysql.dont_support_rename_index
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
+Type: `bool`<br />
+
+Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
+
+### uptime_pump_config.mysql.dont_support_rename_column
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB.
+
+### uptime_pump_config.mysql.skip_initialize_with_version
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
+Type: `bool`<br />
+
+Auto configure based on currently MySQL version.
 
 ### uptime_pump_config.uptime_type
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_UPTIMETYPE</b><br />
@@ -899,23 +935,6 @@ Define which Analytics fields should be sent to InfluxDB. Check the available
 fields in the example below. Default value is `["method",
 "path", "response_code", "api_key", "time_stamp", "api_version", "api_name", "api_id",
 "org_id", "oauth_id", "raw_request", "request_time", "raw_response", "ip_address"]`.
-
-### pumps.influx.meta.tags
-EV: <b>TYK_PMP_PUMPS_INFLUX_META_TAGS</b><br />
-Type: `[]string`<br />
-
-List of tags to be added to the metric. The possible options are listed in the below example.
-
-If no tag is specified the fallback behavior is to use the below tags:
-- `path`
-- `method`
-- `response_code`
-- `api_version`
-- `api_name`
-- `api_id`
-- `org_id`
-- `tracked`
-- `oauth_id` [VALIDATE]
 
 ### pumps.kafka.name
 EV: <b>TYK_PMP_PUMPS_KAFKA_NAME</b><br />
@@ -2480,6 +2499,42 @@ information. This can also be set at a pump level. For example:
 }
 ```
 
+### pumps.sqlaggregate.meta.postgres.prefer_simple_protocol
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
+Type: `bool`<br />
+
+disables implicit prepared statement usage
+
+### pumps.sqlaggregate.meta.mysql.default_string_size
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
+Type: `uint`<br />
+
+default size for string fields. By default set to: 256
+
+### pumps.sqlaggregate.meta.mysql.disable_datetime_precision
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
+Type: `bool`<br />
+
+disable datetime precision, which not supported before MySQL 5.6
+
+### pumps.sqlaggregate.meta.mysql.dont_support_rename_index
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
+Type: `bool`<br />
+
+drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+
+### pumps.sqlaggregate.meta.mysql.dont_support_rename_column
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
+Type: `bool`<br />
+
+`change` when rename column, rename column not supported before MySQL 8, MariaDB
+
+### pumps.sqlaggregate.meta.mysql.skip_initialize_with_version
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
+Type: `bool`<br />
+
+auto configure based on currently MySQL version
+
 ### pumps.sqlaggregate.meta.track_all_paths
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS</b><br />
 Type: `bool`<br />
@@ -2608,24 +2663,13 @@ Address of statsd including host & port.
 EV: <b>TYK_PMP_PUMPS_STATSD_META_FIELDS</b><br />
 Type: `[]string`<br />
 
-Define which Analytics fields should have its own metric calculation. This should be set to ["request_time"]. [VALIDATE]
+Define which Analytics fields should have its own metric calculation.
 
 ### pumps.statsd.meta.tags
 EV: <b>TYK_PMP_PUMPS_STATSD_META_TAGS</b><br />
 Type: `[]string`<br />
 
-List of tags to be added to the metric. The possible options are listed in the below example.
-
-If no tag is specified the fallback behavior is to use the below tags:
-- `path`
-- `method`
-- `response_code`
-- `api_version`
-- `api_name`
-- `api_id`
-- `org_id`
-- `tracked`
-- `oauth_id` [VALIDATE]
+List of tags to be added to the metric.
 
 ### pumps.stdout.name
 EV: <b>TYK_PMP_PUMPS_STDOUT_NAME</b><br />
@@ -2908,13 +2952,14 @@ Example Redis storage configuration:
 EV: <b>TYK_PMP_STATSDCONNECTIONSTRING</b><br />
 Type: `string`<br />
 
-Deprecated. Statdsd pump connection string. [VALIDATE]
+Connection string for StatsD monitoring for information please see the
+(Instrumentation docs)[https://tyk.io/docs/basic-config-and-security/report-monitor-trigger-events/instrumentation/].
 
 ### statsd_prefix
 EV: <b>TYK_PMP_STATSDPREFIX</b><br />
 Type: `string`<br />
 
-Deprecated. Statdsd pump key name prefix. [VALIDATE]
+Custom prefix value. For example separate settings for production and staging.
 
 ### log_level
 EV: <b>TYK_PMP_LOGLEVEL</b><br />
