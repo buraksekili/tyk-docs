@@ -94,47 +94,11 @@ Type: `PostgresConfig`<br />
 
 Postgres configurations.
 
-### uptime_pump_config.postgres.prefer_simple_protocol
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
-Type: `bool`<br />
-
-Disables implicit prepared statement usage.
-
 ### uptime_pump_config.mysql
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL</b><br />
 Type: `MysqlConfig`<br />
 
 Mysql configurations.
-
-### uptime_pump_config.mysql.default_string_size
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DEFAULTSTRINGSIZE</b><br />
-Type: `uint`<br />
-
-Default size for string fields. Defaults to `256`.
-
-### uptime_pump_config.mysql.disable_datetime_precision
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DISABLEDATETIMEPRECISION</b><br />
-Type: `bool`<br />
-
-Disable datetime precision, which not supported before MySQL 5.6.
-
-### uptime_pump_config.mysql.dont_support_rename_index
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
-Type: `bool`<br />
-
-Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
-
-### uptime_pump_config.mysql.dont_support_rename_column
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
-Type: `bool`<br />
-
-`change` when rename column, rename column not supported before MySQL 8, MariaDB.
-
-### uptime_pump_config.mysql.skip_initialize_with_version
-EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
-Type: `bool`<br />
-
-Auto configure based on currently MySQL version.
 
 ### uptime_pump_config.uptime_type
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_UPTIMETYPE</b><br />
@@ -1030,42 +994,6 @@ Type: `int`<br />
 
 Specifies the amount of records that are going to be written each batch. Type int. By
 default, it writes 1000 records max per batch.
-
-### pumps.SQLAggregate.meta.postgres.prefer_simple_protocol
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
-Type: `bool`<br />
-
-disables implicit prepared statement usage
-
-### pumps.SQLAggregate.meta.mysql.default_string_size
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
-Type: `uint`<br />
-
-default size for string fields. By default set to: 256
-
-### pumps.SQLAggregate.meta.mysql.disable_datetime_precision
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
-Type: `bool`<br />
-
-disable datetime precision, which not supported before MySQL 5.6
-
-### pumps.SQLAggregate.meta.mysql.dont_support_rename_index
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
-Type: `bool`<br />
-
-drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
-
-### pumps.SQLAggregate.meta.mysql.dont_support_rename_column
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
-Type: `bool`<br />
-
-`change` when rename column, rename column not supported before MySQL 8, MariaDB
-
-### pumps.SQLAggregate.meta.mysql.skip_initialize_with_version
-EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
-Type: `bool`<br />
-
-auto configure based on currently MySQL version
 
 ### pumps.SQLAggregate.meta.track_all_paths
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS</b><br />
