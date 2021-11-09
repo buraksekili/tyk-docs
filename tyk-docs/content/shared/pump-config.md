@@ -106,7 +106,7 @@ Type: `string`<br />
 
 Determines the uptime type. Options are `mongo` and `sql`. Defaults to `mongo`.
 
-### pumps
+### syslog
 The default environment variable prefix for each pump follows this format:
 `TYK_PMP_PUMPS_{PUMP-NAME}_`, for example `TYK_PMP_PUMPS_KAFKA_`.
 
@@ -114,20 +114,20 @@ You can also set custom names for each pump specifying the pump type. For exampl
 want a Kafka pump which is called `PROD` you need to create `TYK_PMP_PUMPS_PROD_TYPE=kafka`
 and configure it using the `TYK_PMP_PUMPS_PROD_` prefix.
 
-### pumps.{PMP_NAME}.name
-EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_NAME</b><br />
+### pumps.csv.name
+EV: <b>TYK_PMP_PUMPS_CSV_NAME</b><br />
 Type: `string`<br />
 
 Deprecated.
 
-### pumps.{PMP_NAME}.type
-EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_TYPE</b><br />
+### pumps.csv.type
+EV: <b>TYK_PMP_PUMPS_CSV_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
 For more information please see the (pumps)[#pumps] sections.
 
-### pumps.{PMP_NAME}.filters
+### pumps.csv.filters
 This feature adds a new configuration field in each pump called filters and its structure is
 the following:
 ```{.json}
@@ -159,8 +159,8 @@ An example of configuration would be:
 }
 ```
 
-### pumps.{PMP_NAME}.timeout
-EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_TIMEOUT</b><br />
+### pumps.csv.timeout
+EV: <b>TYK_PMP_PUMPS_CSV_TIMEOUT</b><br />
 Type: `int`<br />
 
 You can configure a different timeout for each pump with the configuration option `timeout`.
@@ -189,15 +189,15 @@ the value configured for the purge loop in the `purge_delay` config option, you 
 following warning message: `Pump PMP_NAME is taking more time than the value configured of
 purge_delay. You should try lowering the timeout configured for this pump.`.
 
-### pumps.{PMP_NAME}.omit_detailed_recording
-EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_OMITDETAILEDRECORDING</b><br />
+### pumps.csv.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_CSV_OMITDETAILEDRECORDING</b><br />
 Type: `bool`<br />
 
 Setting this to true will avoid writing raw_request and raw_response fields for each request
 in pumps. Defaults to `false`.
 
-### pumps.{PMP_NAME}.max_record_size
-EV: <b>TYK_PMP_PUMPS_{PMP_NAME}_MAXRECORDSIZE</b><br />
+### pumps.csv.max_record_size
+EV: <b>TYK_PMP_PUMPS_CSV_MAXRECORDSIZE</b><br />
 Type: `int`<br />
 
 Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
@@ -213,55 +213,154 @@ information. This can also be set at a pump level. For example:
 }
 ```
 
-### pumps.CSV.meta.csv_dir
+### pumps.csv.meta.csv_dir
 EV: <b>TYK_PMP_PUMPS_CSV_META_CSVDIR</b><br />
 Type: `string`<br />
 
 The directory and the filename where the CSV data will be stored.
 
-### pumps.DogStatsd.meta.namespace
+### pumps.dogstatsd.name
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.dogstatsd.type
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.dogstatsd.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.dogstatsd.timeout
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.dogstatsd.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.dogstatsd.max_record_size
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.dogstatsd.meta.namespace
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_NAMESPACE</b><br />
 Type: `string`<br />
 
 Prefix for your metrics to datadog.
 
-### pumps.DogStatsd.meta.address
+### pumps.dogstatsd.meta.address
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ADDRESS</b><br />
 Type: `string`<br />
 
 Address of the datadog agent including host & port.
 
-### pumps.DogStatsd.meta.sample_rate
+### pumps.dogstatsd.meta.sample_rate
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_SAMPLERATE</b><br />
 Type: `float64`<br />
 
 Defaults to `1` which equates to `100%` of requests. To sample at `50%`, set to `0.5`.
 
-### pumps.DogStatsd.meta.async_uds
+### pumps.dogstatsd.meta.async_uds
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDS</b><br />
 Type: `bool`<br />
 
 Enable async UDS over UDP https://github.com/Datadog/datadog-go#unix-domain-sockets-client.
 
-### pumps.DogStatsd.meta.async_uds_write_timeout_seconds
+### pumps.dogstatsd.meta.async_uds_write_timeout_seconds
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_ASYNCUDSWRITETIMEOUT</b><br />
 Type: `int`<br />
 
 Integer write timeout in seconds if `async_uds: true`.
 
-### pumps.DogStatsd.meta.buffered
+### pumps.dogstatsd.meta.buffered
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_BUFFERED</b><br />
 Type: `bool`<br />
 
 Enable buffering of messages.
 
-### pumps.DogStatsd.meta.buffered_max_messages
+### pumps.dogstatsd.meta.buffered_max_messages
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_BUFFEREDMAXMESSAGES</b><br />
 Type: `int`<br />
 
 Max messages in single datagram if `buffered: true`. Default 16.
 
-### pumps.DogStatsd.meta.tags
+### pumps.dogstatsd.meta.tags
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_META_TAGS</b><br />
 Type: `[]string`<br />
 
@@ -316,21 +415,120 @@ On startup, you should see the loaded configs when initializing the dogstatsd pu
 [May 10 15:23:44]  INFO dogstatsd: async_uds: true, write_timeout: 2s
 ```
 
-### pumps.Elasticsearch.meta.index_name
+### pumps.elasticsearch.name
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.elasticsearch.type
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.elasticsearch.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.elasticsearch.timeout
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.elasticsearch.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.elasticsearch.max_record_size
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.elasticsearch.meta.index_name
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_INDEXNAME</b><br />
 Type: `string`<br />
 
 The name of the index that all the analytics data will be placed in. Defaults to
 "tyk_analytics".
 
-### pumps.Elasticsearch.meta.elasticsearch_url
+### pumps.elasticsearch.meta.elasticsearch_url
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ELASTICSEARCHURL</b><br />
 Type: `string`<br />
 
 If sniffing is disabled, the URL that all data will be sent to. Defaults to
 "http://localhost:9200".
 
-### pumps.Elasticsearch.meta.use_sniffing
+### pumps.elasticsearch.meta.use_sniffing
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ENABLESNIFFING</b><br />
 Type: `bool`<br />
 
@@ -338,118 +536,217 @@ If sniffing is enabled, the "elasticsearch_url" will be used to make a request t
 list of all the nodes in the cluster, the returned addresses will then be used. Defaults to
 `false`.
 
-### pumps.Elasticsearch.meta.document_type
+### pumps.elasticsearch.meta.document_type
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DOCUMENTTYPE</b><br />
 Type: `string`<br />
 
 The type of the document that is created in ES. Defaults to "tyk_analytics".
 
-### pumps.Elasticsearch.meta.rolling_index
+### pumps.elasticsearch.meta.rolling_index
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_ROLLINGINDEX</b><br />
 Type: `bool`<br />
 
 Appends the date to the end of the index name, so each days data is split into a different
 index name. E.g. tyk_analytics-2016.02.28. Defaults to `false`.
 
-### pumps.Elasticsearch.meta.extended_stats
+### pumps.elasticsearch.meta.extended_stats
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_EXTENDEDSTATISTICS</b><br />
 Type: `bool`<br />
 
 If set to `true` will include the following additional fields: Raw Request, Raw Response and
 User Agent.
 
-### pumps.Elasticsearch.meta.generate_id
+### pumps.elasticsearch.meta.generate_id
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_GENERATEID</b><br />
 Type: `bool`<br />
 
 When enabled, generate _id for outgoing records. This prevents duplicate records when
 retrying ES.
 
-### pumps.Elasticsearch.meta.decode_base64
+### pumps.elasticsearch.meta.decode_base64
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DECODEBASE64</b><br />
 Type: `bool`<br />
 
 Allows for the base64 bits to be decode before being passed to ES.
 
-### pumps.Elasticsearch.meta.version
+### pumps.elasticsearch.meta.version
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_VERSION</b><br />
 Type: `string`<br />
 
 Specifies the ES version. Use "3" for ES 3.X, "5" for ES 5.X, "6" for ES 6.X, "7" for ES
 7.X . Defaults to "3".
 
-### pumps.Elasticsearch.meta.disable_bulk
+### pumps.elasticsearch.meta.disable_bulk
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_DISABLEBULK</b><br />
 Type: `bool`<br />
 
 Disable batch writing. Defaults to false.
 
-### pumps.Elasticsearch.meta.bulk_config
+### pumps.elasticsearch.meta.bulk_config
 Batch writing trigger configuration. Each option is an OR with eachother:
 
-### pumps.Elasticsearch.meta.bulk_config.workers
+### pumps.elasticsearch.meta.bulk_config.workers
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_WORKERS</b><br />
 Type: `int`<br />
 
 Number of workers. Defaults to 1.
 
-### pumps.Elasticsearch.meta.bulk_config.flush_interval
+### pumps.elasticsearch.meta.bulk_config.flush_interval
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_FLUSHINTERVAL</b><br />
 Type: `int`<br />
 
 Specifies the time in seconds to flush the data and send it to ES. Default disabled.
 
-### pumps.Elasticsearch.meta.bulk_config.bulk_actions
+### pumps.elasticsearch.meta.bulk_config.bulk_actions
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKACTIONS</b><br />
 Type: `int`<br />
 
 Specifies the number of requests needed to flush the data and send it to ES. Defaults to
 1000 requests. If it is needed, can be disabled with -1.
 
-### pumps.Elasticsearch.meta.bulk_config.bulk_size
+### pumps.elasticsearch.meta.bulk_config.bulk_size
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_BULKCONFIG_BULKSIZE</b><br />
 Type: `int`<br />
 
 Specifies the size (in bytes) needed to flush the data and send it to ES. Defaults to 5MB.
 If it is needed, can be disabled with -1.
 
-### pumps.Elasticsearch.meta.auth_api_key_id
+### pumps.elasticsearch.meta.auth_api_key_id
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEYID</b><br />
 Type: `string`<br />
 
 API Key ID used for APIKey auth in ES. It's send to ES in the Authorization header as ApiKey base64(auth_api_key_id:auth_api_key)
 
-### pumps.Elasticsearch.meta.auth_api_key
+### pumps.elasticsearch.meta.auth_api_key
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_AUTHAPIKEY</b><br />
 Type: `string`<br />
 
 API Key used for APIKey auth in ES. It's send to ES in the Authorization header as ApiKey base64(auth_api_key_id:auth_api_key)
 
-### pumps.Elasticsearch.meta.auth_basic_username
+### pumps.elasticsearch.meta.auth_basic_username
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_USERNAME</b><br />
 Type: `string`<br />
 
 Basic auth username. It's send to ES in the Authorization header as username:password encoded in base64.
 
-### pumps.Elasticsearch.meta.auth_basic_password
+### pumps.elasticsearch.meta.auth_basic_password
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_META_PASSWORD</b><br />
 Type: `string`<br />
 
 Basic auth password. It's send to ES in the Authorization header as username:password encoded in base64.
 
-### pumps.Graylog.meta.host
+### pumps.graylog.name
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.graylog.type
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.graylog.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.graylog.timeout
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.graylog.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.graylog.max_record_size
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.graylog.meta.host
 EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGHOST</b><br />
 Type: `string`<br />
 
 Graylog host.
 
-### pumps.Graylog.meta.port
+### pumps.graylog.meta.port
 EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_GRAYLOGPORT</b><br />
 Type: `int`<br />
 
 Graylog port.
 
-### pumps.Graylog.meta.tags
+### pumps.graylog.meta.tags
 EV: <b>TYK_PMP_PUMPS_GRAYLOG_META_TAGS</b><br />
 Type: `[]string`<br />
 
@@ -471,31 +768,130 @@ The possible values are:
 - `request_time`
 - `ip_address`
 
-### pumps.Influx.meta.database_name
+### pumps.influx.name
+EV: <b>TYK_PMP_PUMPS_INFLUX_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.influx.type
+EV: <b>TYK_PMP_PUMPS_INFLUX_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.influx.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.influx.timeout
+EV: <b>TYK_PMP_PUMPS_INFLUX_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.influx.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_INFLUX_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.influx.max_record_size
+EV: <b>TYK_PMP_PUMPS_INFLUX_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.influx.meta.database_name
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_DATABASENAME</b><br />
 Type: `string`<br />
 
 InfluxDB pump database name.
 
-### pumps.Influx.meta.address
+### pumps.influx.meta.address
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_ADDR</b><br />
 Type: `string`<br />
 
 InfluxDB pump host.
 
-### pumps.Influx.meta.username
+### pumps.influx.meta.username
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_USERNAME</b><br />
 Type: `string`<br />
 
 InfluxDB pump database username.
 
-### pumps.Influx.meta.password
+### pumps.influx.meta.password
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_PASSWORD</b><br />
 Type: `string`<br />
 
 InfluxDB pump database password.
 
-### pumps.Influx.meta.fields
+### pumps.influx.meta.fields
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_FIELDS</b><br />
 Type: `[]string`<br />
 
@@ -504,7 +900,7 @@ fields in the example below. Default value is `["method",
 "path", "response_code", "api_key", "time_stamp", "api_version", "api_name", "api_id",
 "org_id", "oauth_id", "raw_request", "request_time", "raw_response", "ip_address"]`.
 
-### pumps.Influx.meta.tags
+### pumps.influx.meta.tags
 EV: <b>TYK_PMP_PUMPS_INFLUX_META_TAGS</b><br />
 Type: `[]string`<br />
 
@@ -521,134 +917,431 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `tracked`
 - `oauth_id` [VALIDATE]
 
-### pumps.Kafka.meta.broker
+### pumps.kafka.name
+EV: <b>TYK_PMP_PUMPS_KAFKA_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.kafka.type
+EV: <b>TYK_PMP_PUMPS_KAFKA_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.kafka.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.kafka.timeout
+EV: <b>TYK_PMP_PUMPS_KAFKA_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.kafka.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_KAFKA_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.kafka.max_record_size
+EV: <b>TYK_PMP_PUMPS_KAFKA_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.kafka.meta.broker
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_BROKER</b><br />
 Type: `[]string`<br />
 
 The list of brokers used to discover the partitions available on the kafka cluster. E.g.
 "localhost:9092".
 
-### pumps.Kafka.meta.client_id
+### pumps.kafka.meta.client_id
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_CLIENTID</b><br />
 Type: `string`<br />
 
 Unique identifier for client connections established with Kafka.
 
-### pumps.Kafka.meta.topic
+### pumps.kafka.meta.topic
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_TOPIC</b><br />
 Type: `string`<br />
 
 The topic that the writer will produce messages to.
 
-### pumps.Kafka.meta.timeout
+### pumps.kafka.meta.timeout
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_TIMEOUT</b><br />
 Type: `time.Duration`<br />
 
 Timeout is the maximum amount of time will wait for a connect or write to complete.
 
-### pumps.Kafka.meta.compressed
+### pumps.kafka.meta.compressed
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_COMPRESSED</b><br />
 Type: `bool`<br />
 
 Enable "github.com/golang/snappy" codec to be used to compress Kafka messages. By default
 is `false`.
 
-### pumps.Kafka.meta.meta_data
+### pumps.kafka.meta.meta_data
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_METADATA</b><br />
 Type: `map[string]string`<br />
 
 Can be used to set custom metadata inside the kafka message.
 
-### pumps.Kafka.meta.use_ssl
+### pumps.kafka.meta.use_ssl
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_USESSL</b><br />
 Type: `bool`<br />
 
 Enables SSL connection.
 
-### pumps.Kafka.meta.ssl_insecure_skip_verify
+### pumps.kafka.meta.ssl_insecure_skip_verify
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLINSECURESKIPVERIFY</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client verifies the kafka server's certificate chain and host
 name.
 
-### pumps.Kafka.meta.ssl_cert_file
+### pumps.kafka.meta.ssl_cert_file
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLCERTFILE</b><br />
 Type: `string`<br />
 
 Can be used to set custom certificate file for authentication with kafka.
 
-### pumps.Kafka.meta.ssl_key_file
+### pumps.kafka.meta.ssl_key_file
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_SSLKEYFILE</b><br />
 Type: `string`<br />
 
 Can be used to set custom key file for authentication with kafka.
 
-### pumps.Kafka.meta.sasl_mechanism
+### pumps.kafka.meta.sasl_mechanism
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_SASLMECHANISM</b><br />
 Type: `string`<br />
 
 SASL mechanism configuration. Only "plain" and "scram" are supported.
 
-### pumps.Kafka.meta.sasl_username
+### pumps.kafka.meta.sasl_username
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_USERNAME</b><br />
 Type: `string`<br />
 
 SASL username.
 
-### pumps.Kafka.meta.sasl_password
+### pumps.kafka.meta.sasl_password
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_PASSWORD</b><br />
 Type: `string`<br />
 
 SASL password.
 
-### pumps.Kafka.meta.sasl_algorithm
+### pumps.kafka.meta.sasl_algorithm
 EV: <b>TYK_PMP_PUMPS_KAFKA_META_ALGORITHM</b><br />
 Type: `string`<br />
 
 SASL algorithm. It's the algorithm specified for scram mechanism. It could be sha-512 or sha-256.
 Defaults to "sha-256".
 
-### pumps.Logzio.meta.check_disk_space
+### pumps.logzio.name
+EV: <b>TYK_PMP_PUMPS_LOGZIO_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.logzio.type
+EV: <b>TYK_PMP_PUMPS_LOGZIO_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.logzio.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.logzio.timeout
+EV: <b>TYK_PMP_PUMPS_LOGZIO_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.logzio.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_LOGZIO_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.logzio.max_record_size
+EV: <b>TYK_PMP_PUMPS_LOGZIO_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.logzio.meta.check_disk_space
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_CHECKDISKSPACE</b><br />
 Type: `bool`<br />
 
 Set the sender to check if it crosses the maximum allowed disk usage. Default value is
 `true`.
 
-### pumps.Logzio.meta.disk_threshold
+### pumps.logzio.meta.disk_threshold
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_DISKTHRESHOLD</b><br />
 Type: `int`<br />
 
 Set disk queue threshold, once the threshold is crossed the sender will not enqueue the
 received logs. Default value is `98` (percentage of disk).
 
-### pumps.Logzio.meta.drain_duration
+### pumps.logzio.meta.drain_duration
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_DRAINDURATION</b><br />
 Type: `string`<br />
 
 Set drain duration (flush logs on disk). Default value is `3s`.
 
-### pumps.Logzio.meta.queue_dir
+### pumps.logzio.meta.queue_dir
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_QUEUEDIR</b><br />
 Type: `string`<br />
 
 The directory for the queue.
 
-### pumps.Logzio.meta.token
+### pumps.logzio.meta.token
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_TOKEN</b><br />
 Type: `string`<br />
 
 Token for sending data to your logzio account.
 
-### pumps.Logzio.meta.url
+### pumps.logzio.meta.url
 EV: <b>TYK_PMP_PUMPS_LOGZIO_META_URL</b><br />
 Type: `string`<br />
 
 If you do not want to use the default Logzio url i.e. when using a proxy. Default is
 `https://listener.logz.io:8071`.
 
-### pumps.Moesif.meta.application_id
+### pumps.moesif.name
+EV: <b>TYK_PMP_PUMPS_MOESIF_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.moesif.type
+EV: <b>TYK_PMP_PUMPS_MOESIF_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.moesif.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.moesif.timeout
+EV: <b>TYK_PMP_PUMPS_MOESIF_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.moesif.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_MOESIF_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.moesif.max_record_size
+EV: <b>TYK_PMP_PUMPS_MOESIF_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.moesif.meta.application_id
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_APPLICATIONID</b><br />
 Type: `string`<br />
 
@@ -657,61 +1350,61 @@ Moesif Application Id. You can find your Moesif Application Id from
 recommends creating separate Application Ids for each environment such as Production,
 Staging, and Development to keep data isolated.
 
-### pumps.Moesif.meta.request_header_masks
+### pumps.moesif.meta.request_header_masks
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_REQUESTHEADERMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific request header field.
 
-### pumps.Moesif.meta.response_header_masks
+### pumps.moesif.meta.response_header_masks
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_RESPONSEHEADERMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific response header field.
 
-### pumps.Moesif.meta.request_body_masks
+### pumps.moesif.meta.request_body_masks
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_REQUESTBODYMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific - request body field.
 
-### pumps.Moesif.meta.response_body_masks
+### pumps.moesif.meta.response_body_masks
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_RESPONSEBODYMASKS</b><br />
 Type: `[]string`<br />
 
 An option to mask a specific response body field.
 
-### pumps.Moesif.meta.disable_capture_request_body
+### pumps.moesif.meta.disable_capture_request_body
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTUREREQUESTBODY</b><br />
 Type: `bool`<br />
 
 An option to disable logging of request body. Default value is `false`.
 
-### pumps.Moesif.meta.disable_capture_response_body
+### pumps.moesif.meta.disable_capture_response_body
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_DISABLECAPTURERESPONSEBODY</b><br />
 Type: `bool`<br />
 
 An option to disable logging of response body. Default value is `false`.
 
-### pumps.Moesif.meta.user_id_header
+### pumps.moesif.meta.user_id_header
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_USERIDHEADER</b><br />
 Type: `string`<br />
 
 An optional field name to identify User from a request or response header.
 
-### pumps.Moesif.meta.company_id_header
+### pumps.moesif.meta.company_id_header
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_COMPANYIDHEADER</b><br />
 Type: `string`<br />
 
 An optional field name to identify Company (Account) from a request or response header.
 
-### pumps.Moesif.meta.enable_bulk
+### pumps.moesif.meta.enable_bulk
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_ENABLEBULK</b><br />
 Type: `bool`<br />
 
 Set this to `true` to enable `bulk_config`.
 
-### pumps.Moesif.meta.bulk_config
+### pumps.moesif.meta.bulk_config
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_BULKCONFIG</b><br />
 Type: `map[string]interface{}`<br />
 
@@ -726,54 +1419,252 @@ when sending to Moesif. Type: int. Default value is `200`.
 seconds) how often background thread runs to send events to moesif. Type: int. Default value
 is `2` seconds.
 
-### pumps.Moesif.meta.authorization_header_name
+### pumps.moesif.meta.authorization_header_name
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONHEADERNAME</b><br />
 Type: `string`<br />
 
 An optional request header field name to used to identify the User in Moesif. Default value
 is `authorization`.
 
-### pumps.Moesif.meta.authorization_user_id_field
+### pumps.moesif.meta.authorization_user_id_field
 EV: <b>TYK_PMP_PUMPS_MOESIF_META_AUTHORIZATIONUSERIDFIELD</b><br />
 Type: `string`<br />
 
 An optional field name use to parse the User from authorization header in Moesif. Default
 value is `sub`.
 
-### pumps.Mongo.meta.collection_name
+### pumps.mongo.name
+EV: <b>TYK_PMP_PUMPS_MONGO_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.mongo.type
+EV: <b>TYK_PMP_PUMPS_MONGO_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.mongo.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.mongo.timeout
+EV: <b>TYK_PMP_PUMPS_MONGO_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.mongo.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_MONGO_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.mongo.max_record_size
+EV: <b>TYK_PMP_PUMPS_MONGO_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.mongo.meta.collection_name
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONNAME</b><br />
 Type: `string`<br />
 
 Specifies the mongo collection name.
 
-### pumps.Mongo.meta.max_insert_batch_size_bytes
+### pumps.mongo.meta.max_insert_batch_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
 Maximum insert batch size for mongo selective pump. If the batch we are writing surpass this value, it will be send in multiple batchs.
 Defaults to 10Mb.
 
-### pumps.Mongo.meta.max_document_size_bytes
+### pumps.mongo.meta.max_document_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
 Maximum document size. If the document exceed this value, it will be skipped.
 Defaults to 10Mb.
 
-### pumps.Mongo.meta.collection_cap_max_size_bytes
+### pumps.mongo.meta.collection_cap_max_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPMAXSIZEBYTES</b><br />
 Type: `int`<br />
 
 Amount of bytes of the capped collection in 64bits architectures.
 Defaults to 5GB.
 
-### pumps.Mongo.meta.collection_cap_enable
+### pumps.mongo.meta.collection_cap_enable
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONCAPENABLE</b><br />
 Type: `bool`<br />
 
 Enable collection capping. It's used to set a maximum size of the collection.
 
-### pumps.MongoAggregate.meta.use_mixed_collection
+### pumps.mongoaggregate.name
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.mongoaggregate.type
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.mongoaggregate.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.mongoaggregate.timeout
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.mongoaggregate.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.mongoaggregate.max_record_size
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.mongoaggregate.meta.use_mixed_collection
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_USEMIXEDCOLLECTION</b><br />
 Type: `bool`<br />
 
@@ -782,20 +1673,20 @@ collections z_tyk_analyticz_aggregate_{ORG ID} and your org-less tyk_analytics_a
 collection. When set to 'false' your pump will only store analytics to your org defined
 collection.
 
-### pumps.MongoAggregate.meta.track_all_paths
+### pumps.mongoaggregate.meta.track_all_paths
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_TRACKALLPATHS</b><br />
 Type: `bool`<br />
 
 Specifies if it should store aggregated data for all the endpoints. By default, `false`
 which means that only store aggregated data for `tracked endpoints`.
 
-### pumps.MongoAggregate.meta.ignore_tag_prefix_list
+### pumps.mongoaggregate.meta.ignore_tag_prefix_list
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Specifies prefixes of tags that should be ignored.
 
-### pumps.MongoAggregate.meta.threshold_len_tag_list
+### pumps.mongoaggregate.meta.threshold_len_tag_list
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_THRESHOLDLENTAGLIST</b><br />
 Type: `int`<br />
 
@@ -803,13 +1694,13 @@ Determines the threshold of amount of tags of an aggregation. If the amount of t
 it will print an alert.
 Defaults to 1000.
 
-### pumps.MongoAggregate.meta.store_analytics_per_minute
+### pumps.mongoaggregate.meta.store_analytics_per_minute
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
 Determines if the aggregations should be made per minute instead of per hour.
 
-### pumps.MongoAggregate.meta.ignore_aggregations
+### pumps.mongoaggregate.meta.ignore_aggregations
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_IGNOREAGGREGATIONSLIST</b><br />
 Type: `[]string`<br />
 
@@ -817,84 +1708,480 @@ This list determines which aggregations are going to be dropped and not stored i
 Posible values are: "APIID","errors","versions","apikeys","oauthids","geo","tags","endpoints","keyendpoints",
 "oauthendpoints", and "apiendpoints".
 
-### pumps.MongoSelective.meta.max_insert_batch_size_bytes
+### pumps.mongoselective.name
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.mongoselective.type
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.mongoselective.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.mongoselective.timeout
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.mongoselective.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.mongoselective.max_record_size
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.mongoselective.meta.max_insert_batch_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
 
 Maximum insert batch size for mongo selective pump. If the batch we are writing surpass this value, it will be send in multiple batchs.
 Defaults to 10Mb.
 
-### pumps.MongoSelective.meta.max_document_size_bytes
+### pumps.mongoselective.meta.max_document_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXDOCUMENTSIZEBYTES</b><br />
 Type: `int`<br />
 
 Maximum document size. If the document exceed this value, it will be skipped.
 Defaults to 10Mb.
 
-### pumps.Prometheus.meta.listen_address
+### pumps.prometheus.name
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.prometheus.type
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.prometheus.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.prometheus.timeout
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.prometheus.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.prometheus.max_record_size
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.prometheus.meta.listen_address
 EV: <b>TYK_PMP_PUMPS_PROMETHEUS_META_ADDR</b><br />
 Type: `string`<br />
 
 The full URL to your Prometheus instance, {HOST}:{PORT}. For example `localhost:9090`.
 
-### pumps.Prometheus.meta.path
+### pumps.prometheus.meta.path
 EV: <b>TYK_PMP_PUMPS_PROMETHEUS_META_PATH</b><br />
 Type: `string`<br />
 
 The path to the Prometheus collection. For example `/metrics`.
 
-### pumps.Splunk.meta.collector_token
+### pumps.segment.name
+EV: <b>TYK_PMP_PUMPS_SEGMENT_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.segment.type
+EV: <b>TYK_PMP_PUMPS_SEGMENT_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.segment.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.segment.timeout
+EV: <b>TYK_PMP_PUMPS_SEGMENT_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.segment.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_SEGMENT_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.segment.max_record_size
+EV: <b>TYK_PMP_PUMPS_SEGMENT_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.splunk.name
+EV: <b>TYK_PMP_PUMPS_SPLUNK_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.splunk.type
+EV: <b>TYK_PMP_PUMPS_SPLUNK_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.splunk.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.splunk.timeout
+EV: <b>TYK_PMP_PUMPS_SPLUNK_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.splunk.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_SPLUNK_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.splunk.max_record_size
+EV: <b>TYK_PMP_PUMPS_SPLUNK_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.splunk.meta.collector_token
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_COLLECTORTOKEN</b><br />
 Type: `string`<br />
 
 Address of the datadog agent including host & port.
 
-### pumps.Splunk.meta.collector_url
+### pumps.splunk.meta.collector_url
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_COLLECTORURL</b><br />
 Type: `string`<br />
 
 Endpoint the Pump will send analytics too.  Should look something like:
 `https://splunk:8088/services/collector/event`.
 
-### pumps.Splunk.meta.ssl_insecure_skip_verify
+### pumps.splunk.meta.ssl_insecure_skip_verify
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLINSECURESKIPVERIFY</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client verifies the Splunk server's certificate chain and host name.
 
-### pumps.Splunk.meta.ssl_cert_file
+### pumps.splunk.meta.ssl_cert_file
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLCERTFILE</b><br />
 Type: `string`<br />
 
 SSL cert file location.
 
-### pumps.Splunk.meta.ssl_key_file
+### pumps.splunk.meta.ssl_key_file
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLKEYFILE</b><br />
 Type: `string`<br />
 
 SSL cert key location.
 
-### pumps.Splunk.meta.ssl_server_name
+### pumps.splunk.meta.ssl_server_name
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_SSLSERVERNAME</b><br />
 Type: `string`<br />
 
 SSL Server name used in the TLS connection.
 
-### pumps.Splunk.meta.obfuscate_api_keys
+### pumps.splunk.meta.obfuscate_api_keys
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYS</b><br />
 Type: `bool`<br />
 
 Controls whether the pump client should hide the API key. In case you still need substring
 of the value, check the next option. Default value is `false`.
 
-### pumps.Splunk.meta.obfuscate_api_keys_length
+### pumps.splunk.meta.obfuscate_api_keys_length
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_OBFUSCATEAPIKEYSLENGTH</b><br />
 Type: `int`<br />
 
 Define the number of the characters from the end of the API key. The `obfuscate_api_keys`
 should be set to `true`. Default value is `0`.
 
-### pumps.Splunk.meta.fields
+### pumps.splunk.meta.fields
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_FIELDS</b><br />
 Type: `[]string`<br />
 
@@ -903,75 +2190,174 @@ fields in the example below. Default value is `["method",
 "path", "response_code", "api_key", "time_stamp", "api_version", "api_name", "api_id",
 "org_id", "oauth_id", "raw_request", "request_time", "raw_response", "ip_address"]`.
 
-### pumps.Splunk.meta.ignore_tag_prefix_list
+### pumps.splunk.meta.ignore_tag_prefix_list
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Choose which tags to be ignored by the Splunk Pump. Keep in mind that the tag name and value
 are hyphenated. Default value is `[]`.
 
-### pumps.Splunk.meta.enable_batch
+### pumps.splunk.meta.enable_batch
 EV: <b>TYK_PMP_PUMPS_SPLUNK_META_ENABLEBATCH</b><br />
 Type: `bool`<br />
 
 If this is set to `true`, pump is going to send the analytics records in batch to Splunk.
 Default value is `false`.
 
-### pumps.SQL.meta.type
+### pumps.sql.name
+EV: <b>TYK_PMP_PUMPS_SQL_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.sql.type
+EV: <b>TYK_PMP_PUMPS_SQL_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.sql.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.sql.timeout
+EV: <b>TYK_PMP_PUMPS_SQL_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.sql.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_SQL_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.sql.max_record_size
+EV: <b>TYK_PMP_PUMPS_SQL_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.sql.meta.type
 EV: <b>TYK_PMP_PUMPS_SQL_META_TYPE</b><br />
 Type: `string`<br />
 
 The supported and tested types are `sqlite` and `postgres`.
 
-### pumps.SQL.meta.connection_string
+### pumps.sql.meta.connection_string
 EV: <b>TYK_PMP_PUMPS_SQL_META_CONNECTIONSTRING</b><br />
 Type: `string`<br />
 
 Specifies the connection string to the database.
 
-### pumps.SQL.meta.postgres
+### pumps.sql.meta.postgres
 Postgres configurations.
 
-### pumps.SQL.meta.postgres.prefer_simple_protocol
+### pumps.sql.meta.postgres.prefer_simple_protocol
 EV: <b>TYK_PMP_PUMPS_SQL_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
 Type: `bool`<br />
 
 Disables implicit prepared statement usage.
 
-### pumps.SQL.meta.mysql
+### pumps.sql.meta.mysql
 Mysql configurations.
 
-### pumps.SQL.meta.mysql.default_string_size
+### pumps.sql.meta.mysql.default_string_size
 EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
 Type: `uint`<br />
 
 Default size for string fields. Defaults to `256`.
 
-### pumps.SQL.meta.mysql.disable_datetime_precision
+### pumps.sql.meta.mysql.disable_datetime_precision
 EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
 Type: `bool`<br />
 
 Disable datetime precision, which not supported before MySQL 5.6.
 
-### pumps.SQL.meta.mysql.dont_support_rename_index
+### pumps.sql.meta.mysql.dont_support_rename_index
 EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
 Type: `bool`<br />
 
 Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
 
-### pumps.SQL.meta.mysql.dont_support_rename_column
+### pumps.sql.meta.mysql.dont_support_rename_column
 EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
 Type: `bool`<br />
 
 `change` when rename column, rename column not supported before MySQL 8, MariaDB.
 
-### pumps.SQL.meta.mysql.skip_initialize_with_version
+### pumps.sql.meta.mysql.skip_initialize_with_version
 EV: <b>TYK_PMP_PUMPS_SQL_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
 Type: `bool`<br />
 
 Auto configure based on currently MySQL version.
 
-### pumps.SQL.meta.table_sharding
+### pumps.sql.meta.table_sharding
 EV: <b>TYK_PMP_PUMPS_SQL_META_TABLESHARDING</b><br />
 Type: `bool`<br />
 
@@ -981,52 +2367,250 @@ stored in `tyk_aggregated` table. Instead, if it's `true`, all the records of th
 going to be stored in `tyk_aggregated_YYYYMMDD` table, where `YYYYMMDD` is going to change
 depending on the date.
 
-### pumps.SQL.meta.log_level
+### pumps.sql.meta.log_level
 EV: <b>TYK_PMP_PUMPS_SQL_META_LOGLEVEL</b><br />
 Type: `string`<br />
 
 Specifies the SQL log verbosity. The possible values are: `info`,`error` and `warning`. By
 default, the value is `silent`, which means that it won't log any SQL query.
 
-### pumps.SQL.meta.batch_size
+### pumps.sql.meta.batch_size
 EV: <b>TYK_PMP_PUMPS_SQL_META_BATCHSIZE</b><br />
 Type: `int`<br />
 
 Specifies the amount of records that are going to be written each batch. Type int. By
 default, it writes 1000 records max per batch.
 
-### pumps.SQLAggregate.meta.track_all_paths
+### pumps.sqlaggregate.name
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.sqlaggregate.type
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.sqlaggregate.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.sqlaggregate.timeout
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.sqlaggregate.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.sqlaggregate.max_record_size
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.sqlaggregate.meta.track_all_paths
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS</b><br />
 Type: `bool`<br />
 
 Specifies if it should store aggregated data for all the endpoints. By default, `false`
 which means that only store aggregated data for `tracked endpoints`.
 
-### pumps.SQLAggregate.meta.ignore_tag_prefix_list
+### pumps.sqlaggregate.meta.ignore_tag_prefix_list
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_IGNORETAGPREFIXLIST</b><br />
 Type: `[]string`<br />
 
 Specifies prefixes of tags that should be ignored.
 
-### pumps.SQLAggregate.meta.store_analytics_per_minute
+### pumps.sqlaggregate.meta.store_analytics_per_minute
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_STOREANALYTICSPERMINUTE</b><br />
 Type: `bool`<br />
 
 Determines if the aggregations should be made per minute instead of per hour.
 
-### pumps.Statsd.meta.address
+### pumps.statsd.name
+EV: <b>TYK_PMP_PUMPS_STATSD_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.statsd.type
+EV: <b>TYK_PMP_PUMPS_STATSD_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.statsd.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.statsd.timeout
+EV: <b>TYK_PMP_PUMPS_STATSD_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.statsd.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_STATSD_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.statsd.max_record_size
+EV: <b>TYK_PMP_PUMPS_STATSD_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.statsd.meta.address
 EV: <b>TYK_PMP_PUMPS_STATSD_META_ADDRESS</b><br />
 Type: `string`<br />
 
 Address of statsd including host & port.
 
-### pumps.Statsd.meta.fields
+### pumps.statsd.meta.fields
 EV: <b>TYK_PMP_PUMPS_STATSD_META_FIELDS</b><br />
 Type: `[]string`<br />
 
 Define which Analytics fields should have its own metric calculation. This should be set to ["request_time"]. [VALIDATE]
 
-### pumps.Statsd.meta.tags
+### pumps.statsd.meta.tags
 EV: <b>TYK_PMP_PUMPS_STATSD_META_TAGS</b><br />
 Type: `[]string`<br />
 
@@ -1043,39 +2627,237 @@ If no tag is specified the fallback behavior is to use the below tags:
 - `tracked`
 - `oauth_id` [VALIDATE]
 
-### pumps.StdOut.meta.format
+### pumps.stdout.name
+EV: <b>TYK_PMP_PUMPS_STDOUT_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.stdout.type
+EV: <b>TYK_PMP_PUMPS_STDOUT_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.stdout.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.stdout.timeout
+EV: <b>TYK_PMP_PUMPS_STDOUT_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.stdout.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_STDOUT_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.stdout.max_record_size
+EV: <b>TYK_PMP_PUMPS_STDOUT_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.stdout.meta.format
 EV: <b>TYK_PMP_PUMPS_STDOUT_META_FORMAT</b><br />
 Type: `string`<br />
 
 Format of the analytics logs. Default is `text` if `json` is not explicitly specified. When
 JSON logging is used all pump logs to stdout will be JSON.
 
-### pumps.StdOut.meta.log_field_name
+### pumps.stdout.meta.log_field_name
 EV: <b>TYK_PMP_PUMPS_STDOUT_META_LOGFIELDNAME</b><br />
 Type: `string`<br />
 
 Root name of the JSON object the analytics record is nested in.
 
-### pumps.Syslog.meta.transport
+### pumps.syslog.name
+EV: <b>TYK_PMP_PUMPS_SYSLOG_NAME</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### pumps.syslog.type
+EV: <b>TYK_PMP_PUMPS_SYSLOG_TYPE</b><br />
+Type: `string`<br />
+
+Sets the pump type. This is needed when the pump key does not equal to the pump name type.
+For more information please see the (pumps)[#pumps] sections.
+
+### pumps.syslog.filters
+This feature adds a new configuration field in each pump called filters and its structure is
+the following:
+```{.json}
+"filters":{
+  "api_ids":[],
+  "org_ids":[],
+  "response_codes":[],
+  "skip_api_ids":[],
+  "skip_org_ids":[],
+  "skip_response_codes":[]
+}
+```
+The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
+want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
+skip_response_codes works as block list.
+
+The priority is always block list configurations over allow list.
+
+An example of configuration would be:
+```{.json}
+"csv": {
+ "type": "csv",
+ "filters": {
+   "org_ids": ["org1","org2"]
+ },
+ "meta": {
+   "csv_dir": "./bar"
+ }
+}
+```
+
+### pumps.syslog.timeout
+EV: <b>TYK_PMP_PUMPS_SYSLOG_TIMEOUT</b><br />
+Type: `int`<br />
+
+You can configure a different timeout for each pump with the configuration option `timeout`.
+Its default value is `0` seconds, which means that the pump will wait for the writing
+operation forever.
+
+An example of this configuration would be:
+```{.json}
+"mongo": {
+  "type": "mongo",
+  "timeout":5,
+  "meta": {
+    "collection_name": "tyk_analytics",
+    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
+  }
+}
+```
+
+In case that any pump doesn't have a configured timeout, and it takes more seconds to write
+than the value configured for the purge loop in the `purge_delay` config option, you will
+see the following warning message: `Pump PMP_NAME is taking more time than the value
+configured of purge_delay. You should try to set a timeout for this pump.`.
+
+In case that you have a configured timeout, but it still takes more seconds to write than
+the value configured for the purge loop in the `purge_delay` config option, you will see the
+following warning message: `Pump PMP_NAME is taking more time than the value configured of
+purge_delay. You should try lowering the timeout configured for this pump.`.
+
+### pumps.syslog.omit_detailed_recording
+EV: <b>TYK_PMP_PUMPS_SYSLOG_OMITDETAILEDRECORDING</b><br />
+Type: `bool`<br />
+
+Setting this to true will avoid writing raw_request and raw_response fields for each request
+in pumps. Defaults to `false`.
+
+### pumps.syslog.max_record_size
+EV: <b>TYK_PMP_PUMPS_SYSLOG_MAXRECORDSIZE</b><br />
+Type: `int`<br />
+
+Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
+to 0. If it is not set then tyk-pump will not trim any data and will store the full
+information. This can also be set at a pump level. For example:
+```{.json}
+"csv": {
+  "type": "csv",
+  "max_record_size":1000,
+  "meta": {
+    "csv_dir": "./"
+  }
+}
+```
+
+### pumps.syslog.meta.transport
 EV: <b>TYK_PMP_PUMPS_SYSLOG_META_TRANSPORT</b><br />
 Type: `string`<br />
 
 Possible values are `udp, tcp, tls` in string form.
 
-### pumps.Syslog.meta.network_addr
+### pumps.syslog.meta.network_addr
 EV: <b>TYK_PMP_PUMPS_SYSLOG_META_NETWORKADDR</b><br />
 Type: `string`<br />
 
 Host & Port combination of your syslog daemon ie: `"localhost:5140"`.
 
-### pumps.Syslog.meta.log_level
+### pumps.syslog.meta.log_level
 EV: <b>TYK_PMP_PUMPS_SYSLOG_META_LOGLEVEL</b><br />
 Type: `int`<br />
 
 The severity level, an integer from 0-7, based off the Standard:
 [Syslog Severity Levels](https://en.wikipedia.org/wiki/Syslog#Severity_level).
 
-### pumps.Syslog.meta.tag
+### pumps.syslog.meta.tag
 EV: <b>TYK_PMP_PUMPS_SYSLOG_META_TAG</b><br />
 Type: `string`<br />
 
