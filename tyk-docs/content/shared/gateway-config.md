@@ -1542,6 +1542,90 @@ Type: `int64`<br />
 
 global session lifetime, in seconds.
 
+### kv.consul.address
+EV: <b>TYK_GW_KV.CONSUL_ADDRESS</b><br />
+Type: `string`<br />
+
+Address is the address of the Consul server
+
+### kv.consul.scheme
+EV: <b>TYK_GW_KV.CONSUL_SCHEME</b><br />
+Type: `string`<br />
+
+Scheme is the URI scheme for the Consul server
+
+### kv.consul.datacenter
+EV: <b>TYK_GW_KV.CONSUL_DATACENTER</b><br />
+Type: `string`<br />
+
+The datacenter to use. If not provided, the default agent datacenter is used.
+
+### kv.consul.http_auth.username
+EV: <b>TYK_GW_KV.CONSUL_HTTPAUTH.USERNAME</b><br />
+Type: `string`<br />
+
+Username to use for HTTP Basic Authentication
+
+### kv.consul.http_auth.password
+EV: <b>TYK_GW_KV.CONSUL_HTTPAUTH.PASSWORD</b><br />
+Type: `string`<br />
+
+Password to use for HTTP Basic Authentication
+
+### kv.consul.tls_config.address
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.ADDRESS</b><br />
+Type: `string`<br />
+
+Address
+
+### kv.consul.tls_config.ca_file
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.CAFILE</b><br />
+Type: `string`<br />
+
+CA file
+
+### kv.consul.tls_config.ca_path
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.CAPATH</b><br />
+Type: `string`<br />
+
+CA Path
+
+### kv.consul.tls_config.cert_file
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.CERTFILE</b><br />
+Type: `string`<br />
+
+Cert file
+
+### kv.consul.tls_config.key_file
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.KEYFILE</b><br />
+Type: `string`<br />
+
+Key file
+
+### kv.consul.tls_config.insecure_skip_verify
+EV: <b>TYK_GW_KV.CONSUL_TLSCONFIG.INSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Disable TLS validation
+
+### kv.vault.token
+EV: <b>TYK_GW_KV.VAULT_TOKEN</b><br />
+Type: `string`<br />
+
+Token is the vault root token
+
+### kv.vault.kv_version
+EV: <b>TYK_GW_KV.VAULT_KVVERSION</b><br />
+Type: `int`<br />
+
+KVVersion is the version number of Vault. Usually defaults to 2
+
+### kv.KV
+EV: <b>TYK_GW_KV.KV</b><br />
+Type: `struct`<br />
+
+See more details https://tyk.io/docs/tyk-configuration-reference/kv-store/
+
 ### secrets
 EV: <b>TYK_GW_SECRETS</b><br />
 Type: `map[string]string`<br />
