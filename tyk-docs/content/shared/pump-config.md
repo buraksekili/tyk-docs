@@ -43,6 +43,24 @@ Type: `string`<br />
 
 
 
+### uptime_pump_config.mongo_use_ssl
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MONGOUSESSL</b><br />
+Type: `bool`<br />
+
+Set to true to enable Mongo SSL connection.
+
+### uptime_pump_config.mongo_ssl_insecure_skip_verify
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MONGOSSLINSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Allows the use of self-signed certificates when connecting to an encrypted MongoDB database.
+
+### uptime_pump_config.mongo_ssl_ca_file
+EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_MONGOSSLCAFILE</b><br />
+Type: `string`<br />
+
+Path to the PEM file with trusted root certificates
+
 ### uptime_pump_config.collection_name
 EV: <b>TYK_PMP_UPTIMEPUMPCONFIG_COLLECTIONNAME</b><br />
 Type: `string`<br />
@@ -161,7 +179,6 @@ EV: <b>TYK_PMP_PUMPS_CSV_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.csv.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -194,6 +211,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.csv.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.csv.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.csv.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.csv.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.csv.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.csv.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_CSV_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.csv.timeout
 EV: <b>TYK_PMP_PUMPS_CSV_TIMEOUT</b><br />
@@ -266,7 +319,6 @@ EV: <b>TYK_PMP_PUMPS_DOGSTATSD_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.dogstatsd.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -299,6 +351,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.dogstatsd.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.dogstatsd.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.dogstatsd.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.dogstatsd.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.dogstatsd.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.dogstatsd.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_DOGSTATSD_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.dogstatsd.timeout
 EV: <b>TYK_PMP_PUMPS_DOGSTATSD_TIMEOUT</b><br />
@@ -462,7 +550,6 @@ EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.elasticsearch.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -495,6 +582,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.elasticsearch.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.elasticsearch.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.elasticsearch.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.elasticsearch.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.elasticsearch.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.elasticsearch.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.elasticsearch.timeout
 EV: <b>TYK_PMP_PUMPS_ELASTICSEARCH_TIMEOUT</b><br />
@@ -682,7 +805,6 @@ EV: <b>TYK_PMP_PUMPS_GRAYLOG_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.graylog.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -715,6 +837,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.graylog.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.graylog.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.graylog.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.graylog.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.graylog.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.graylog.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_GRAYLOG_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.graylog.timeout
 EV: <b>TYK_PMP_PUMPS_GRAYLOG_TIMEOUT</b><br />
@@ -815,7 +973,6 @@ EV: <b>TYK_PMP_PUMPS_INFLUX_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.influx.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -848,6 +1005,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.influx.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.influx.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.influx.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.influx.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.influx.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.influx.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_INFLUX_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.influx.timeout
 EV: <b>TYK_PMP_PUMPS_INFLUX_TIMEOUT</b><br />
@@ -947,7 +1140,6 @@ EV: <b>TYK_PMP_PUMPS_KAFKA_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.kafka.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -980,6 +1172,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.kafka.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.kafka.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.kafka.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.kafka.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.kafka.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.kafka.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_KAFKA_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.kafka.timeout
 EV: <b>TYK_PMP_PUMPS_KAFKA_TIMEOUT</b><br />
@@ -1134,7 +1362,6 @@ EV: <b>TYK_PMP_PUMPS_LOGZIO_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.logzio.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1167,6 +1394,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.logzio.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.logzio.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.logzio.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.logzio.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.logzio.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.logzio.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_LOGZIO_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.logzio.timeout
 EV: <b>TYK_PMP_PUMPS_LOGZIO_TIMEOUT</b><br />
@@ -1272,7 +1535,6 @@ EV: <b>TYK_PMP_PUMPS_MOESIF_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.moesif.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1305,6 +1567,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.moesif.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.moesif.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.moesif.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.moesif.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.moesif.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.moesif.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_MOESIF_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.moesif.timeout
 EV: <b>TYK_PMP_PUMPS_MOESIF_TIMEOUT</b><br />
@@ -1463,7 +1761,6 @@ EV: <b>TYK_PMP_PUMPS_MONGO_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.mongo.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1496,6 +1793,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.mongo.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.mongo.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.mongo.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.mongo.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.mongo.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.mongo.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_MONGO_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.mongo.timeout
 EV: <b>TYK_PMP_PUMPS_MONGO_TIMEOUT</b><br />
@@ -1551,6 +1884,24 @@ information. This can also be set at a pump level. For example:
 }
 ```
 
+### pumps.mongo.meta.mongo_use_ssl
+EV: <b>TYK_PMP_PUMPS_MONGO_META_MONGOUSESSL</b><br />
+Type: `bool`<br />
+
+Set to true to enable Mongo SSL connection.
+
+### pumps.mongo.meta.mongo_ssl_insecure_skip_verify
+EV: <b>TYK_PMP_PUMPS_MONGO_META_MONGOSSLINSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Allows the use of self-signed certificates when connecting to an encrypted MongoDB database.
+
+### pumps.mongo.meta.mongo_ssl_ca_file
+EV: <b>TYK_PMP_PUMPS_MONGO_META_MONGOSSLCAFILE</b><br />
+Type: `string`<br />
+
+Path to the PEM file with trusted root certificates
+
 ### pumps.mongo.meta.collection_name
 EV: <b>TYK_PMP_PUMPS_MONGO_META_COLLECTIONNAME</b><br />
 Type: `string`<br />
@@ -1595,7 +1946,6 @@ EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.mongoaggregate.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1628,6 +1978,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.mongoaggregate.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.mongoaggregate.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.mongoaggregate.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.mongoaggregate.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.mongoaggregate.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.mongoaggregate.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.mongoaggregate.timeout
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_TIMEOUT</b><br />
@@ -1682,6 +2068,24 @@ information. This can also be set at a pump level. For example:
   }
 }
 ```
+
+### pumps.mongoaggregate.meta.mongo_use_ssl
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_MONGOUSESSL</b><br />
+Type: `bool`<br />
+
+Set to true to enable Mongo SSL connection.
+
+### pumps.mongoaggregate.meta.mongo_ssl_insecure_skip_verify
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_MONGOSSLINSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Allows the use of self-signed certificates when connecting to an encrypted MongoDB database.
+
+### pumps.mongoaggregate.meta.mongo_ssl_ca_file
+EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_MONGOSSLCAFILE</b><br />
+Type: `string`<br />
+
+Path to the PEM file with trusted root certificates
 
 ### pumps.mongoaggregate.meta.use_mixed_collection
 EV: <b>TYK_PMP_PUMPS_MONGOAGGREGATE_META_USEMIXEDCOLLECTION</b><br />
@@ -1738,7 +2142,6 @@ EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.mongoselective.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1771,6 +2174,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.mongoselective.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.mongoselective.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.mongoselective.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.mongoselective.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.mongoselective.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.mongoselective.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.mongoselective.timeout
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_TIMEOUT</b><br />
@@ -1826,6 +2265,24 @@ information. This can also be set at a pump level. For example:
 }
 ```
 
+### pumps.mongoselective.meta.mongo_use_ssl
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MONGOUSESSL</b><br />
+Type: `bool`<br />
+
+Set to true to enable Mongo SSL connection.
+
+### pumps.mongoselective.meta.mongo_ssl_insecure_skip_verify
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MONGOSSLINSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Allows the use of self-signed certificates when connecting to an encrypted MongoDB database.
+
+### pumps.mongoselective.meta.mongo_ssl_ca_file
+EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MONGOSSLCAFILE</b><br />
+Type: `string`<br />
+
+Path to the PEM file with trusted root certificates
+
 ### pumps.mongoselective.meta.max_insert_batch_size_bytes
 EV: <b>TYK_PMP_PUMPS_MONGOSELECTIVE_META_MAXINSERTBATCHSIZEBYTES</b><br />
 Type: `int`<br />
@@ -1851,7 +2308,6 @@ EV: <b>TYK_PMP_PUMPS_PROMETHEUS_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.prometheus.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -1884,6 +2340,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.prometheus.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.prometheus.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.prometheus.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.prometheus.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.prometheus.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.prometheus.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_PROMETHEUS_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.prometheus.timeout
 EV: <b>TYK_PMP_PUMPS_PROMETHEUS_TIMEOUT</b><br />
@@ -1951,105 +2443,6 @@ Type: `string`<br />
 
 The path to the Prometheus collection. For example `/metrics`.
 
-### pumps.segment.name
-EV: <b>TYK_PMP_PUMPS_SEGMENT_NAME</b><br />
-Type: `string`<br />
-
-Deprecated.
-
-### pumps.segment.type
-EV: <b>TYK_PMP_PUMPS_SEGMENT_TYPE</b><br />
-Type: `string`<br />
-
-Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
-
-### pumps.segment.filters
-This feature adds a new configuration field in each pump called filters and its structure is
-the following:
-```{.json}
-"filters":{
-  "api_ids":[],
-  "org_ids":[],
-  "response_codes":[],
-  "skip_api_ids":[],
-  "skip_org_ids":[],
-  "skip_response_codes":[]
-}
-```
-The fields api_ids, org_ids and response_codes works as allow list (APIs and orgs where we
-want to send the analytics records) and the fields skip_api_ids, skip_org_ids and
-skip_response_codes works as block list.
-
-The priority is always block list configurations over allow list.
-
-An example of configuration would be:
-```{.json}
-"csv": {
- "type": "csv",
- "filters": {
-   "org_ids": ["org1","org2"]
- },
- "meta": {
-   "csv_dir": "./bar"
- }
-}
-```
-
-### pumps.segment.timeout
-EV: <b>TYK_PMP_PUMPS_SEGMENT_TIMEOUT</b><br />
-Type: `int`<br />
-
-You can configure a different timeout for each pump with the configuration option `timeout`.
-Its default value is `0` seconds, which means that the pump will wait for the writing
-operation forever.
-
-An example of this configuration would be:
-```{.json}
-"mongo": {
-  "type": "mongo",
-  "timeout":5,
-  "meta": {
-    "collection_name": "tyk_analytics",
-    "mongo_url": "mongodb://username:password@{hostname:port},{hostname:port}/{db_name}"
-  }
-}
-```
-
-In case that any pump doesn't have a configured timeout, and it takes more seconds to write
-than the value configured for the purge loop in the `purge_delay` config option, you will
-see the following warning message: `Pump PMP_NAME is taking more time than the value
-configured of purge_delay. You should try to set a timeout for this pump.`.
-
-In case that you have a configured timeout, but it still takes more seconds to write than
-the value configured for the purge loop in the `purge_delay` config option, you will see the
-following warning message: `Pump PMP_NAME is taking more time than the value configured of
-purge_delay. You should try lowering the timeout configured for this pump.`.
-
-### pumps.segment.omit_detailed_recording
-EV: <b>TYK_PMP_PUMPS_SEGMENT_OMITDETAILEDRECORDING</b><br />
-Type: `bool`<br />
-
-Setting this to true will avoid writing raw_request and raw_response fields for each request
-in pumps. Defaults to `false`.
-
-### pumps.segment.max_record_size
-EV: <b>TYK_PMP_PUMPS_SEGMENT_MAXRECORDSIZE</b><br />
-Type: `int`<br />
-
-Defines maximum size (in bytes) for Raw Request and Raw Response logs, this value defaults
-to 0. If it is not set then tyk-pump will not trim any data and will store the full
-information. This can also be set at a pump level. For example:
-```{.json}
-"csv": {
-  "type": "csv",
-  "max_record_size":1000,
-  "meta": {
-    "csv_dir": "./"
-  }
-}
-```
-
 ### pumps.splunk.name
 EV: <b>TYK_PMP_PUMPS_SPLUNK_NAME</b><br />
 Type: `string`<br />
@@ -2061,7 +2454,6 @@ EV: <b>TYK_PMP_PUMPS_SPLUNK_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.splunk.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2094,6 +2486,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.splunk.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.splunk.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.splunk.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.splunk.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.splunk.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.splunk.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_SPLUNK_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.splunk.timeout
 EV: <b>TYK_PMP_PUMPS_SPLUNK_TIMEOUT</b><br />
@@ -2234,7 +2662,6 @@ EV: <b>TYK_PMP_PUMPS_SQL_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.sql.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2267,6 +2694,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.sql.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.sql.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.sql.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.sql.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.sql.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.sql.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_SQL_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.sql.timeout
 EV: <b>TYK_PMP_PUMPS_SQL_TIMEOUT</b><br />
@@ -2411,7 +2874,6 @@ EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.sqlaggregate.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2444,6 +2906,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.sqlaggregate.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.sqlaggregate.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.sqlaggregate.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.sqlaggregate.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.sqlaggregate.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.sqlaggregate.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.sqlaggregate.timeout
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_TIMEOUT</b><br />
@@ -2499,41 +2997,65 @@ information. This can also be set at a pump level. For example:
 }
 ```
 
+### pumps.sqlaggregate.meta.type
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TYPE</b><br />
+Type: `string`<br />
+
+The supported and tested types are `sqlite` and `postgres`.
+
+### pumps.sqlaggregate.meta.connection_string
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_CONNECTIONSTRING</b><br />
+Type: `string`<br />
+
+Specifies the connection string to the database.
+
+### pumps.sqlaggregate.meta.postgres
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES</b><br />
+Type: `PostgresConfig`<br />
+
+Postgres configurations.
+
 ### pumps.sqlaggregate.meta.postgres.prefer_simple_protocol
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_POSTGRES_PREFERSIMPLEPROTOCOL</b><br />
 Type: `bool`<br />
 
-disables implicit prepared statement usage
+Disables implicit prepared statement usage.
+
+### pumps.sqlaggregate.meta.mysql
+EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL</b><br />
+Type: `MysqlConfig`<br />
+
+Mysql configurations.
 
 ### pumps.sqlaggregate.meta.mysql.default_string_size
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DEFAULTSTRINGSIZE</b><br />
 Type: `uint`<br />
 
-default size for string fields. By default set to: 256
+Default size for string fields. Defaults to `256`.
 
 ### pumps.sqlaggregate.meta.mysql.disable_datetime_precision
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DISABLEDATETIMEPRECISION</b><br />
 Type: `bool`<br />
 
-disable datetime precision, which not supported before MySQL 5.6
+Disable datetime precision, which not supported before MySQL 5.6.
 
 ### pumps.sqlaggregate.meta.mysql.dont_support_rename_index
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMEINDEX</b><br />
 Type: `bool`<br />
 
-drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB
+Drop & create when rename index, rename index not supported before MySQL 5.7, MariaDB.
 
 ### pumps.sqlaggregate.meta.mysql.dont_support_rename_column
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_DONTSUPPORTRENAMECOLUMN</b><br />
 Type: `bool`<br />
 
-`change` when rename column, rename column not supported before MySQL 8, MariaDB
+`change` when rename column, rename column not supported before MySQL 8, MariaDB.
 
 ### pumps.sqlaggregate.meta.mysql.skip_initialize_with_version
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_MYSQL_SKIPINITIALIZEWITHVERSION</b><br />
 Type: `bool`<br />
 
-auto configure based on currently MySQL version
+Auto configure based on currently MySQL version.
 
 ### pumps.sqlaggregate.meta.track_all_paths
 EV: <b>TYK_PMP_PUMPS_SQLAGGREGATE_META_TRACKALLPATHS</b><br />
@@ -2565,7 +3087,6 @@ EV: <b>TYK_PMP_PUMPS_STATSD_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.statsd.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2598,6 +3119,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.statsd.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.statsd.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.statsd.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.statsd.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.statsd.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.statsd.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_STATSD_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.statsd.timeout
 EV: <b>TYK_PMP_PUMPS_STATSD_TIMEOUT</b><br />
@@ -2682,7 +3239,6 @@ EV: <b>TYK_PMP_PUMPS_STDOUT_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.stdout.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2715,6 +3271,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.stdout.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.stdout.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.stdout.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.stdout.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.stdout.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.stdout.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_STDOUT_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.stdout.timeout
 EV: <b>TYK_PMP_PUMPS_STDOUT_TIMEOUT</b><br />
@@ -2794,7 +3386,6 @@ EV: <b>TYK_PMP_PUMPS_SYSLOG_TYPE</b><br />
 Type: `string`<br />
 
 Sets the pump type. This is needed when the pump key does not equal to the pump name type.
-For more information please see the (pumps)[#pumps] sections.
 
 ### pumps.syslog.filters
 This feature adds a new configuration field in each pump called filters and its structure is
@@ -2827,6 +3418,42 @@ An example of configuration would be:
  }
 }
 ```
+
+### pumps.syslog.filters.org_ids
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_ORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted org_ids.
+
+### pumps.syslog.filters.api_ids
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_APIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the whitelisted api_ids.
+
+### pumps.syslog.filters.response_codes
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_RESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the whitelisted response_codes.
+
+### pumps.syslog.filters.skip_org_ids
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_SKIPPEDORGSIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted org_ids.
+
+### pumps.syslog.filters.skip_api_ids
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_SKIPPEDAPIIDS</b><br />
+Type: `[]string`<br />
+
+Filters pump data by the blacklisted api_ids.
+
+### pumps.syslog.filters.skip_response_codes
+EV: <b>TYK_PMP_PUMPS_SYSLOG_FILTERS_SKIPPEDRESPONSECODES</b><br />
+Type: `[]int`<br />
+
+Filters pump data by the blacklisted response_codes.
 
 ### pumps.syslog.timeout
 EV: <b>TYK_PMP_PUMPS_SYSLOG_TIMEOUT</b><br />
@@ -2948,12 +3575,115 @@ Example Redis storage configuration:
   },
 ```
 
+### analytics_storage_config.type
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_TYPE</b><br />
+Type: `string`<br />
+
+Deprecated.
+
+### analytics_storage_config.host
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_HOST</b><br />
+Type: `string`<br />
+
+Redis host value.
+
+### analytics_storage_config.port
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_PORT</b><br />
+Type: `int`<br />
+
+Redis port value.
+
+### analytics_storage_config.hosts
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_HOSTS</b><br />
+Type: `map[string]string`<br />
+
+Deprecated. Use Addrs instead.
+
+### analytics_storage_config.addrs
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_ADDRS</b><br />
+Type: `[]string`<br />
+
+Use instead of the host value if you're running a redis cluster with mutliple instances.
+
+### analytics_storage_config.master_name
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_MASTERNAME</b><br />
+Type: `string`<br />
+
+Sentinel redis master name.
+
+### analytics_storage_config.sentinel_password
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_SENTINELPASSWORD</b><br />
+Type: `string`<br />
+
+Sentinel redis password.
+
+### analytics_storage_config.username
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_USERNAME</b><br />
+Type: `string`<br />
+
+Redis username.
+
+### analytics_storage_config.password
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_PASSWORD</b><br />
+Type: `string`<br />
+
+Redis password.
+
+### analytics_storage_config.database
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_DATABASE</b><br />
+Type: `int`<br />
+
+Redis database.
+
+### analytics_storage_config.timeout
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_TIMEOUT</b><br />
+Type: `int`<br />
+
+How long to allow for new connections to be established (in milliseconds). Defaults to 5sec.
+
+### analytics_storage_config.optimisation_max_idle
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_MAXIDLE</b><br />
+Type: `int`<br />
+
+Maximum number of idle connections in the pool.
+
+### analytics_storage_config.optimisation_max_active
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_MAXACTIVE</b><br />
+Type: `int`<br />
+
+Maximum number of connections allocated by the pool at a given time. When zero, there is no
+limit on the number of connections in the pool. Defaults to 500.
+
+### analytics_storage_config.enable_cluster
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_ENABLECLUSTER</b><br />
+Type: `bool`<br />
+
+Enable this option if you are using a redis cluster. Default is `false`.
+
+### analytics_storage_config.redis_key_prefix
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_REDISKEYPREFIX</b><br />
+Type: `string`<br />
+
+Prefix the redis key names. Defaults to "analytics-".
+
+### analytics_storage_config.redis_use_ssl
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_REDISUSESSL</b><br />
+Type: `bool`<br />
+
+Setting this to true to use SSL when connecting to Redis.
+
+### analytics_storage_config.redis_ssl_insecure_skip_verify
+EV: <b>TYK_PMP_ANALYTICSSTORAGECONFIG_REDISSSLINSECURESKIPVERIFY</b><br />
+Type: `bool`<br />
+
+Set this to `true` to tell Pump to ignore Redis' cert validation.
+
 ### statsd_connection_string
 EV: <b>TYK_PMP_STATSDCONNECTIONSTRING</b><br />
 Type: `string`<br />
 
 Connection string for StatsD monitoring for information please see the
-(Instrumentation docs)[https://tyk.io/docs/basic-config-and-security/report-monitor-trigger-events/instrumentation/].
+[Instrumentation docs](https://tyk.io/docs/basic-config-and-security/report-monitor-trigger-events/instrumentation/).
 
 ### statsd_prefix
 EV: <b>TYK_PMP_STATSDPREFIX</b><br />
