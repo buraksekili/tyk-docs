@@ -2,7 +2,7 @@
 title: "Database Options"
 date: 2021-08-04
 tags: ["Database", "Options", "MongoDB", "SQL", "PostgreSQL", "Dashboard"]
-description: ""
+description: "The database platforms Tyk supports for the Tyk Dashboard"
 weight: 2
 menu: 
     main:
@@ -15,8 +15,14 @@ From Tyk v4.0, you now have the following options for storing your Tyk Dashboard
 
 * MongoDB - our default option. We support versions 3.x to 4.4.x
 * SQL - we now support the following SQL platforms in v4.0
+
+### Proof of concept:
   * PostgreSQL - versions 13.3, 12.7, 11.12, 10.17, 9.6.22
   * SQLite - version 3.35.5
+
+### Production Environments
+
+In a production environment, we **only** support the PostgreSQL versions listed above
 
 ## Other v4.0 Database features
 
@@ -35,8 +41,8 @@ As of v4.0, we do not support SQL in an MDCB installation.
 
 We recommend the following:
 
-* For PoC installations, you can use any of our supported platforms (SQLite, PostgreSQL or MongoDB).
-* For production installations, we recommend PostgreSQL
+* For PoC installations, you can use any of the following platforms (SQLite, PostgreSQL or MongoDB).
+* For production installations, we **only** support MongoDB or PostgreSQL
 
 ## Configuring SQL
 

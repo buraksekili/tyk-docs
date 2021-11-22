@@ -16,10 +16,10 @@ How you configure your SQL platform depends on whether you are installing Tyk fr
 
 ## Prerequisites
 
-You need to have installed one of our supported SQL platforms:
+In a production environment, Tyk only supports the following PostgreSQL versions in v4.0.0:
 
 * PostgreSQL - versions 13.3, 12.7, 11.12, 10.17, 9.6.22
-* SQLite - version 3.35.5
+
 
 ## Migrating from an existing MongoDB instance
 
@@ -32,7 +32,7 @@ The migration tool will not migrate any Logs, Analytics or Uptime analytics data
 {{< /note >}}
 
 1. Make sure your new SQL platform and the existing MongoDB instance are both running
-2. Configure the `main` part of  `storage` section of your `tyk-analytics.conf`. Below is a postgreSQL example
+2. Configure the `main` part of  `storage` section of your `tyk-analytics.conf`:
 
 ```
 {
