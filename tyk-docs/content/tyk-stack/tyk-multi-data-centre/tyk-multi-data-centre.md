@@ -76,6 +76,10 @@ A Slave Data Centre consists of the following configuration:
 1.  A Tyk Gateway instance(s) specially configured as slaves
 2.  A Redis DB
 
+### MDCB Keys Synchronizer
+
+Since MDCB v1.9.0 you can enable the full synchronization of api keys, certificates and oauth2 clients in advance, this means that it will synchronize all the resources when a new group of worker nodes is connected, making the nodes less dependant of the  MDCB layer in the long term. Is recommended to use this feature with tyk v4.1 in order to maintain consistency of the data across the datacenters. For more information about how to configure this feature refer to {link}
+
 ## Use Case 
 
 You are company ABC with the following Data Centre Locations:
