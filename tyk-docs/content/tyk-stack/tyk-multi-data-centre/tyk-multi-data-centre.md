@@ -78,7 +78,12 @@ A Slave Data Centre consists of the following configuration:
 
 ### MDCB Keys Synchronizer
 
-Since MDCB v1.9.0 you can enable the full synchronization of api keys, certificates and oauth2 clients in advance, this means that it will synchronize all the resources when a new group of worker nodes is connected, making the nodes less dependant of the  MDCB layer in the long term. Is recommended to use this feature with tyk v4.1 in order to maintain consistency of the data across the datacenters. For more information about how to configure this feature refer to [the mdcb keys synchronizer configuration options](/docs/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_config)
+From MDCB v1.9.0 you can enable the synchronisation of:
+
+* API Keys
+* Certificates
+* OAuth2.0 Clients
+This synchronisation is performed whenever a new group of worker is connected, making the nodes less dependant on the MDCB layer. For more information about how to configure this feature, see [the mdcb keys synchronizer configuration options](/docs/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_config)
 
 ## Use Case 
 
