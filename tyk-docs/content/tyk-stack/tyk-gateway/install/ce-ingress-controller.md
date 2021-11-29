@@ -1,6 +1,6 @@
 ---
 title: "As an Ingress Controller with Tyk Operator "
-tags: ["Tyk Stack", "Installation", "Kubernetes", "Ingress", "Service Mesh", "Tyk Operator"]
+tags: ["Open Source", "Installation", "Kubernetes", "Ingress", "Tyk Operator"]
 description: "How to install Tyk in a open source environment using Kubernetes Ingress Controller with the Tyk Operator" 
 menu:
   main:

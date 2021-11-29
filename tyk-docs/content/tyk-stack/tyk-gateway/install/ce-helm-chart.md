@@ -1,7 +1,7 @@
 ---
 title: "Tyk Helm Chart"
 date: 2021-07-01
-tags: [""]
+tags: ["Open Source", "Installation", "Kubernetes", "Helm Chart"]
 description: ""
 menu:
   main:

@@ -30,3 +30,5 @@ enableGitInfo = false
     ordered = true
 [frontmatter]
 lastmod = ["lastmod", ":git", "date", "publishDate"]
+[taxonomies]
+  tag = 'tags'
