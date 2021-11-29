@@ -30,4 +30,3 @@ enableGitInfo = false
     ordered = true
 [frontmatter]
 lastmod = ["lastmod", ":git", "date", "publishDate"]
-disableKinds = ["taxonomy", "term"]
