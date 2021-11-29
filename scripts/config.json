@@ -1,6 +1,16 @@
 {
   "index_name": "docsearch",
-  "start_urls": ["https://tyk.io/docs"],
+  "start_urls": [
+    {
+      "https://tyk.io/docs",
+      "page_rank": 1
+    },
+    {
+      "url": "https://tyk.io/docs/tags/",
+      "selectors_key": "tags",
+      "page_rank": 2
+    }
+  ],
   "only_content_level": true,
   "selectors": {
     "default": {
@@ -8,6 +18,10 @@
 	    "lvl1": "article h2",
 	    "lvl2": "article h3",
 	    "text": "article p, article span, article li"
-    }
+    },
+    "tags": {
+      "lvl0": { "selector": "h1", "default_value": "Tags" },
+      "lvl1": ".tag-title h2"
+    },
   }
 }
