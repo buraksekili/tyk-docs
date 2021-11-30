@@ -43,7 +43,8 @@ In case your upstream URL is protected, select **Upstream Protected** and provid
 
 **Note**
 
-**Persist headers for future use** checkbox is selected. That way, Auth header provided will be persisted for future use.
+**Persist headers for future use** checkbox is selected. That way, you will not need to provide the auth headers anymore because they will be persisted in the API definition.
+Don't check it if you don't want to persist it.
 
 {{< /note >}}
 
