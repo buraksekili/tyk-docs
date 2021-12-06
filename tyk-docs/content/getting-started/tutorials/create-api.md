@@ -132,10 +132,8 @@ Create a file called `api1.json` and place it in the `/apps` folder of your Tyk 
   "slug": "test-api",
   "api_id": "1",
   "org_id": "1",
-  "auth_configs": {
-    "authToken": {
-      "auth_header_name": "Authorization"
-    }
+  "auth": {
+    "auth_header_name": "Authorization"
   },
   "definition": {
     "location": "header",
